@@ -1,0 +1,27 @@
+##############################################################
+# Configuration Management Demo
+# Author: Hank Preston <hapresto@cisco.com>
+#
+# Illustrate the following concepts:
+# - Managing Network as Code Configuration
+# - Idempotency
+##############################################################
+---
+- name: Configure Distribution Switches
+  hosts: distribution
+  connection: local
+  gather_facts: false
+
+  roles:
+    - nxos_vlans
+    - nxos_l3_interfaces
+    - nxos_hsrp
+    - nxos_ospf
+
+- name: Configure Access Switches
+  hosts: access
+  connection: local
+  gather_facts: false
+
+  roles:
+    - nxos_vlans
