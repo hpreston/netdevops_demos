@@ -1,3 +1,10 @@
+# Repo specific
+ansible_01/configs/*.xml
+.virl/
+*.retry
+*_pid.txt
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
