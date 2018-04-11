@@ -1,0 +1,18 @@
+---
+- name: Clear Lab Pipeline
+  hosts: devbox
+  gather_facts: no
+
+  tasks:
+    - name: docker-compose down the Pipeline
+      shell: docker-compose down
+      args:
+        chdir: ~/netdevops_demos/cicd_01/pipeline
+        executable: /bin/bash
+
+    - name: Delete the Repo
+      shell: rm -Rf ciscolive_workshops/
+      args:
+        chdir: ~/
+        executable: /bin/bash
+        removes: ~/netdevops_demos

@@ -1,0 +1,5 @@
+[all:vars]
+ansible_python_interpreter="/usr/bin/env python"
+
+[sandbox]
+devbox ansible_host=10.10.20.20 ansible_user=root ansible_password=cisco123

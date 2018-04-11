@@ -1,0 +1,60 @@
+---
+- name: Update Docker CE
+  hosts: devbox
+
+  roles:
+    - zaxos.docker-ce-ansible-role
+
+- name: Install docker-compose
+  hosts: devbox
+
+  tasks:
+    - name: Check Docker compose bin file presence
+      stat: path=/usr/local/bin/docker-compose
+      register: dockercompose
+
+    - name: Install docker compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+      when: dockercompose.stat.exists == false
+
+    - name: Apply executable permission
+      file: path=/usr/local/bin/docker-compose mode="u+x,g+x"
+
+    - name: Test docker-compose version
+      shell: docker-compose --version
+
+- name: Start Lab Pipeline
+  hosts: devbox
+  gather_facts: no
+
+  tasks:
+    - name: Clone repo
+      shell: git clone https://github.com/hpreston/netdevops_demos
+      args:
+        chdir: ~/
+        executable: /bin/bash
+        creates: ~/netdevops_demos
+
+    - name: Update repo
+      shell: git pull
+      args:
+        chdir: ~/netdevops_demos
+        executable: /bin/bash
+
+    - name: docker-compose Up the Pipeline
+      shell: docker-compose up -d
+      args:
+        chdir: ~/netdevops_demos/cicd_01/pipeline
+        executable: /bin/bash
+
+- name: Pre-Pull Docker Images for Lab
+  hosts: devbox
+  gather_facts: no
+
+  tasks:
+    - name: Pull Ansible NetDevOps
+      shell: docker pull hpreston/drone-ansible-netdevops
+    - name: Pull VIRL
+      shell: docker pull hpreston/drone-virl:0.7
+    - name: Pull Spark
+      shell: docker pull hpreston/drone-spark:0.7

@@ -1,0 +1,76 @@
+version: '2'
+services:
+  nginx:
+    image: nginx
+    links:
+      - gogs:gogs
+      - drone-server:drone-server
+    volumes:
+      - ./data/nginx/conf.d:/etc/nginx/conf.d
+      - ./data/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - gogs
+      - drone-server
+
+  gogs:
+    image: "gogs/gogs:0.9.141"
+    volumes:
+      - ./data/gogs:/data
+    ports:
+      - 3000:3000
+    links:
+      - drone-server:drone-server
+    # links:
+    #   - drone:drone
+
+  # drone:
+  #   image: "drone/drone:0.4"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./data/drone:/var/lib/drone
+  #   ports:
+  #     - 8000:8000
+  #   links:
+  #     - gogs:gogs
+  #   environment:
+  #     PLUGIN_FILTER: "plugins/* hpreston/*"
+  #     REMOTE_DRIVER: gogs
+  #     REMOTE_CONFIG: "http://gogs:3000?open=true"
+  #     DEBUG: "false"
+
+  drone-server:
+    # image: drone/drone:0.5
+    image: drone/drone:0.7
+    ports:
+      - 8000:8000
+      # - 9000:9000
+    volumes:
+      # - ./data/drone5:/var/lib/drone/
+      - ./data/drone7:/var/lib/drone/
+    restart: always
+    environment:
+      - DRONE_OPEN=true
+      - DRONE_GOGS=true
+      - DRONE_GOGS_URL=http://gogs:3000
+      - DRONE_GOGS_SKIP_VERIFY=true
+      - DRONE_SECRET=BuildFun
+      - DRONE_HOST=http://10.10.20.20
+
+  drone-agent:
+    # image: drone/drone:0.5
+    image: drone/drone:0.7
+    command: agent
+    restart: always
+    depends_on: [ drone-server ]
+    links:
+      - drone-server:drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=ws://drone-server:8000/ws/broker
+      # - DRONE_SERVER=drone-server:9000
+      - DRONE_SECRET=BuildFun
+      # - DRONE_HOST=http://10.10.20.20
