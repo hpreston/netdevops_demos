@@ -1,0 +1,12 @@
+---
+# tasks file for network_inspect
+- name: Inspect IOS
+  include_tasks: ios.yml
+  when: device_type == "ios"
+- name: Inspect NX-OS
+  include_tasks: nxos.yml
+  when: device_type == "nxos"
+
+- name: Device Info
+  debug:
+    msg: "Device Type: {{ device_type }} OS Version: {{ ansible_net_version }}"

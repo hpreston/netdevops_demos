@@ -1,0 +1,6 @@
+portchannels:
+  - port_channel_id: 11
+    vpc: false
+    members:
+      - Ethernet1/1
+      - Ethernet1/2

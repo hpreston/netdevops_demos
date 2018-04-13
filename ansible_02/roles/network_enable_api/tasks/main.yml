@@ -1,0 +1,8 @@
+---
+# tasks file for network_enable_api
+- name: IOS Devices
+  include_tasks: ios.yml
+  when: device_type == "ios"
+- name: NX-OS Devices
+  include_tasks: nxos.yml
+  when: device_type == "nxos"
