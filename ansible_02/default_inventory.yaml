@@ -72,6 +72,10 @@ all:
           console_server: 10.10.20.160
           console_port: 17004
           device_type: nxos
+          # ansible_connection: network_cli
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
           provider:
             host: 172.16.30.101
             username: cisco
@@ -84,6 +88,10 @@ all:
           console_server: 10.10.20.160
           console_port: 17006
           device_type: nxos
+          # ansible_connection: network_cli
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
           provider:
             host: 172.16.30.102
             username: cisco
@@ -99,6 +107,10 @@ all:
           console_server: 10.10.20.160
           console_port: 17010
           device_type: nxos
+          # ansible_connection: network_cli
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
           provider:
             host: 172.16.30.103
             username: cisco
