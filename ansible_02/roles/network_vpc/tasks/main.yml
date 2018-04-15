@@ -5,4 +5,4 @@
 #   when: device_type == "ios" and ospf is defined
 - name: NX-OS Devices
   include_tasks: nxapi.yml
-  when: device_type == "nxos" and vpc is defined
+  when: ansible_network_os == "nxos" and vpc is defined
