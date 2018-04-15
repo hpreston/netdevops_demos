@@ -27,7 +27,7 @@
 
 - name: Configure Network Core
   hosts: core
-  connection: network_cli
+  connection: local
   gather_facts: false
 
   roles:
