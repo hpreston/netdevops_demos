@@ -1,0 +1,5 @@
+[all]
+ansible_python_interpreter="/usr/bin/env python"
+
+[apic]
+sandboxapicdc.cisco.com username=admin password=ciscopsdt
