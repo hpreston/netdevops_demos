@@ -11,7 +11,7 @@
 
 - name: Gather Facts about Network
   hosts: all
-  connection: local
+  connection: network_cli
   gather_facts: false
 
   roles:
@@ -19,7 +19,7 @@
 
 - name: Enable Network APIs
   hosts: all
-  connection: local
+  connection: network_cli
   gather_facts: false
 
   roles:
@@ -27,7 +27,7 @@
 
 - name: Configure Network Core
   hosts: core
-  connection: local
+  connection: network_cli
   gather_facts: false
 
   roles:
@@ -36,7 +36,7 @@
 
 - name: Configure Distribution Switches
   hosts: distribution
-  connection: local
+  connection: network_cli
   gather_facts: false
 
   roles:
@@ -47,7 +47,7 @@
 
 - name: Configure Access Switches
   hosts: access
-  connection: local
+  connection: network_cli
   gather_facts: false
 
   roles:
