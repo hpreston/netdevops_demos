@@ -9,7 +9,7 @@
     feature: "{{ item }}"
     state: enabled
 
-- name: Create Port Channels for Access Switches
+- name: Create Port Channels
   tags: [api, nxapi, vpc, vlan, trunks]
   with_items: "{{ portchannels }}"
   nxos_portchannel:
