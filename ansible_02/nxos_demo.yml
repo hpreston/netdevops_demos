@@ -66,7 +66,6 @@
 
     - name: Configure Layer 3 Interfaces Basic Properties
       with_items: "{{ l3_interfaces }}"
-      when: item.interface_type != Ethernet
       nxos_interface:
         # provider: "{{provider}}"
         interface: "{{ item.interface_type }}{{ item.interface_id }}"
@@ -76,7 +75,7 @@
 
     - name: Ethernet and PortChannel Enable Layer 3
       with_items: "{{ l3_interfaces }}"
-      when: item.interface_type = Ethernet
+      when: item.interface_type in ["Ethernet", "PortChannel"]
       nxos_interface:
         # provider: "{{provider}}"
         interface: "{{ item.interface_type }}{{ item.interface_id }}"
