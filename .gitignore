@@ -3,6 +3,12 @@ ansible_01/configs/*.xml
 .virl/
 *.retry
 *_pid.txt
+*/configs/*.xml
+*/v2_4/
+*/v2_5/
+*scratch*
+vpn_close.sh
+vpn_setup.sh
 
 
 # Byte-compiled / optimized / DLL files
