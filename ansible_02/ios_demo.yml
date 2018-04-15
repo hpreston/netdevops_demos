@@ -51,7 +51,7 @@
 #         state: present
 
 - name: Configure Layer 3 Interfaces
-  connection: local
+  connection: network_cli
   gather_facts: false
   hosts: core
 
