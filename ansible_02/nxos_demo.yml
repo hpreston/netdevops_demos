@@ -64,17 +64,7 @@
         feature: "{{ item }}"
         state: enabled
 
-    - name: Configure Layer 3 Interfaces - Ethernet/PortChannel
-      with_items: "{{ l3_interfaces }}"
-      when: item.interface_type = Ethernet
-      nxos_interface:
-        # provider: "{{provider}}"
-        interface: "{{ item.interface_type }}{{ item.interface_id }}"
-        mode: layer3
-        description: "{{ item.description }}"
-        admin_state: up
-
-    - name: Configure Layer 3 Interfaces
+    - name: Configure Layer 3 Interfaces Basic Properties
       with_items: "{{ l3_interfaces }}"
       when: item.interface_type != Ethernet
       nxos_interface:
@@ -84,6 +74,13 @@
         description: "{{ item.description }}"
         admin_state: up
 
+    - name: Ethernet and PortChannel Enable Layer 3
+      with_items: "{{ l3_interfaces }}"
+      when: item.interface_type = Ethernet
+      nxos_interface:
+        # provider: "{{provider}}"
+        interface: "{{ item.interface_type }}{{ item.interface_id }}"
+        mode: layer3
 
     - name: Configure IPv4 Address on Interface
       with_items: "{{ l3_interfaces }}"
