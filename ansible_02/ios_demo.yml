@@ -1,0 +1,72 @@
+# Layer 3 Interfaces - Loopback
+# Banner
+#
+
+---
+- name: Gather Details about IOS Devices
+  connection: network_cli
+  gather_facts: false
+  hosts: core
+
+  tasks:
+    - ios_facts:
+        provider: "{{provider}}"
+
+- name: Configure IOS Users
+  connection: network_cli
+  gather_facts: false
+  hosts: core
+  vars:
+    users:
+      - username: user1
+        configured_password: Password01
+        privilege: 15
+      - username: user2
+        configured_password: Password02
+        privilege: 1
+
+  tasks:
+    - with_items: "{{users}}"
+      ios_user:
+        provider: "{{provider}}"
+        name: "{{item.username}}"
+        configured_password: "{{item.configured_password}}"
+        privilege: "{{item.privilege}}"
+
+- name: Configure MOTD Banner
+  connection: network_cli
+  gather_facts: false
+  hosts: core
+
+  tasks:
+    - ios_banner:
+        provider: "{{provider}}"
+        banner: motd
+        text: |
+          Attention - This is a secure network device
+          Authorized personal only should connect and manage
+          this device.
+
+          Disconnect immediately if not approved.
+        state: present
+
+- name: Configure Layer 3 Interfaces
+  connection: network_cli
+  gather_facts: false
+  hosts: core
+
+  tasks:
+    - name: Configure interface properties
+      with_items: "{{l3_interfaces}}"
+      ios_interface:
+        provider: "{{provider}}"
+        name: "{{item.interface_type}}{{item.interface_id}}"
+        description: "{{item.description}}"
+        state: up
+
+    - name: Configure ip address
+      with_items: "{{l3_interfaces}}"
+      ios_l3_interface:
+        provider: "{{provider}}"
+        name: "{{item.interface_type}}{{item.interface_id}}"
+        ipv4: "{{item.ip_address}}/{{item.prefix}}"

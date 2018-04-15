@@ -1,0 +1,10 @@
+---
+- name: Test
+  hosts: all
+  connection: local
+  gather_facts: false
+
+  roles:
+    # - network_inspect
+    # - network_vpc
+    - network_interface

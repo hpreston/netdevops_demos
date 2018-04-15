@@ -1,0 +1,91 @@
+---
+- name: Gather Details about NX-OS Devices
+  connection: network_cli
+  gather_facts: false
+  hosts: distribution:access
+
+  tasks:
+    - nxos_facts:
+        # provider: "{{provider}}"
+        gather_subset: all
+
+
+- name: Configure NX-OS Users
+  connection: network_cli
+  gather_facts: false
+  hosts: distribution:access
+  vars:
+    users:
+      - username: user1
+        configured_password: Password01
+        privilege: 15
+        role: network-admin
+      - username: user2
+        configured_password: Password02
+        privilege: 1
+        role: network-operator
+
+  tasks:
+    - with_items: "{{users}}"
+      nxos_user:
+        # provider: "{{provider}}"
+        name: "{{item.username}}"
+        configured_password: "{{item.configured_password}}"
+        role: "{{item.role}}"
+
+- name: Configure MOTD Banner
+  connection: network_cli
+  gather_facts: false
+  hosts: distribution:access
+
+  tasks:
+    - nxos_banner:
+        # provider: "{{provider}}"
+        banner: motd
+        text: |
+          Attention - This is a secure network device
+          Authorized personal only should connect and manage
+          this device.
+
+          Disconnect immediately if not approved.
+        state: present
+
+- name: Configure Layer 3 Interfaces
+  connection: network_cli
+  gather_facts: false
+  hosts: distribution:access
+
+  tasks:
+    - name: Enable Features
+      with_items:
+        - interface-vlan
+      nxos_feature:
+        # provider: "{{provider}}"
+        feature: "{{ item }}"
+        state: enabled
+
+    - name: Configure Layer 3 Interfaces Basic Properties
+      with_items: "{{ l3_interfaces }}"
+      nxos_interface:
+        # provider: "{{provider}}"
+        interface: "{{ item.interface_type }}{{ item.interface_id }}"
+        # mode: layer3
+        description: "{{ item.description }}"
+        admin_state: up
+
+    - name: Ethernet and PortChannel Enable Layer 3
+      with_items: "{{ l3_interfaces }}"
+      when: item.interface_type in ["Ethernet", "PortChannel"]
+      nxos_interface:
+        # provider: "{{provider}}"
+        interface: "{{ item.interface_type }}{{ item.interface_id }}"
+        mode: layer3
+
+    - name: Configure IPv4 Address on Interface
+      with_items: "{{ l3_interfaces }}"
+      nxos_ip_interface:
+        # provider: "{{provider}}"
+        interface: "{{ item.interface_type }}{{ item.interface_id }}"
+        version: v4
+        addr: "{{ item.ip_address }}"
+        mask: "{{ item.prefix }}"
