@@ -26,8 +26,6 @@ all:
           ansible_host: 172.16.30.111
           console_server: 10.10.20.160
           console_port: 17000
-          # device_type: ios
-          # ansible_connection: network_cli
           ansible_network_os: ios
           ansible_user: cisco
           ansible_ssh_pass: cisco
@@ -48,8 +46,6 @@ all:
           ansible_host: 172.16.30.112
           console_server: 10.10.20.160
           console_port: 17002
-          # device_type: ios
-          # ansible_connection: network_cli
           ansible_network_os: ios
           ansible_user: cisco
           ansible_ssh_pass: cisco
@@ -71,8 +67,6 @@ all:
           ansible_host: 172.16.30.101
           console_server: 10.10.20.160
           console_port: 17004
-          # device_type: nxos
-          # ansible_connection: network_cli
           ansible_network_os: nxos
           ansible_user: cisco
           ansible_ssh_pass: cisco
@@ -87,8 +81,6 @@ all:
           ansible_host: 172.16.30.102
           console_server: 10.10.20.160
           console_port: 17006
-          # device_type: nxos
-          # ansible_connection: network_cli
           ansible_network_os: nxos
           ansible_user: cisco
           ansible_ssh_pass: cisco
@@ -106,8 +98,6 @@ all:
           ansible_host: 172.16.30.103
           console_server: 10.10.20.160
           console_port: 17010
-          # device_type: nxos
-          # ansible_connection: network_cli
           ansible_network_os: nxos
           ansible_user: cisco
           ansible_ssh_pass: cisco

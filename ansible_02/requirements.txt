@@ -2,4 +2,4 @@ ansible==2.5.0
 ncclient==0.5.3
 paramiko==2.4.1
 requests==2.18.4
-virlutils==0.5
+virlutils==0.6.5
