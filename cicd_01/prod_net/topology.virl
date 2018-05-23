@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
+    <extensions>
+        <entry key="management_network" type="String">flat</entry>
+    </extensions>
+    <node name="prod-IOSv-1" type="SIMPLE" subtype="IOSv" location="109,81" vmImage="IOSv" vmFlavor="IOSv" ipv4="192.168.0.1">
+        <extensions>
+            <entry key="static_ip" type="String">172.16.30.201</entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+            <entry key="config" type="String">! IOS Config generated on 2017-10-13 02:55&#xD;
+! by autonetkit_0.23.5&#xD;
+!&#xD;
+hostname prod-IOSv-1&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+vrf definition Mgmt-intf&#xD;
+!&#xD;
+ address-family ipv4&#xD;
+ exit-address-family&#xD;
+ !&#xD;
+ address-family ipv6&#xD;
+ exit-address-family&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+license accept end user agreement&#xD;
+license boot level premium&#xD;
+!&#xD;
+!&#xD;
+no aaa new-model&#xD;
+!&#xD;
+!&#xD;
+ipv6 unicast-routing&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+enable secret 4 tnhtc92DXBhelxjYk8LWJrPV36S2i4ntXrpb4RFmfqY&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description OOB Management&#xD;
+  vrf forwarding Mgmt-intf&#xD;
+  ip address 172.16.30.113 255.255.255.0&#xD;
+  no shutdown&#xD;
+!&#xD;
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 172.16.30.254</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1" ipv4="10.0.0.5" netPrefixLenV4="30"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.9" netPrefixLenV4="30"/>
+    </node>
+    <node name="prod-IOSv-2" type="SIMPLE" subtype="IOSv" location="245,71" vmImage="IOSv" vmFlavor="IOSv" ipv4="192.168.0.2">
+        <extensions>
+            <entry key="static_ip" type="String">172.16.30.202</entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! IOS Config generated on 2017-10-13 02:55&#xD;
+! by autonetkit_0.23.5&#xD;
+!&#xD;
+hostname prod-IOSv-2&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+vrf definition Mgmt-intf&#xD;
+!&#xD;
+ address-family ipv4&#xD;
+ exit-address-family&#xD;
+ !&#xD;
+ address-family ipv6&#xD;
+ exit-address-family&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+license accept end user agreement&#xD;
+license boot level premium&#xD;
+!&#xD;
+!&#xD;
+no aaa new-model&#xD;
+!&#xD;
+!&#xD;
+ipv6 unicast-routing&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+enable secret 4 tnhtc92DXBhelxjYk8LWJrPV36S2i4ntXrpb4RFmfqY&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description OOB Management&#xD;
+  vrf forwarding Mgmt-intf&#xD;
+  ip address 172.16.30.202 255.255.255.0&#xD;
+  no shutdown&#xD;
+!&#xD;
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 172.16.30.254</entry>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1" ipv4="10.0.0.6" netPrefixLenV4="30"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.13" netPrefixLenV4="30"/>
+    </node>
+    <node name="prod-IOSv-3" type="SIMPLE" subtype="IOSv" location="193,164" vmImage="IOSv" vmFlavor="IOSv" ipv4="192.168.0.3">
+        <extensions>
+            <entry key="static_ip" type="String">172.16.30.203</entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! IOS Config generated on 2017-10-13 02:55&#xD;
+! by autonetkit_0.23.5&#xD;
+!&#xD;
+hostname prod-IOSv-3&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+vrf definition Mgmt-intf&#xD;
+!&#xD;
+ address-family ipv4&#xD;
+ exit-address-family&#xD;
+ !&#xD;
+ address-family ipv6&#xD;
+ exit-address-family&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+license accept end user agreement&#xD;
+license boot level premium&#xD;
+!&#xD;
+!&#xD;
+no aaa new-model&#xD;
+!&#xD;
+!&#xD;
+ipv6 unicast-routing&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+enable secret 4 tnhtc92DXBhelxjYk8LWJrPV36S2i4ntXrpb4RFmfqY&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description OOB Management&#xD;
+  vrf forwarding Mgmt-intf&#xD;
+  ip address 172.16.30.203 255.255.255.0&#xD;
+  no shutdown&#xD;
+!&#xD;
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 172.16.30.254</entry>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1" ipv4="10.0.0.10" netPrefixLenV4="30"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.14" netPrefixLenV4="30"/>
+    </node>
+    <annotations/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
+</topology>
