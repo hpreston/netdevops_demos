@@ -1,0 +1,3 @@
+ansible==2.4.3.0
+requests==2.18.4
+virlutils==0.5
