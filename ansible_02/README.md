@@ -55,6 +55,9 @@ virl up
 
 # Monitor status of simulation
 virl nodes   # Node startup
+
+# After nodes are "REACHABLE" generage ansible env file
+virl generate ansible
 ```
 
 ## Ansible Demo #1
