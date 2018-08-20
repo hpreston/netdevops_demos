@@ -1,6 +1,8 @@
 ---
 - name: Enable Features
   tags: [api, nxapi, ospf]
+  loop_control:
+    pause: 1
   with_items:
     - ospf
   nxos_feature:
@@ -17,6 +19,8 @@
 
 - name: Configure OSPF Interfaces
   tags: [api, nxapi, ospf]
+  loop_control:
+    pause: 1
   with_items: "{{ ospf.networks }}"
   nxos_interface_ospf:
     provider: "{{provider}}"

@@ -10,6 +10,8 @@
 
 - name: Configure Layer 3 Interfaces
   tags: [api, nxapi, layer3]
+  loop_control:
+    pause: 1
   with_items: "{{ l3_interfaces }}"
   nxos_interface:
     provider: "{{provider}}"
@@ -20,6 +22,8 @@
 
 - name: Ethernet and PortChannel Enable Layer 3
   tags: [api, nxapi, layer3]
+  loop_control:
+    pause: 1
   with_items: "{{ l3_interfaces }}"
   when: item.interface_type in ["Ethernet", "PortChannel"]
   nxos_interface:
@@ -30,6 +34,8 @@
 
 - name: Configure IPv4 Address on Interface
   tags: [api, nxapi, layer3]
+  loop_control:
+    pause: 1
   with_items: "{{ l3_interfaces }}"
   nxos_ip_interface:
     provider: "{{provider}}"

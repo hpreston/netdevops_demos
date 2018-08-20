@@ -7,6 +7,6 @@
   include_tasks: nxos.yml
   when: ansible_network_os == "nxos"
 
-- name: Device Info
-  debug:
-    msg: "Device Type: {{ ansible_network_os }} OS Version: {{ ansible_net_version }}"
+# - name: Device Info
+#   debug:
+#     msg: "Device Type: {{ ansible_network_os }} OS Version: {{ ansible_net_version }}"

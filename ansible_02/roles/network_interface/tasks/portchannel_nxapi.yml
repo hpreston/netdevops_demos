@@ -1,6 +1,8 @@
 ---
 - name: Enable Features
   tags: [api, nxapi, vpc, vlan, trunks]
+  loop_control:
+    pause: 1
   with_items:
     # - vpc
     - lacp
@@ -11,6 +13,8 @@
 
 - name: Create Port Channels
   tags: [api, nxapi, vpc, vlan, trunks]
+  loop_control:
+    pause: 1
   with_items: "{{ portchannels }}"
   nxos_portchannel:
     provider: "{{provider}}"
@@ -22,6 +26,8 @@
 
 - name: Configure Access Switch Port Channels as Trunk
   tags: [api, nxapi, vpc, vlan, trunks]
+  loop_control:
+    pause: 1
   with_items: "{{ portchannels }}"
   nxos_switchport:
     provider: "{{provider}}"
@@ -30,6 +36,8 @@
 
 - name: Enable Port Channel as VPC
   tags: [api, nxapi, vpc, vlan, trunks]
+  loop_control:
+    pause: 1
   with_items: "{{ portchannels }}"
   when: item.vpc == true
   nxos_vpc_interface:

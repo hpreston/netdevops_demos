@@ -1,3 +1,4 @@
+ansible_network_os: nxos
 hsrp:
   interfaces:
     - interface: vlan100

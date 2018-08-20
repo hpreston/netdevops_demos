@@ -9,17 +9,17 @@
         port: 22
         sleep: 10
 
-- name: Gather Facts about Network
-  hosts: all
-  connection: network_cli
-  gather_facts: false
-
-  roles:
-    - network_inspect
+# - name: Gather Facts about Network
+#   hosts: all
+#   connection: local
+#   gather_facts: false
+#
+#   roles:
+#     - network_inspect
 
 - name: Enable Network APIs
   hosts: all
-  connection: network_cli
+  connection: local
   gather_facts: false
 
   roles:
@@ -36,7 +36,7 @@
 
 - name: Configure Distribution Switches
   hosts: distribution
-  connection: network_cli
+  connection: local
   gather_facts: false
 
   roles:
@@ -47,7 +47,7 @@
 
 - name: Configure Access Switches
   hosts: access
-  connection: network_cli
+  connection: local
   gather_facts: false
 
   roles:

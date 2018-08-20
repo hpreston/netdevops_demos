@@ -1,6 +1,8 @@
 ---
 - name: Configure VLANs
   tags: [api, nxapi, vlan]
+  loop_control:
+    pause: 1
   with_items: "{{ vlans }}"
   nxos_vlan:
     provider: "{{provider}}"

@@ -5,3 +5,13 @@
     provider: "{{provider}}"
     feature: nxapi
     state: enabled
+
+# Commenting due to errors.  
+# - name: Enable SNMP
+#   tags: [api]
+#   nxos_config:
+#     provider: "{{provider}}"
+#     lines:
+#       - snmp-server community {{ snmp_ro_community | default('public') }} ro
+#       - snmp-server community {{ snmp_rw_community | default('private') }} rw
+#

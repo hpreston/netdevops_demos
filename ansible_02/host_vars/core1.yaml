@@ -1,39 +1,47 @@
+provider:
+  host: "{{ ansible_host }}"
+  username: cisco
+  password: cisco
+  auth_pass: cisco
+  authorize: no
+  port: 22
+  timeout: 20
 l3_interfaces:
   - interface_type: GigabitEthernet
     interface_id: 2
-    description: L3 Link to nx-osv9000-2
-    ip_address: 172.16.0.13
+    description: L3 Link to dist1
+    ip_address: 172.16.0.1
     subnet_mask: 255.255.255.252
     prefix: 30
   - interface_type: GigabitEthernet
     interface_id: 3
-    description: L3 Link to nx-osv9000-1
-    ip_address: 172.16.0.9
+    description: L3 Link to dist2
+    ip_address: 172.16.0.5
     subnet_mask: 255.255.255.252
     prefix: 30
   - interface_type: GigabitEthernet
     interface_id: 4
-    description: L3 Link to ios-xev-1
-    ip_address: 172.16.0.18
+    description: L3 Link to core2
+    ip_address: 172.16.0.17
     subnet_mask: 255.255.255.252
     prefix: 30
   - interface_type: Loopback
     interface_id: 0
     description: Default Loopback
-    ip_address: 192.168.1.2
+    ip_address: 192.168.1.1
     subnet_mask: 255.255.255.255
     prefix: 32
-ospf_router_id: 192.168.1.2
+ospf_router_id: 192.168.1.1
 ospf_networks:
-    - network: 172.16.0.12
+    - network: 172.16.0.0
       mask: 0.0.0.3
       area: 0
-    - network: 172.16.0.8
+    - network: 172.16.0.4
       mask: 0.0.0.3
       area: 0
     - network: 172.16.0.16
       mask: 0.0.0.3
       area: 0
-    - network: 192.168.1.2
+    - network: 192.168.1.1
       mask: 0.0.0.0
       area: 0

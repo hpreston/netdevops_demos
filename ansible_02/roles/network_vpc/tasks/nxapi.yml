@@ -1,6 +1,8 @@
 ---
 - name: Enable Features
   tags: [api, nxapi, vpc]
+  loop_control:
+    pause: 1
   with_items:
     - vpc
     - lacp
