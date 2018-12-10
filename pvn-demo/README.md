@@ -36,7 +36,14 @@ To run this demonstration you'll need:
 
 If you'd like, you can leverage a [DevNet Sandbox](https://devnetsandbox.cisco.com/RM/Diagram/Index/1e9b57ff-9e64-4c68-93e5-f0f0a8c6f22c?diagramType=Topology). This sandbox includes a CentOS 7 devbox and a Cisco VIRL server where you can run the entire lab from.
 
-### Preparing your Python environment 
+### Preparing your Environment 
+
+1. Clone down the code directory, and change to demo directory. 
+
+    ```bash
+    git clone https://github.com/hpreston/netdevops_demos 
+    cd netdevops_demos 
+    ```
 
 1. Create a Python3.6 Virtual Environment 
 
@@ -49,6 +56,12 @@ If you'd like, you can leverage a [DevNet Sandbox](https://devnetsandbox.cisco.c
 
     ```bash 
     pip install virlutils pyats genie ipython
+    ```
+    
+1. "Source" the `env_demo` file to set NSO and pyATS environment variables for hosts, usernames, and passwords.  
+
+    ```bash
+    source env_demo
     ```
 
 # Part 1: NSO
