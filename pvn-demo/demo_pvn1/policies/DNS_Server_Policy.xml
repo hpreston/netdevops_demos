@@ -1,0 +1,102 @@
+<!--
+
+This configuration will create a device template and associated
+compliance report to ensure that all devices have their DNS
+servers properly configured
+
+
+API Configuration
+====================
+To install this policy, simply use this file as the payload for a POST
+to /api/running
+
+CLI Configuration
+===================
+
+If you prefer to configure manually via CLI...
+
+devices template Standard_DNS_Servers
+ config
+  nx:ip name-server servers [ 8.8.8.8 ]
+  ! Tags: replace
+  ios:ip name-server 8.8.8.8
+  !
+ !
+!
+
+API Endpoints
+===============
+This template can be applied via a RESTFUL API,
+from external applications/systems
+
+URL
+----
+/api/running/devices/device-group/<device-group>/_operations/apply-template
+
+Payload
+---------
+<input>
+	<template-name>Standard_DNS_Servers</template-name>
+</input>
+
+-->
+
+
+<!-- Create a template which reflects the desired state configuration.
+<!-- This template can be applied to or audited against devices or groups -->
+
+
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+  <template>
+    <name>Standard_DNS_Servers</name>
+    <config>
+      <!-- IOS -->
+      <ip xmlns="urn:ios">
+        <name-server>8.8.8.8</name-server>
+      </ip>
+
+    </config>
+  </template>
+</devices>
+
+
+<!-- Create a compliance report to audit against the template
+
+CLI configuration
+===================
+compliance reports report DNS_Servers_Configured
+ compare-template Standard_DNS_Servers all-devices
+!
+!
+API Endpoints
+===============
+This template can be applied via a RESTFUL API,
+from external applications/systems
+
+URL
+----
+/api/running/compliance/reports/report/DNS_Servers_Configured/_operations/run/
+
+
+Payload
+---------
+<input>
+	<outformat>html</outformat>
+</input>
+
+-->
+
+  <compliance xmlns="http://tail-f.com/ns/ncs">
+    <reports>
+      <report>
+        <name>DNS_Servers_Configured</name>
+        <compare-template>
+          <template-name>Standard_DNS_Servers</template-name>
+          <device-group>ios-routers</device-group>
+        </compare-template>
+      </report>
+    </reports>
+  </compliance>
+
+</config>
