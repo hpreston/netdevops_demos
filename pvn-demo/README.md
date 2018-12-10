@@ -7,6 +7,24 @@ When the time comes to test your network configurations BEFORE heading off to pr
 
 But how do you test and validate the network?  That’s where [**pyATS and Genie** ](https://developer.cisco.com/pyats)come in.  Launched at the beginning of 2018 and made available for *FREE on DevNet*, pyATS is a Python test framework for profiling and validating networks are operating as designed. Is OSPF healthy?  Are your trunks trunking?  Are you dropping packets where you shouldn’t?  pyATS let’s you find out what’s wrong before the phone rings.  
 
+## Table of Contents 
+
+* [Demo Preparation](#demo-preparation)
+* [Part 1: NSO](#part-1-nso)
+    * [NSO Getting Started](#nso-getting-started)
+    * [NSO Demo - Experimenting Locally with netsim and NSO](#nso-demo---experimenting-locally-with-netsim-and-nso)
+    * [NSO Demo - Including NSO with NetSim](#nso-demo---including-nso-with-netsim)
+    * [NSO Demo - Preventing Cowboy Engineering](#nso-demo---preventing-cowboy-engineering)
+    * [Demo Clean up](#demo-clean-up)
+* [Part 2: Let's get some "real" devices with VIRL](#part-2-lets-get-some-real-devices-with-virl)
+    * [VIRL Demo: Starting up a Network](#virl-demo-starting-up-a-network)
+    * [Demo: Setup a new NSO instance and connect with the VIRL topology](#demo-setup-a-new-nso-instance-and-connect-with-the-virl-topology)
+    * [Demo: Managing Configuration with Groups and Policies](#demo-managing-configuration-with-groups-and-policies)
+* [Part 3: But is the net-working? Bring on pyATS and Genie!](#part-3-but-is-the-net-working--bring-on-pyats-and-genie)
+    * [Demo: Generate a pyATS testbed from VIRL](#demo-generate-a-pyats-testbed-from-virl)
+    * [Demo: Testing if OSPF is working]()
+* [Demo Cleanup](#demo-cleanup)
+
 ## Demo Preparation 
 
 ### Demonstration Infrastructure Used 
@@ -505,6 +523,8 @@ Managing network configuration with ease is great, but is the network actually h
 1. Open `default_testbed.yaml` and review.  
 
 1. Update testbed file for "iosxe".  
+
+## Demo: Testing if OSPF is working
 
 1. Source the env_demo file.
 
