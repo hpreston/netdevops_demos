@@ -9,6 +9,9 @@ ansible_01/configs/*.xml
 *scratch*
 vpn_close.sh
 vpn_setup.sh
+nso*.zip
+nso-4*/
+TaskLog.html
 
 
 # Byte-compiled / optimized / DLL files

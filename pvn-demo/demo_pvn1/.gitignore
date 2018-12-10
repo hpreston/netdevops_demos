@@ -1,0 +1,10 @@
+nso/
+netsim/
+tests/archive
+TaskLog.html
+ncs/
+default_testbed.yaml
+*_testbed.yaml
+topology.virl
+venvtest/
+tests/runinfo
