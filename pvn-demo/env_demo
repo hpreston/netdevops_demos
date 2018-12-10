@@ -1,0 +1,9 @@
+# NSO Variables
+export NSO_HOST=localhost
+export NSO_USERNAME=admin
+export NSO_PASSWORD=admin
+
+# pyATS Variables 
+export PYATS_USERNAME=cisco
+export PYATS_PASSWORD=cisco
+export PYATS_AUTH_PASS=cisco
