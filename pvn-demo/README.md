@@ -22,7 +22,7 @@ But how do you test and validate the network?  That’s where [**pyATS and Genie
     * [Demo: Managing Configuration with Groups and Policies](#demo-managing-configuration-with-groups-and-policies)
 * [Part 3: But is the net-working? Bring on pyATS and Genie!](#part-3-but-is-the-net-working--bring-on-pyats-and-genie)
     * [Demo: Generate a pyATS testbed from VIRL](#demo-generate-a-pyats-testbed-from-virl)
-    * [Demo: Testing if OSPF is working]()
+    * [Demo: Testing if OSPF is working](#demo-testing-if-ospf-is-working)
 * [Demo Cleanup](#demo-cleanup)
 
 ## Demo Preparation 
