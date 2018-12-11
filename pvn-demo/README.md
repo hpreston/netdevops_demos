@@ -7,7 +7,7 @@ When the time comes to test your network configurations BEFORE heading off to pr
 
 But how do you test and validate the network?  That’s where [**pyATS and Genie** ](https://developer.cisco.com/pyats)come in.  Launched at the beginning of 2018 and made available for *FREE on DevNet*, pyATS is a Python test framework for profiling and validating networks are operating as designed. Is OSPF healthy?  Are your trunks trunking?  Are you dropping packets where you shouldn’t?  pyATS let’s you find out what’s wrong before the phone rings.  
 
-## Table of Contents 
+## Table of Contents
 
 * [Demo Preparation](#demo-preparation)
 * [Part 1: NSO](#part-1-nso)
@@ -25,39 +25,39 @@ But how do you test and validate the network?  That’s where [**pyATS and Genie
     * [Demo: Testing if OSPF is working](#demo-testing-if-ospf-is-working)
 * [Demo Cleanup](#demo-cleanup)
 
-## Demo Preparation 
+## Demo Preparation
 
-### Demonstration Infrastructure Used 
-To run this demonstration you'll need: 
+### Demonstration Infrastructure Used
+To run this demonstration you'll need:
 
-* Either a macOS or Linux development workstation 
+* Either a macOS or Linux development workstation
     * Python 3.6 (newer and older versions of Python may work, but the demo was built and tested with 3.6)
 * A Cisco VIRL (or CML) instance
 
 If you'd like, you can leverage a [DevNet Sandbox](https://devnetsandbox.cisco.com/RM/Diagram/Index/1e9b57ff-9e64-4c68-93e5-f0f0a8c6f22c?diagramType=Topology). This sandbox includes a CentOS 7 devbox and a Cisco VIRL server where you can run the entire lab from.
 
-### Preparing your Environment 
+### Preparing your Environment
 
-1. Clone down the code directory, and change to demo directory. 
+1. Clone down the code directory, and change to demo directory.
 
     ```bash
-    git clone https://github.com/hpreston/netdevops_demos 
-    cd netdevops_demos 
+    git clone https://github.com/hpreston/netdevops_demos
+    cd netdevops_demos
     ```
 
-1. Create a Python3.6 Virtual Environment 
+1. Create a Python3.6 Virtual Environment
 
     ```bash
-    python3.6 -m venv venv 
+    python3.6 -m venv venv
     source venv/bin/activate
     ```
 
-1. Install the Python libraries needed. 
+1. Install the Python libraries needed.
 
-    ```bash 
+    ```bash
     pip install virlutils pyats genie ipython
     ```
-    
+
 1. "Source" the `env_demo` file to set NSO and pyATS environment variables for hosts, usernames, and passwords.  
 
     ```bash
@@ -69,7 +69,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
 ## NSO Getting Started
 
-1. Download Cisco NSO from [DevNet](https://developer.cisco.com/docs/nso/#!getting-nso). 
+1. Download Cisco NSO from [DevNet](https://developer.cisco.com/docs/nso/#!getting-nso).
 
 1. Unzip and install NSO. *Adjust the commands for the version (darwin/linux) you are using.*
 
@@ -101,7 +101,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
 ## NSO Demo - Experimenting Locally with netsim and NSO
 
-1. Change into the `demo_nso1` directory. 
+1. Change into the `demo_nso1` directory.
 
     ```bash
     cd demo_nso1
@@ -141,28 +141,28 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     ncs-netsim cli-c nxos0
-    
+
     show running-config interface
     show running-config vlan
     exit
-    
+
     ncs-netsim cli-c ios0
-    
+
     show running-config router bgp
     exit
-    
+
     ncs-netsim cli-c junos0
-    
+
     show running-config
     exit
-    
+
     ncs-netsim cli junos0
-    
+
     show configuration
     exit
-    
+
     ncs-netsim cli ios
-    
+
     show configuration
     exit
     ```
@@ -171,7 +171,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     ncs-netsim cli-c ios0
-    
+
     config t
     interface GigabitEthernet 3/1
       description Configured with NetSim CLI
@@ -179,14 +179,14 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
       ip address 10.10.10.1 255.255.255.0
       no shut
       exit
-    
+
     commit
     exit
     ```
 
 ## NSO Demo - Including NSO with NetSim
 
-1. Still in the `demo_nso1` directory. 
+1. Still in the `demo_nso1` directory.
 
 1. Setup a NSO instance.  
 
@@ -202,7 +202,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
     cd ..
     ```
 
-1. Log into NSO command line. 
+1. Log into NSO command line.
 
     ```bash
     ncs_cli -C -u admin
@@ -220,10 +220,10 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
     ```bash
     show running-config devices device ios0 config
     show running-config devices device ios0 config ios:interface
-    
+
     show running-config devices device junos0 config
     show running-config devices device junos0 config junos:configuration interfaces
-    
+
     show running-config devices device nxos0 config
     show running-config devices device nxos0 config nx:interface
     ```
@@ -246,7 +246,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     ncs-netsim cli-c ios0
-    
+
     show running-config interface
     ```
 
@@ -268,7 +268,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     ncs-netsim cli-c ios0
-    
+
     config t
     interface GigabitEthernet 3/3
       description CowBoy Interface
@@ -278,7 +278,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
       exit
       commit
       end
-    
+
     show running-config interface GigabitEthernet 3/3
     ```
 
@@ -286,9 +286,9 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     show running-config devices device ios0 config ios:interface
-    
+
     devices check-sync
-    
+
     devices device ios0 compare-config
     ```
 
@@ -302,7 +302,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 
     ```bash
     show running-config interface GigabitEthernet 3/3
-    
+
     show running-config interface
     ```
 
@@ -311,7 +311,7 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
 1. Exit out of CLI for any devices and NSO.  
 
 1. Stop NSO and netsim
-    
+
     ```bash
     ncs --stop
     ncs-netsim stop
@@ -322,8 +322,8 @@ In this first round of demo's, we'll get started with Cisco NSO completely local
     ```bash
     rm -Rf netsim nso
     ```
-    
-1. Move back to demo root directory (`pvn-demo`). 
+
+1. Move back to demo root directory (`pvn-demo`).
 
     ```bash
     cd ..
@@ -494,9 +494,9 @@ Cisco VIRL/CML and the open source `virlutils` command line, provide engineers "
 1. Import a policy and report from an external file.  
 
     ```bash
-    config 
+    config
     load merge policies/DNS_Server_Policy.xml
-    commit 
+    commit
     end
     ```
 
@@ -513,7 +513,7 @@ Cisco VIRL/CML and the open source `virlutils` command line, provide engineers "
     devices device-group ios-routers apply-template template-name Standard_DNS_Servers
     commit
     ```
-    
+
 1. Run the compliance report for new template.  
 
     ```bash
@@ -525,7 +525,7 @@ Managing network configuration with ease is great, but is the network actually h
 
 ## Demo: Generate a pyATS testbed from VIRL
 
-1. Still in the `demo_pvn1` directory. 
+1. Still in the `demo_pvn1` directory.
 
 1. Use virlutils to automatically create a pyATS testbed file.  
 
@@ -560,41 +560,40 @@ Managing network configuration with ease is great, but is the network actually h
     from genie.conf import Genie # Load Genie base object
     from genie.abstract import Lookup # Ability to Lookup details about a device
     from genie.libs import ops # "show run" stuff
-    
+
     # Read in the testbed file for pyATS and Genie
     testbed = 'default_testbed.yaml'
-    testbed = 'sm_testbed.yaml'
     testbed = loader.load(testbed)
     testbed = Genie.init(testbed)
-    
+
     # Connect to one of the routers
     iosv2 = testbed.devices['iosv-2']
     iosv2.connect()
-    
+
     # Allow Genie to inspect device to determine what commands/parsers to use
     abstract = Lookup.from_device(iosv2)
-    
+
     # Learn all about interfaces on device
     interfaces = abstract.ops.interface.interface.Interface(iosv2)
     interfaces.learn()
-    
+
     # Checkout what was learned
     interfaces.info["GigabitEthernet0/1"]
     interfaces.info["GigabitEthernet0/1"]["counters"]
-    
+
     # Learn about OSPF
     ospf = abstract.ops.ospf.ospf.Ospf(iosv2)
     ospf.learn()
-    
+
     # See what was learned
     ospf.info
-    
+
     # Make some convenient variables
     default_vrf = ospf.info["vrf"]["default"]
     ipv4 = default_vrf["address_family"]["ipv4"]
     instance = ipv4["instance"]["1"]
     area0 = instance["areas"]["0.0.0.0"]
-    
+
     # Explore details
     area0["interfaces"]["GigabitEthernet0/2"]
     area0["database"]["lsa_types"][1]["lsas"]["192.168.0.5 192.168.0.5"]
@@ -609,17 +608,17 @@ Managing network configuration with ease is great, but is the network actually h
     open TaskLog.html
     ```
 
-# Demo Cleanup 
+# Demo Cleanup
 
-1. Shutdown NSO and delete NSO instance. 
+1. Shutdown NSO and delete NSO instance.
 
     ```bash
-    ncs --stop 
+    ncs --stop
     rm -Rf nso/
     ```
 
-1. Shutdown VIRL simulation 
+1. Shutdown VIRL simulation
 
     ```bash
-    virl down 
+    virl down
     ```
