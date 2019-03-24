@@ -19,9 +19,10 @@ Let's dive right in!
 * [Key Info 1: Testbed Files and Network Devices](https://github.com/hpreston/netdevops_demos/tree/master/genie-cli-1#key-info-1-testbed-files-and-network-devices)
 * [Demo 2: Occasional Network Communication Issues on Server-1 and Server-2](#demo-2-occasional-network-communication-issues-on-server-1-and-server-2)
 * [Demo 3: What exactly is happening under the hood?](#demo-3-what-exactly-is-happening-under-the-hood)
-* [Demo 4: Server 2 can't communicate with anything...](#demo-4-server-2-cant-communicate-with-anything)
-* [Demo 5: Non-Optimal Traffic Patterns](#demo-5-non-optimal-traffic-patterns)
-* [Demo 6: Performance Problem... Somewhere](#demo-6-performance-problem-somewhere)
+* []()
+* [Demo 5: Server 2 can't communicate with anything...](#demo-5-server-2-cant-communicate-with-anything)
+* [Demo 6: Non-Optimal Traffic Patterns](#demo-6-non-optimal-traffic-patterns)
+* [Demo 7: Performance Problem... Somewhere](#demo-7-performance-problem-somewhere)
 
 ## Preperation
 We'll explain all the details as the demo goes on, but let's get setup to run these demos.  
@@ -440,7 +441,43 @@ Each of the models represents a network feature that Genie can learn.  Not every
 
 And the team behind Genie is constantly creating new models, so check back often! 
 
-## Demo 4: Server 2 can't communicate with anything...
+## Demo 4: CLI Commands made better with Genie Parse
+In this demo we're going to step back from the overwhelming power of `genie learn` and dig in a bit to how Genie does all that learning.  
+
+We've already explored how Genie runs CLI commands and magically turns the text output into wonderful Python and JSON data structures.  This is called "parsing" and Genie comes with a [HUGE library of parsers](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/genie_libs/#/parsers).  Let's check them out a bit.  
+
+* We'll use the normal testbed for this one: [testbeds/mock_normal_tb.yaml](testbeds/mock_normal_tb.yaml)
+
+1. Let's start with something simple, interfaces.  What's a network device without interfaces after all.  And our most common interface checking CLI command?  Well `show ip interface` of course.  Let's have Genie run and parse it.  
+
+	```bash
+	genie parse "show ip interface" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
+	```
+
+1. Take a look at the output.  You'll see all the details from the command you're used to, but they have been made into a JSON object automatically.  Pretty sweet right?  If you've messed around with automating with CLI through other Python libraries, you've likely struggled with finding the important bits of data buried in the string output.  Regular Expressions, string "finds", Text FSM, etc... all tools in Python that you can use, but the best option is not needing to do it. 
+
+1. Navigate to the [Genie Parser Documentation](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/genie_libs/#/parsers) and scroll through the different parsers available for the operating systems.  
+1. Our devices in this lab are IOS XE devices, so pick a parser command and try it out! 
+	* Note, some of the available parsers may NOT have been run and captured to the mock devices we are using.  If you get no data, just try a different one, **most** were captured.  
+
+	```bash 
+	# Example
+	genie parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
+	```
+
+1. Now let's suppose you wanted to save this output to a file, rather than just display to the screen.  Simply add `--output <directory>` to the end of the command.  Let's save the output of the routing table for later use.  
+
+	```bash 
+	genie parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1 --output rtr1-routes
+	```
+	
+	* In the folder will be the connection log, raw console output, and the parsed data. 
+	* This is basically what `genie learn` is doing, but for lots and lots and lots of commands related to the feature being learned.  
+
+1. Take some time and run a few more parse examples.  Be wowed and amazed, it's okay.  
+
+
+## Demo 5: Server 2 can't communicate with anything...
 
 **Situation:** The systems team reports problems with Server 2's network connection. 
 
@@ -448,7 +485,7 @@ And the team behind Genie is constantly creating new models, so check back often
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
-## Demo 5: Non-Optimal Traffic Patterns
+## Demo 6: Non-Optimal Traffic Patterns
 
 **Situation:** The Network Ops team has noticed some odd traffic patterns across the network
 
@@ -456,7 +493,7 @@ And the team behind Genie is constantly creating new models, so check back often
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
-## Demo 6: Performance Problem... Somewhere
+## Demo 7: Performance Problem... Somewhere
 
 **Situation:** Time for a bit of a hunt... there's some misconfiguration in the network... can you find it. 
 
