@@ -1,0 +1,1072 @@
+configure:
+  commands:
+    end:
+      new_state: exec
+    line console 0:
+      new_state: configure_line
+    no logging console: ''
+  prompt: switch(config)#
+configure_line:
+  commands:
+    end:
+      new_state: execute
+    exec-timeout 0: ''
+  prompt: switch(config-line)#
+connect:
+  commands:
+    ? ''
+    : new_state: execute
+  preface: 'Trying mock_device ...
+
+    Connected to mock_device.
+
+    Escape character is ''^]''.'
+  prompt: ''
+execute:
+  commands:
+    config term:
+      new_state: configure
+    dir: "Directory of flash0:/\r\n\r\n    1  drw-           0  Jan 30 2013 00:00:00\
+      \ +00:00  boot\r\n  264  drw-           0  Oct 14 2013 00:00:00 +00:00  config\r\
+      \n  266  -rw-         374   Aug 1 2018 00:00:00 +00:00  config.grub\r\n  267\
+      \  -rw-   148955508   Aug 1 2018 00:00:00 +00:00  vios-adventerprisek9-m\r\n\
+      \  268  -rw-      524288  Mar 23 2019 18:26:44 +00:00  nvram\r\n  269  -rw-\
+      \          35  Mar 23 2019 19:04:30 +00:00  pnp-tech-time\r\n  270  -rw-   \
+      \    65704  Mar 23 2019 19:04:32 +00:00  pnp-tech-discovery-summary\r\n\r\n\
+      2142715904 bytes total (1988554752 bytes free)"
+    show access-lists: ''
+    show arp: "Protocol  Address          Age (min)  Hardware Addr   Type   Interface\r\
+      \nInternet  10.0.128.5            100   fa16.3ee9.4c3a  ARPA   GigabitEthernet0/3\r\
+      \nInternet  10.0.128.6              -   fa16.3e79.0c7b  ARPA   GigabitEthernet0/3\r\
+      \nInternet  10.0.128.9              -   fa16.3e7a.9a6b  ARPA   GigabitEthernet0/1\r\
+      \nInternet  10.0.128.10            26   fa16.3e8d.325b  ARPA   GigabitEthernet0/1\r\
+      \nInternet  10.0.128.13             -   fa16.3e17.c49a  ARPA   GigabitEthernet0/2\r\
+      \nInternet  10.0.128.14           132   fa16.3edc.2c88  ARPA   GigabitEthernet0/2"
+    show bgp all: "For address family: IPv4 Unicast\r\n\r\nBGP table version is 4,\
+      \ local router ID is 192.168.255.1\r\nStatus codes: s suppressed, d damped,\
+      \ h history, * valid, > best, i - internal, \r\n              r RIB-failure,\
+      \ S Stale, m multipath, b backup-path, f RT-Filter, \r\n              x best-external,\
+      \ a additional-path, c RIB-compressed, \r\n              t secondary path, \r\
+      \nOrigin codes: i - IGP, e - EGP, ? - incomplete\r\nRPKI validation codes: V\
+      \ valid, I invalid, N Not found\r\n\r\n     Network          Next Hop      \
+      \      Metric LocPrf Weight Path\r\n *>   192.168.255.1/32 0.0.0.0         \
+      \         0         32768 i\r\n r>i  192.168.255.5/32 192.168.255.5        \
+      \    0    100      0 i\r\n r>i  192.168.255.7/32 192.168.255.7            0\
+      \    100      0 i\r\n\r\nFor address family: IPv4 Multicast\r\n\r\n\r\nFor address\
+      \ family: L2VPN E-VPN\r\n\r\n\r\nFor address family: MVPNv4 Unicast"
+    show bgp all cluster-ids: "Global cluster-id: 192.168.255.1 (configured: 0.0.0.0)\r\
+      \nBGP client-to-client reflection:         Configured    Used\r\n  all (inter-cluster\
+      \ and intra-cluster): ENABLED\r\n  intra-cluster:                         ENABLED\
+      \       ENABLED\r\n\r\nList of cluster-ids:\r\nCluster-id     #-neighbors C2C-rfl-CFG\
+      \ C2C-rfl-USE"
+    show bgp all detail: "For address family: IPv4 Unicast\r\n\r\nBGP routing table\
+      \ entry for 192.168.255.1/32, version 2\r\n  Paths: (1 available, best #1, table\
+      \ default)\r\n  Advertised to update-groups:\r\n     1         \r\n  Refresh\
+      \ Epoch 1\r\n  Local\r\n    0.0.0.0 from 0.0.0.0 (192.168.255.1)\r\n      Origin\
+      \ IGP, metric 0, localpref 100, weight 32768, valid, sourced, local, best\r\n\
+      \      rx pathid: 0, tx pathid: 0x0\r\nBGP routing table entry for 192.168.255.5/32,\
+      \ version 3\r\n  Paths: (1 available, best #1, table default, RIB-failure(17))\r\
+      \nFlag: 0x100\r\n  Not advertised to any peer\r\n  Refresh Epoch 1\r\n  Local\r\
+      \n    192.168.255.5 (metric 2) from 192.168.255.5 (192.168.255.5)\r\n      Origin\
+      \ IGP, metric 0, localpref 100, valid, internal, best\r\n      rx pathid: 0,\
+      \ tx pathid: 0x0\r\nBGP routing table entry for 192.168.255.7/32, version 4\r\
+      \n  Paths: (1 available, best #1, table default, RIB-failure(17))\r\n  Not advertised\
+      \ to any peer\r\n  Refresh Epoch 1\r\n  Local\r\n    192.168.255.7 (metric 2)\
+      \ from 192.168.255.7 (192.168.255.7)\r\n      Origin IGP, metric 0, localpref\
+      \ 100, valid, internal, best\r\n      rx pathid: 0, tx pathid: 0x0\r\n\r\nFor\
+      \ address family: IPv4 Multicast\r\n\r\n\r\nFor address family: L2VPN E-VPN\r\
+      \n\r\n\r\nFor address family: MVPNv4 Unicast"
+    show bgp all neighbors: "For address family: IPv4 Unicast\r\nBGP neighbor is 192.168.255.5,\
+      \  remote AS 1, internal link\r\n Description: iBGP peer rtr2\r\n  BGP version\
+      \ 4, remote router ID 192.168.255.5\r\n  BGP state = Established, up for 02:12:17\r\
+      \n  Last read 00:00:33, last write 00:00:25, hold time is 180, keepalive interval\
+      \ is 60 seconds\r\n  Neighbor sessions:\r\n    1 active, is not multisession\
+      \ capable (disabled)\r\n  Neighbor capabilities:\r\n    Route refresh: advertised\
+      \ and received(new)\r\n    Four-octets ASN Capability: advertised and received\r\
+      \n    Address family IPv4 Unicast: advertised and received\r\n    Enhanced Refresh\
+      \ Capability: advertised and received\r\n    Multisession Capability: \r\n \
+      \   Stateful switchover support enabled: NO for session 1\r\n  Message statistics:\r\
+      \n    InQ depth is 0\r\n    OutQ depth is 0\r\n    \r\n                    \
+      \     Sent       Rcvd\r\n    Opens:                  1          1\r\n    Notifications:\
+      \          0          0\r\n    Updates:                2          2\r\n    Keepalives:\
+      \           146        146\r\n    Route Refresh:          0          0\r\n \
+      \   Total:                149        149\r\n  Do log neighbor state changes\
+      \ (via global configuration)\r\n  Default minimum time between advertisement\
+      \ runs is 0 seconds\r\n\r\n  Address tracking is enabled, the RIB does have\
+      \ a route to 192.168.255.5\r\n  Route to peer address reachability Up: 5; Down:\
+      \ 0\r\n    Last notification 00:26:31\r\n  Connections established 1; dropped\
+      \ 0\r\n  Last reset never\r\n  Interface associated: (none) (peering address\
+      \ NOT in same link)\r\n  Transport(tcp) path-mtu-discovery is enabled\r\n  Graceful-Restart\
+      \ is disabled\r\n  SSO is disabled\r\nConnection state is ESTAB, I/O status:\
+      \ 1, unread input bytes: 0            \r\nConnection is ECN Disabled, Mininum\
+      \ incoming TTL 0, Outgoing TTL 255\r\nLocal host: 192.168.255.1, Local port:\
+      \ 47099\r\nForeign host: 192.168.255.5, Foreign port: 179\r\nConnection tableid\
+      \ (VRF): 0\r\nMaximum output segment queue size: 50\r\n\r\nEnqueued packets\
+      \ for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\r\n\r\nEvent Timers\
+      \ (current time is 0x7A8771):\r\nTimer          Starts    Wakeups          \
+      \  Next\r\nRetrans           151          2             0x0\r\nTimeWait    \
+      \        0          0             0x0\r\nAckHold           147        143  \
+      \           0x0\r\nSendWnd             0          0             0x0\r\nKeepAlive\
+      \           0          0             0x0\r\nGiveUp              0          0\
+      \             0x0\r\nPmtuAger         5136       5136             0x0\r\nDeadWait\
+      \            0          0             0x0\r\nLinger              0         \
+      \ 0             0x0\r\nProcessQ            0          0             0x0\r\n\r\
+      \niss: 3749468677  snduna: 3749471588  sndnxt: 3749471588\r\nirs: 4016044815\
+      \  rcvnxt: 4016047726\r\n\r\nsndwnd:  14940  scale:      0  maxrcvwnd:  16384\r\
+      \nrcvwnd:  14940  scale:      0  delrcvwnd:   1444\r\n\r\nSRTT: 1000 ms, RTTO:\
+      \ 1003 ms, RTV: 3 ms, KRTT: 0 ms\r\nminRTT: 5 ms, maxRTT: 1000 ms, ACK hold:\
+      \ 200 ms\r\nuptime: 7937477 ms, Sent idletime: 25549 ms, Receive idletime: 25346\
+      \ ms \r\nStatus Flags: active open\r\nOption Flags: nagle, path mtu capable\r\
+      \nIP Precedence value : 6\r\n\r\nDatagrams (max data segment is 1460 bytes):\r\
+      \nRcvd: 297 (out of order: 0), with data: 148, total data bytes: 2910\r\nSent:\
+      \ 296 (retransmit: 2, fastretransmit: 0, partialack: 0, Second Congestion: 0),\
+      \ with data: 148, total data bytes: 2910\r\n\r\n Packets received in fast path:\
+      \ 0, fast processed: 0, slow path: 0\r\n fast lock acquisition failures: 0,\
+      \ slow path: 0\r\nTCP Semaphore      0x0FE2B0EC  FREE \r\n\r\nBGP neighbor is\
+      \ 192.168.255.7,  remote AS 1, internal link\r\n Description: iBGP peer rtr3\r\
+      \n  BGP version 4, remote router ID 192.168.255.7\r\n  BGP state = Established,\
+      \ up for 02:12:10\r\n  Last read 00:00:01, last write 00:00:08, hold time is\
+      \ 180, keepalive interval is 60 seconds\r\n  Neighbor sessions:\r\n    1 active,\
+      \ is not multisession capable (disabled)\r\n  Neighbor capabilities:\r\n   \
+      \ Route refresh: advertised and received(new)\r\n    Four-octets ASN Capability:\
+      \ advertised and received\r\n    Address family IPv4 Unicast: advertised and\
+      \ received\r\n    Enhanced Refresh Capability: advertised and received\r\n \
+      \   Multisession Capability: \r\n    Stateful switchover support enabled: NO\
+      \ for session 1\r\n  Message statistics:\r\n    InQ depth is 0\r\n    OutQ depth\
+      \ is 0\r\n    \r\n                         Sent       Rcvd\r\n    Opens:   \
+      \               1          1\r\n    Notifications:          0          0\r\n\
+      \    Updates:                2          2\r\n    Keepalives:           146 \
+      \       146\r\n    Route Refresh:          0          0\r\n    Total:      \
+      \          149        149\r\n  Do log neighbor state changes (via global configuration)\r\
+      \n  Default minimum time between advertisement runs is 0 seconds\r\n\r\n  Address\
+      \ tracking is enabled, the RIB does have a route to 192.168.255.7\r\n  Route\
+      \ to peer address reachability Up: 1; Down: 0\r\n    Last notification 02:12:11\r\
+      \n  Connections established 1; dropped 0\r\n  Last reset never\r\n  Interface\
+      \ associated: (none) (peering address NOT in same link)\r\n  Transport(tcp)\
+      \ path-mtu-discovery is enabled\r\n  Graceful-Restart is disabled\r\n  SSO is\
+      \ disabled\r\nConnection state is ESTAB, I/O status: 1, unread input bytes:\
+      \ 0            \r\nConnection is ECN Disabled, Mininum incoming TTL 0, Outgoing\
+      \ TTL 255\r\nLocal host: 192.168.255.1, Local port: 179\r\nForeign host: 192.168.255.7,\
+      \ Foreign port: 50430\r\nConnection tableid (VRF): 0\r\nMaximum output segment\
+      \ queue size: 50\r\n\r\nEnqueued packets for retransmit: 0, input: 0  mis-ordered:\
+      \ 0 (0 bytes)\r\n\r\nEvent Timers (current time is 0x7A8772):\r\nTimer     \
+      \     Starts    Wakeups            Next\r\nRetrans           149          0\
+      \             0x0\r\nTimeWait            0          0             0x0\r\nAckHold\
+      \           148        143             0x0\r\nSendWnd             0        \
+      \  0             0x0\r\nKeepAlive           0          0             0x0\r\n\
+      GiveUp              0          0             0x0\r\nPmtuAger            0  \
+      \        0             0x0\r\nDeadWait            0          0             0x0\r\
+      \nLinger              0          0             0x0\r\nProcessQ            0\
+      \          0             0x0\r\n\r\niss: 4179232460  snduna: 4179235371  sndnxt:\
+      \ 4179235371\r\nirs:  719767388  rcvnxt:  719770299\r\n\r\nsndwnd:  14940  scale:\
+      \      0  maxrcvwnd:  16384\r\nrcvwnd:  14940  scale:      0  delrcvwnd:   1444\r\
+      \n\r\nSRTT: 1000 ms, RTTO: 1003 ms, RTV: 3 ms, KRTT: 0 ms\r\nminRTT: 4 ms, maxRTT:\
+      \ 1000 ms, ACK hold: 200 ms\r\nuptime: 7930786 ms, Sent idletime: 1147 ms, Receive\
+      \ idletime: 1347 ms \r\nStatus Flags: passive open, gen tcbs\r\nOption Flags:\
+      \ nagle, path mtu capable\r\nIP Precedence value : 6\r\n\r\nDatagrams (max data\
+      \ segment is 1460 bytes):\r\nRcvd: 296 (out of order: 0), with data: 148, total\
+      \ data bytes: 2910\r\nSent: 294 (retransmit: 0, fastretransmit: 0, partialack:\
+      \ 0, Second Congestion: 0), with data: 148, total data bytes: 2910\r\n\r\n Packets\
+      \ received in fast path: 0, fast processed: 0, slow path: 0\r\n fast lock acquisition\
+      \ failures: 0, slow path: 0\r\nTCP Semaphore      0x0FE2B15C  FREE \r\n\r\n\r\
+      \nFor address family: IPv4 Multicast\r\n\r\nFor address family: L2VPN E-VPN\r\
+      \n\r\nFor address family: MVPNv4 Unicast"
+    show bgp all neighbors 192.168.255.5 advertised-routes: "For address family: IPv4\
+      \ Unicast\r\nBGP table version is 4, local router ID is 192.168.255.1\r\nStatus\
+      \ codes: s suppressed, d damped, h history, * valid, > best, i - internal, \r\
+      \n              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,\
+      \ \r\n              x best-external, a additional-path, c RIB-compressed, \r\
+      \n              t secondary path, \r\nOrigin codes: i - IGP, e - EGP, ? - incomplete\r\
+      \nRPKI validation codes: V valid, I invalid, N Not found\r\n\r\n     Network\
+      \          Next Hop            Metric LocPrf Weight Path\r\n *>   192.168.255.1/32\
+      \ 0.0.0.0                  0         32768 i\r\n\r\nTotal number of prefixes\
+      \ 1"
+    show bgp all neighbors 192.168.255.5 policy: ' Neighbor: 192.168.255.5, Address-Family:
+      IPv4 Unicast'
+    show bgp all neighbors 192.168.255.5 received-routes: "For address family: IPv4\
+      \ Unicast\r\n% Inbound soft reconfiguration not enabled on 192.168.255.5"
+    show bgp all neighbors 192.168.255.5 routes: "For address family: IPv4 Unicast\r\
+      \nBGP table version is 4, local router ID is 192.168.255.1\r\nStatus codes:\
+      \ s suppressed, d damped, h history, * valid, > best, i - internal, \r\n   \
+      \           r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,\
+      \ \r\n              x best-external, a additional-path, c RIB-compressed, \r\
+      \n              t secondary path, \r\nOrigin codes: i - IGP, e - EGP, ? - incomplete\r\
+      \nRPKI validation codes: V valid, I invalid, N Not found\r\n\r\n     Network\
+      \          Next Hop            Metric LocPrf Weight Path\r\n r>i  192.168.255.5/32\
+      \ 192.168.255.5            0    100      0 i\r\n\r\nTotal number of prefixes\
+      \ 1"
+    show bgp all neighbors 192.168.255.7 advertised-routes: "For address family: IPv4\
+      \ Unicast\r\nBGP table version is 4, local router ID is 192.168.255.1\r\nStatus\
+      \ codes: s suppressed, d damped, h history, * valid, > best, i - internal, \r\
+      \n              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,\
+      \ \r\n              x best-external, a additional-path, c RIB-compressed, \r\
+      \n              t secondary path, \r\nOrigin codes: i - IGP, e - EGP, ? - incomplete\r\
+      \nRPKI validation codes: V valid, I invalid, N Not found\r\n\r\n     Network\
+      \          Next Hop            Metric LocPrf Weight Path\r\n *>   192.168.255.1/32\
+      \ 0.0.0.0                  0         32768 i\r\n\r\nTotal number of prefixes\
+      \ 1"
+    show bgp all neighbors 192.168.255.7 policy: ' Neighbor: 192.168.255.7, Address-Family:
+      IPv4 Unicast'
+    show bgp all neighbors 192.168.255.7 received-routes: "For address family: IPv4\
+      \ Unicast\r\n% Inbound soft reconfiguration not enabled on 192.168.255.7"
+    show bgp all neighbors 192.168.255.7 routes: "For address family: IPv4 Unicast\r\
+      \nBGP table version is 4, local router ID is 192.168.255.1\r\nStatus codes:\
+      \ s suppressed, d damped, h history, * valid, > best, i - internal, \r\n   \
+      \           r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter,\
+      \ \r\n              x best-external, a additional-path, c RIB-compressed, \r\
+      \n              t secondary path, \r\nOrigin codes: i - IGP, e - EGP, ? - incomplete\r\
+      \nRPKI validation codes: V valid, I invalid, N Not found\r\n\r\n     Network\
+      \          Next Hop            Metric LocPrf Weight Path\r\n r>i  192.168.255.7/32\
+      \ 192.168.255.7            0    100      0 i\r\n\r\nTotal number of prefixes\
+      \ 1"
+    show bgp all neighbors | i BGP neighbor: "BGP neighbor is 192.168.255.5,  remote\
+      \ AS 1, internal link\r\nBGP neighbor is 192.168.255.7,  remote AS 1, internal\
+      \ link"
+    show bgp all summary: "For address family: IPv4 Unicast\r\nBGP router identifier\
+      \ 192.168.255.1, local AS number 1\r\nBGP table version is 4, main routing table\
+      \ version 4\r\n3 network entries using 432 bytes of memory\r\n3 path entries\
+      \ using 252 bytes of memory\r\n2/2 BGP path/bestpath attribute entries using\
+      \ 320 bytes of memory\r\n0 BGP route-map cache entries using 0 bytes of memory\r\
+      \n0 BGP filter-list cache entries using 0 bytes of memory\r\nBGP using 1004\
+      \ total bytes of memory\r\nBGP activity 3/0 prefixes, 3/0 paths, scan interval\
+      \ 60 secs\r\n\r\nNeighbor        V           AS MsgRcvd MsgSent   TblVer  InQ\
+      \ OutQ Up/Down  State/PfxRcd\r\n192.168.255.5   4            1     149     149\
+      \        4    0    0 02:12:11        1\r\n192.168.255.7   4            1   \
+      \  148     149        4    0    0 02:12:04        1"
+    show errdisable recovery: "show errdisable recovery\r\n      ^\r\n% Invalid input\
+      \ detected at '^' marker."
+    show etherchannel summary: "show etherchannel summary\r\n          ^\r\n% Invalid\
+      \ input detected at '^' marker."
+    show interfaces: "GigabitEthernet0/0 is up, line protocol is up \r\n  Hardware\
+      \ is iGbE, address is 5e00.0001.0000 (bia 5e00.0001.0000)\r\n  Description:\
+      \ OOB Management\r\n  Internet address is 172.16.30.80/24\r\n  MTU 1500 bytes,\
+      \ BW 1000000 Kbit/sec, DLY 10 usec, \r\n     reliability 176/255, txload 1/255,\
+      \ rxload 1/255\r\n  Encapsulation ARPA, loopback not set\r\n  Keepalive set\
+      \ (10 sec)\r\n  Full Duplex, Auto Speed, link type is auto, media type is RJ45\r\
+      \n  output flow-control is unsupported, input flow-control is unsupported\r\n\
+      \  ARP type: ARPA, ARP Timeout 04:00:00\r\n  Last input 00:00:00, output 00:00:00,\
+      \ output hang never\r\n  Last clearing of \"show interface\" counters never\r\
+      \n  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0\r\n\
+      \  Queueing strategy: fifo\r\n  Output queue: 0/40 (size/max)\r\n  5 minute\
+      \ input rate 9000 bits/sec, 11 packets/sec\r\n  5 minute output rate 8000 bits/sec,\
+      \ 11 packets/sec\r\n     25595 packets input, 2073217 bytes, 0 no buffer\r\n\
+      \     Received 338 broadcasts (0 IP multicasts)\r\n     20460 runts, 0 giants,\
+      \ 0 throttles \r\n     20460 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored\r\
+      \n     0 watchdog, 0 multicast, 0 pause input\r\n     26893 packets output,\
+      \ 2270290 bytes, 0 underruns\r\n     0 output errors, 0 collisions, 2 interface\
+      \ resets\r\n     0 unknown protocol drops\r\n     0 babbles, 0 late collision,\
+      \ 0 deferred\r\n     0 lost carrier, 0 no carrier, 0 pause output\r\n     0\
+      \ output buffer failures, 0 output buffers swapped out\r\nGigabitEthernet0/1\
+      \ is up, line protocol is up \r\n  Hardware is iGbE, address is fa16.3e7a.9a6b\
+      \ (bia fa16.3e7a.9a6b)\r\n  Description: to rtr2\r\n  Internet address is 10.0.128.9/30\r\
+      \n  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec, \r\n     reliability 255/255,\
+      \ txload 1/255, rxload 1/255\r\n  Encapsulation ARPA, loopback not set\r\n \
+      \ Keepalive set (10 sec)\r\n  Full Duplex, Auto Speed, link type is auto, media\
+      \ type is RJ45\r\n  output flow-control is unsupported, input flow-control is\
+      \ unsupported\r\n  ARP type: ARPA, ARP Timeout 04:00:00\r\n  Last input 00:00:02,\
+      \ output 00:00:01, output hang never\r\n  Last clearing of \"show interface\"\
+      \ counters never\r\n  Input queue: 0/75/0/0 (size/max/drops/flushes); Total\
+      \ output drops: 0\r\n  Queueing strategy: fifo\r\n  Output queue: 0/40 (size/max)\r\
+      \n  5 minute input rate 0 bits/sec, 0 packets/sec\r\n  5 minute output rate\
+      \ 0 bits/sec, 0 packets/sec\r\n     1335 packets input, 165293 bytes, 0 no buffer\r\
+      \n     Received 21 broadcasts (0 IP multicasts)\r\n     138 runts, 0 giants,\
+      \ 0 throttles \r\n     138 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored\r\
+      \n     0 watchdog, 0 multicast, 0 pause input\r\n     2152 packets output, 215024\
+      \ bytes, 0 underruns\r\n     0 output errors, 0 collisions, 3 interface resets\r\
+      \n     0 unknown protocol drops\r\n     0 babbles, 0 late collision, 0 deferred\r\
+      \n     1 lost carrier, 0 no carrier, 0 pause output\r\n     0 output buffer\
+      \ failures, 0 output buffers swapped out\r\nGigabitEthernet0/2 is up, line protocol\
+      \ is up \r\n  Hardware is iGbE, address is fa16.3e17.c49a (bia fa16.3e17.c49a)\r\
+      \n  Description: to rtr3\r\n  Internet address is 10.0.128.13/30\r\n  MTU 1500\
+      \ bytes, BW 10000 Kbit/sec, DLY 1000 usec, \r\n     reliability 255/255, txload\
+      \ 1/255, rxload 1/255\r\n  Encapsulation ARPA, loopback not set\r\n  Keepalive\
+      \ set (10 sec)\r\n  Auto Duplex, 10Mbps, link type is auto, media type is RJ45\r\
+      \n  output flow-control is unsupported, input flow-control is unsupported\r\n\
+      \  ARP type: ARPA, ARP Timeout 04:00:00\r\n  Last input 00:00:09, output 00:00:06,\
+      \ output hang never\r\n  Last clearing of \"show interface\" counters never\r\
+      \n  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0\r\n\
+      \  Queueing strategy: fifo\r\n  Output queue: 0/40 (size/max)\r\n  5 minute\
+      \ input rate 0 bits/sec, 0 packets/sec\r\n  5 minute output rate 0 bits/sec,\
+      \ 0 packets/sec\r\n     1410 packets input, 171930 bytes, 0 no buffer\r\n  \
+      \   Received 23 broadcasts (0 IP multicasts)\r\n     161 runts, 0 giants, 0\
+      \ throttles \r\n     161 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored\r\
+      \n     0 watchdog, 0 multicast, 0 pause input\r\n     2218 packets output, 218551\
+      \ bytes, 0 underruns\r\n     0 output errors, 0 collisions, 5 interface resets\r\
+      \n     0 unknown protocol drops\r\n     0 babbles, 0 late collision, 0 deferred\r\
+      \n     3 lost carrier, 0 no carrier, 0 pause output\r\n     0 output buffer\
+      \ failures, 0 output buffers swapped out\r\nGigabitEthernet0/3 is up, line protocol\
+      \ is up \r\n  Hardware is iGbE, address is fa16.3e79.0c7b (bia fa16.3e79.0c7b)\r\
+      \n  Description: to fw1\r\n  Internet address is 10.0.128.6/30\r\n  MTU 1500\
+      \ bytes, BW 1000000 Kbit/sec, DLY 10 usec, \r\n     reliability 255/255, txload\
+      \ 1/255, rxload 1/255\r\n  Encapsulation ARPA, loopback not set\r\n  Keepalive\
+      \ set (10 sec)\r\n  Full Duplex, Auto Speed, link type is auto, media type is\
+      \ RJ45\r\n  output flow-control is unsupported, input flow-control is unsupported\r\
+      \n  ARP type: ARPA, ARP Timeout 04:00:00\r\n  Last input 01:26:27, output 00:00:01,\
+      \ output hang never\r\n  Last clearing of \"show interface\" counters never\r\
+      \n  Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0\r\n\
+      \  Queueing strategy: fifo\r\n  Output queue: 0/40 (size/max)\r\n  5 minute\
+      \ input rate 0 bits/sec, 0 packets/sec\r\n  5 minute output rate 0 bits/sec,\
+      \ 0 packets/sec\r\n     37 packets input, 3550 bytes, 0 no buffer\r\n     Received\
+      \ 2 broadcasts (0 IP multicasts)\r\n     0 runts, 0 giants, 0 throttles \r\n\
+      \     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored\r\n     0 watchdog,\
+      \ 0 multicast, 0 pause input\r\n     1849 packets output, 187760 bytes, 0 underruns\r\
+      \n     0 output errors, 0 collisions, 2 interface resets\r\n     0 unknown protocol\
+      \ drops\r\n     0 babbles, 0 late collision, 0 deferred\r\n     0 lost carrier,\
+      \ 0 no carrier, 0 pause output\r\n     0 output buffer failures, 0 output buffers\
+      \ swapped out\r\nLoopback0 is up, line protocol is up \r\n  Hardware is Loopback\r\
+      \n  Description: Loopback\r\n  Internet address is 192.168.255.1/32\r\n  MTU\
+      \ 1514 bytes, BW 8000000 Kbit/sec, DLY 5000 usec, \r\n     reliability 255/255,\
+      \ txload 1/255, rxload 1/255\r\n  Encapsulation LOOPBACK, loopback not set\r\
+      \n  Keepalive set (10 sec)\r\n  Last input 01:41:21, output never, output hang\
+      \ never\r\n  Last clearing of \"show interface\" counters never\r\n  Input queue:\
+      \ 0/75/0/0 (size/max/drops/flushes); Total output drops: 0\r\n  Queueing strategy:\
+      \ fifo\r\n  Output queue: 0/0 (size/max)\r\n  5 minute input rate 0 bits/sec,\
+      \ 0 packets/sec\r\n  5 minute output rate 0 bits/sec, 0 packets/sec\r\n    \
+      \ 0 packets input, 0 bytes, 0 no buffer\r\n     Received 0 broadcasts (0 IP\
+      \ multicasts)\r\n     0 runts, 0 giants, 0 throttles \r\n     0 input errors,\
+      \ 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort\r\n     10 packets output, 1905\
+      \ bytes, 0 underruns\r\n     0 output errors, 0 collisions, 0 interface resets\r\
+      \n     0 unknown protocol drops\r\n     0 output buffer failures, 0 output buffers\
+      \ swapped out"
+    show interfaces accounting: "GigabitEthernet0/0 OOB Management\r\n           \
+      \     Protocol    Pkts In   Chars In   Pkts Out  Chars Out\r\n             \
+      \      Other          0          0        803      48180\r\n               \
+      \       IP      24201    1601704      25898    2170836\r\n                 DEC\
+      \ MOP          0          0         14       1078\r\n                     ARP\
+      \        376      22560         90       5400\r\n                     CDP  \
+      \     1087     453501        157      58561\r\nGigabitEthernet0/1 to rtr2\r\n\
+      \                Protocol    Pkts In   Chars In   Pkts Out  Chars Out\r\n  \
+      \                 Other          0          0        777      46620\r\n    \
+      \                  IP       1167     105625       1196     107966\r\n      \
+      \           DEC MOP          0          0         14       1078\r\n        \
+      \             ARP          7        420          7        420\r\n          \
+      \           CDP        159      59000        159      59000\r\nGigabitEthernet0/2\
+      \ to rtr3\r\n                Protocol    Pkts In   Chars In   Pkts Out  Chars\
+      \ Out\r\n                   Other          0          0        803      48180\r\
+      \n                      IP       1248     112716       1241     110562\r\n \
+      \                DEC MOP          0          0         14       1078\r\n   \
+      \                  ARP          4        240          4        240\r\n     \
+      \                CDP        158      58934        157      58551\r\nGigabitEthernet0/3\
+      \ to fw1\r\n                Protocol    Pkts In   Chars In   Pkts Out  Chars\
+      \ Out\r\n                   Other          0          0        803      48180\r\
+      \n                      IP         35       3430        872      79761\r\n \
+      \                DEC MOP          0          0         14       1078\r\n   \
+      \                  ARP          2        120          4        240\r\n     \
+      \                CDP          0          0        157      58561\r\nLoopback0\
+      \ Loopback\r\n                Protocol    Pkts In   Chars In   Pkts Out  Chars\
+      \ Out\r\n                      IP         10       1905         10       1905"
+    show ip arp summary: "Translating \"summary\"\r\n\r\nshow ip arp summary\r\n \
+      \           ^\r\n% Invalid input detected at '^' marker."
+    show ip bgp all dampening parameters: "For address family: IPv4 Unicast\r\n\r\n\
+      % dampening not enabled for base\r\n\r\nFor address family: IPv4 Multicast\r\
+      \n\r\n% dampening not enabled for base\r\n\r\nFor address family: L2VPN E-VPN\r\
+      \n\r\n% dampening not enabled for base\r\n\r\nFor address family: MVPNv4 Unicast\r\
+      \n\r\n% dampening not enabled for base"
+    'show ip bgp template peer-policy ': No templates configured
+    'show ip bgp template peer-session ': No templates configured
+    show ip igmp groups detail: "\r\nFlags: L - Local, U - User, SG - Static Group,\
+      \ VG - Virtual Group,\r\n       SS - Static Source, VS - Virtual Source,\r\n\
+      \       Ac - Group accounted towards access control limit"
+    show ip igmp interface: ''
+    show ip igmp vrf Mgmt-intf groups detail: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip igmp vrf Mgmt-intf interface: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip interface: "GigabitEthernet0/0 is up, line protocol is up\r\n  Internet\
+      \ address is 172.16.30.80/24\r\n  Broadcast address is 255.255.255.255\r\n \
+      \ Address determined by configuration file\r\n  MTU is 1500 bytes\r\n  Helper\
+      \ address is not set\r\n  Directed broadcast forwarding is disabled\r\n  Outgoing\
+      \ access list is not set\r\n  Inbound  access list is not set\r\n  Proxy ARP\
+      \ is enabled\r\n  Local Proxy ARP is disabled\r\n  Security level is default\r\
+      \n  Split horizon is enabled\r\n  ICMP redirects are always sent\r\n  ICMP unreachables\
+      \ are always sent\r\n  ICMP mask replies are never sent\r\n  IP fast switching\
+      \ is enabled\r\n  IP fast switching on the same interface is disabled\r\n  IP\
+      \ Flow switching is disabled\r\n  IP CEF switching is enabled\r\n  IP CEF switching\
+      \ turbo vector\r\n  VPN Routing/Forwarding \"Mgmt-intf\"\r\n  Downstream VPN\
+      \ Routing/Forwarding \"\"\r\n  IP multicast fast switching is enabled\r\n  IP\
+      \ multicast distributed fast switching is disabled\r\n  IP route-cache flags\
+      \ are Fast, CEF\r\n  Router Discovery is disabled\r\n  IP output packet accounting\
+      \ is disabled\r\n  IP access violation accounting is disabled\r\n  TCP/IP header\
+      \ compression is disabled\r\n  RTP/IP header compression is disabled\r\n  Policy\
+      \ routing is disabled\r\n  Network address translation is disabled\r\n  BGP\
+      \ Policy Mapping is disabled\r\n  Input features: MCI Check\r\n  IPv4 WCCP Redirect\
+      \ outbound is disabled\r\n  IPv4 WCCP Redirect inbound is disabled\r\n  IPv4\
+      \ WCCP Redirect exclude is disabled\r\nGigabitEthernet0/1 is up, line protocol\
+      \ is up\r\n  Internet address is 10.0.128.9/30\r\n  Broadcast address is 255.255.255.255\r\
+      \n  Address determined by configuration file\r\n  MTU is 1500 bytes\r\n  Helper\
+      \ address is not set\r\n  Directed broadcast forwarding is disabled\r\n  Multicast\
+      \ reserved groups joined: 224.0.0.5 224.0.0.6\r\n  Outgoing access list is not\
+      \ set\r\n  Inbound  access list is not set\r\n  Proxy ARP is enabled\r\n  Local\
+      \ Proxy ARP is disabled\r\n  Security level is default\r\n  Split horizon is\
+      \ enabled\r\n  ICMP redirects are always sent\r\n  ICMP unreachables are always\
+      \ sent\r\n  ICMP mask replies are never sent\r\n  IP fast switching is enabled\r\
+      \n  IP fast switching on the same interface is disabled\r\n  IP Flow switching\
+      \ is disabled\r\n  IP CEF switching is enabled\r\n  IP CEF switching turbo vector\r\
+      \n  IP multicast fast switching is enabled\r\n  IP multicast distributed fast\
+      \ switching is disabled\r\n  IP route-cache flags are Fast, CEF\r\n  Router\
+      \ Discovery is disabled\r\n  IP output packet accounting is disabled\r\n  IP\
+      \ access violation accounting is disabled\r\n  TCP/IP header compression is\
+      \ disabled\r\n  RTP/IP header compression is disabled\r\n  Policy routing is\
+      \ disabled\r\n  Network address translation is disabled\r\n  BGP Policy Mapping\
+      \ is disabled\r\n  Input features: MCI Check\r\n  IPv4 WCCP Redirect outbound\
+      \ is disabled\r\n  IPv4 WCCP Redirect inbound is disabled\r\n  IPv4 WCCP Redirect\
+      \ exclude is disabled\r\nGigabitEthernet0/2 is up, line protocol is up\r\n \
+      \ Internet address is 10.0.128.13/30\r\n  Broadcast address is 255.255.255.255\r\
+      \n  Address determined by configuration file\r\n  MTU is 1500 bytes\r\n  Helper\
+      \ address is not set\r\n  Directed broadcast forwarding is disabled\r\n  Multicast\
+      \ reserved groups joined: 224.0.0.5 224.0.0.6\r\n  Outgoing access list is not\
+      \ set\r\n  Inbound  access list is not set\r\n  Proxy ARP is enabled\r\n  Local\
+      \ Proxy ARP is disabled\r\n  Security level is default\r\n  Split horizon is\
+      \ enabled\r\n  ICMP redirects are always sent\r\n  ICMP unreachables are always\
+      \ sent\r\n  ICMP mask replies are never sent\r\n  IP fast switching is enabled\r\
+      \n  IP fast switching on the same interface is disabled\r\n  IP Flow switching\
+      \ is disabled\r\n  IP CEF switching is enabled\r\n  IP CEF switching turbo vector\r\
+      \n  IP multicast fast switching is enabled\r\n  IP multicast distributed fast\
+      \ switching is disabled\r\n  IP route-cache flags are Fast, CEF\r\n  Router\
+      \ Discovery is disabled\r\n  IP output packet accounting is disabled\r\n  IP\
+      \ access violation accounting is disabled\r\n  TCP/IP header compression is\
+      \ disabled\r\n  RTP/IP header compression is disabled\r\n  Policy routing is\
+      \ disabled\r\n  Network address translation is disabled\r\n  BGP Policy Mapping\
+      \ is disabled\r\n  Input features: MCI Check\r\n  IPv4 WCCP Redirect outbound\
+      \ is disabled\r\n  IPv4 WCCP Redirect inbound is disabled\r\n  IPv4 WCCP Redirect\
+      \ exclude is disabled\r\nGigabitEthernet0/3 is up, line protocol is up\r\n \
+      \ Internet address is 10.0.128.6/30\r\n  Broadcast address is 255.255.255.255\r\
+      \n  Address determined by configuration file\r\n  MTU is 1500 bytes\r\n  Helper\
+      \ address is not set\r\n  Directed broadcast forwarding is disabled\r\n  Multicast\
+      \ reserved groups joined: 224.0.0.5 224.0.0.6\r\n  Outgoing access list is not\
+      \ set\r\n  Inbound  access list is not set\r\n  Proxy ARP is enabled\r\n  Local\
+      \ Proxy ARP is disabled\r\n  Security level is default\r\n  Split horizon is\
+      \ enabled\r\n  ICMP redirects are always sent\r\n  ICMP unreachables are always\
+      \ sent\r\n  ICMP mask replies are never sent\r\n  IP fast switching is enabled\r\
+      \n  IP fast switching on the same interface is disabled\r\n  IP Flow switching\
+      \ is disabled\r\n  IP CEF switching is enabled\r\n  IP CEF switching turbo vector\r\
+      \n  IP multicast fast switching is enabled\r\n  IP multicast distributed fast\
+      \ switching is disabled\r\n  IP route-cache flags are Fast, CEF\r\n  Router\
+      \ Discovery is disabled\r\n  IP output packet accounting is disabled\r\n  IP\
+      \ access violation accounting is disabled\r\n  TCP/IP header compression is\
+      \ disabled\r\n  RTP/IP header compression is disabled\r\n  Policy routing is\
+      \ disabled\r\n  Network address translation is disabled\r\n  BGP Policy Mapping\
+      \ is disabled\r\n  Input features: MCI Check\r\n  IPv4 WCCP Redirect outbound\
+      \ is disabled\r\n  IPv4 WCCP Redirect inbound is disabled\r\n  IPv4 WCCP Redirect\
+      \ exclude is disabled\r\nLoopback0 is up, line protocol is up\r\n  Internet\
+      \ address is 192.168.255.1/32\r\n  Broadcast address is 255.255.255.255\r\n\
+      \  Address determined by configuration file\r\n  MTU is 1514 bytes\r\n  Helper\
+      \ address is not set\r\n  Directed broadcast forwarding is disabled\r\n  Multicast\
+      \ reserved groups joined: 224.0.0.5\r\n  Outgoing access list is not set\r\n\
+      \  Inbound  access list is not set\r\n  Proxy ARP is enabled\r\n  Local Proxy\
+      \ ARP is disabled\r\n  Security level is default\r\n  Split horizon is enabled\r\
+      \n  ICMP redirects are always sent\r\n  ICMP unreachables are always sent\r\n\
+      \  ICMP mask replies are never sent\r\n  IP fast switching is enabled\r\n  IP\
+      \ fast switching on the same interface is disabled\r\n  IP Flow switching is\
+      \ disabled\r\n  IP CEF switching is enabled\r\n  IP CEF switching turbo vector\r\
+      \n  IP Null turbo vector\r\n  IP multicast fast switching is enabled\r\n  IP\
+      \ multicast distributed fast switching is disabled\r\n  IP route-cache flags\
+      \ are Fast, CEF\r\n  Router Discovery is disabled\r\n  IP output packet accounting\
+      \ is disabled\r\n  IP access violation accounting is disabled\r\n  TCP/IP header\
+      \ compression is disabled\r\n  RTP/IP header compression is disabled\r\n  Policy\
+      \ routing is disabled\r\n  Network address translation is disabled\r\n  BGP\
+      \ Policy Mapping is disabled\r\n  Input features: MCI Check\r\n  IPv4 WCCP Redirect\
+      \ outbound is disabled\r\n  IPv4 WCCP Redirect inbound is disabled\r\n  IPv4\
+      \ WCCP Redirect exclude is disabled"
+    show ip mroute: "IP Multicast Forwarding is not enabled.\r\nIP Multicast Routing\
+      \ Table\r\nFlags: D - Dense, S - Sparse, B - Bidir Group, s - SSM Group, C -\
+      \ Connected,\r\n       L - Local, P - Pruned, R - RP-bit set, F - Register flag,\r\
+      \n       T - SPT-bit set, J - Join SPT, M - MSDP created entry, E - Extranet,\r\
+      \n       X - Proxy Join Timer Running, A - Candidate for MSDP Advertisement,\r\
+      \n       U - URD, I - Received Source Specific Host Report, \r\n       Z - Multicast\
+      \ Tunnel, z - MDT-data group sender, \r\n       Y - Joined MDT-data group, y\
+      \ - Sending to MDT-data group, \r\n       G - Received BGP C-Mroute, g - Sent\
+      \ BGP C-Mroute, \r\n       N - Received BGP Shared-Tree Prune, n - BGP C-Mroute\
+      \ suppressed, \r\n       Q - Received BGP S-A Route, q - Sent BGP S-A Route,\
+      \ \r\n       V - RD & Vector, v - Vector, p - PIM Joins on route, \r\n     \
+      \  x - VxLAN group\r\nOutgoing interface flags: H - Hardware switched, A - Assert\
+      \ winner, p - PIM Join\r\n Timers: Uptime/Expires\r\n Interface state: Interface,\
+      \ Next-Hop or VCD, State/Mode"
+    show ip mroute static: ''
+    show ip mroute vrf Mgmt-intf: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip mroute vrf Mgmt-intf static: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip multicast: "  Multicast Routing: disabled\r\n  Multicast Multipath: disabled\r\
+      \n  Multicast Route limit: No limit\r\n  Multicast Fallback group mode: Sparse\r\
+      \n  Number of multicast boundaries configured with filter-autorp option: 0\r\
+      \n  MoFRR: Disabled"
+    show ip multicast vrf Mgmt-intf: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip ospf: " Routing Process \"ospf 1\" with ID 192.168.255.1\r\n Start time:\
+      \ 00:00:30.055, Time elapsed: 02:14:34.814\r\n Supports only single TOS(TOS0)\
+      \ routes\r\n Supports opaque LSA\r\n Supports Link-local Signaling (LLS)\r\n\
+      \ Supports area transit capability\r\n Supports NSSA (compatible with RFC 3101)\r\
+      \n Supports Database Exchange Summary List Optimization (RFC 5243)\r\n Event-log\
+      \ enabled, Maximum number of events: 1000, Mode: cyclic\r\n It is an autonomous\
+      \ system boundary router\r\n Redistributing External Routes from,\r\n    static,\
+      \ includes subnets in redistribution\r\n Router is not originating router-LSAs\
+      \ with maximum metric\r\n Initial SPF schedule delay 5000 msecs\r\n Minimum\
+      \ hold time between two consecutive SPFs 10000 msecs\r\n Maximum wait time between\
+      \ two consecutive SPFs 10000 msecs\r\n Incremental-SPF disabled\r\n Minimum\
+      \ LSA interval 5 secs\r\n Minimum LSA arrival 1000 msecs\r\n LSA group pacing\
+      \ timer 240 secs\r\n Interface flood pacing timer 33 msecs\r\n Retransmission\
+      \ pacing timer 66 msecs\r\n EXCHANGE/LOADING adjacency limit: initial 300, process\
+      \ maximum 300\r\n Number of external LSA 1. Checksum Sum 0x00DA46\r\n Number\
+      \ of opaque AS LSA 0. Checksum Sum 0x000000\r\n Number of DCbitless external\
+      \ and opaque AS LSA 0\r\n Number of DoNotAge external and opaque AS LSA 0\r\n\
+      \ Number of areas in this router is 1. 1 normal 0 stub 0 nssa\r\n Number of\
+      \ areas transit capable is 0\r\n External flood list length 0\r\n IETF NSF helper\
+      \ support enabled\r\n Cisco NSF helper support enabled\r\n Reference bandwidth\
+      \ unit is 100 mbps\r\n    Area BACKBONE(0)\r\n        Number of interfaces in\
+      \ this area is 4 (1 loopback)\r\n\tArea has no authentication\r\n\tSPF algorithm\
+      \ last executed 00:02:21.439 ago\r\n\tSPF algorithm executed 19 times\r\n\t\
+      Area ranges are\r\n\tNumber of LSA 7. Checksum Sum 0x043867\r\n\tNumber of opaque\
+      \ link LSA 0. Checksum Sum 0x000000\r\n\tNumber of DCbitless LSA 0\r\n\tNumber\
+      \ of indication LSA 0\r\n\tNumber of DoNotAge LSA 0\r\n\tFlood list length 0"
+    show ip ospf database external: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)\r\n\r\n\t\tType-5 AS External Link States\r\n\r\n  LS age:\
+      \ 0\r\n  Options: (No TOS-capability, DC, Upward)\r\n  LS Type: AS External\
+      \ Link\r\n  Link State ID: 10.0.128.0 (External Network Number )\r\n  Advertising\
+      \ Router: 192.168.255.1\r\n  LS Seq Number: 80000004\r\n  Checksum: 0xD847\r\
+      \n  Length: 36\r\n  Network Mask: /29\r\n\tMetric Type: 2 (Larger than any link\
+      \ state path)\r\n\tMTID: 0 \r\n\tMetric: 20 \r\n\tForward Address: 10.0.128.5\r\
+      \n\tExternal Route Tag: 0"
+    show ip ospf database network: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)\r\n\r\n\t\tNet Link States (Area 0)\r\n\r\n  LS age: 673\r\n\
+      \  Options: (No TOS-capability, DC)\r\n  LS Type: Network Links\r\n  Link State\
+      \ ID: 10.0.0.4 (address of Designated Router)\r\n  Advertising Router: 192.168.255.7\r\
+      \n  LS Seq Number: 80000001\r\n  Checksum: 0xDB08\r\n  Length: 32\r\n  Network\
+      \ Mask: /29\r\n\tAttached Router: 192.168.255.7\r\n\tAttached Router: 192.168.255.5\r\
+      \n\r\n  LS age: 1505\r\n  Options: (No TOS-capability, DC)\r\n  LS Type: Network\
+      \ Links\r\n  Link State ID: 10.0.0.10 (address of Designated Router)\r\n  Advertising\
+      \ Router: 192.168.255.7\r\n  LS Seq Number: 80000002\r\n  Checksum: 0xB523\r\
+      \n  Length: 32\r\n  Network Mask: /30\r\n\tAttached Router: 192.168.255.7\r\n\
+      \tAttached Router: 192.168.255.5\r\n\r\n  LS age: 1674\r\n  Options: (No TOS-capability,\
+      \ DC)\r\n  LS Type: Network Links\r\n  Link State ID: 10.0.128.10 (address of\
+      \ Designated Router)\r\n  Advertising Router: 192.168.255.5\r\n  LS Seq Number:\
+      \ 80000001\r\n  Checksum: 0xF16F\r\n  Length: 32\r\n  Network Mask: /30\r\n\t\
+      Attached Router: 192.168.255.5\r\n\tAttached Router: 192.168.255.1\r\n\r\n \
+      \ LS age: 15\r\n  Options: (No TOS-capability, DC)\r\n  LS Type: Network Links\r\
+      \n  Link State ID: 10.0.128.14 (address of Designated Router)\r\n  Advertising\
+      \ Router: 192.168.255.7\r\n  LS Seq Number: 80000005\r\n  Checksum: 0xC98B\r\
+      \n  Length: 32\r\n  Network Mask: /30\r\n\tAttached Router: 192.168.255.7\r\n\
+      \tAttached Router: 192.168.255.1"
+    show ip ospf database opaque-area: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)"
+    show ip ospf database router: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)\r\n\r\n\t\tRouter Link States (Area 0)\r\n\r\n  LS age: 152\r\
+      \n  Options: (No TOS-capability, DC)\r\n  LS Type: Router Links\r\n  Link State\
+      \ ID: 192.168.255.1\r\n  Advertising Router: 192.168.255.1\r\n  LS Seq Number:\
+      \ 80000010\r\n  Checksum: 0xAB21\r\n  Length: 72\r\n  AS Boundary Router\r\n\
+      \  Number of Links: 4\r\n\r\n    Link connected to: a Stub Network\r\n     (Link\
+      \ ID) Network/subnet number: 192.168.255.1\r\n     (Link Data) Network Mask:\
+      \ 255.255.255.255\r\n      Number of MTID metrics: 0\r\n       TOS 0 Metrics:\
+      \ 1\r\n\r\n    Link connected to: a Stub Network\r\n     (Link ID) Network/subnet\
+      \ number: 10.0.128.4\r\n     (Link Data) Network Mask: 255.255.255.252\r\n \
+      \     Number of MTID metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link connected\
+      \ to: a Transit Network\r\n     (Link ID) Designated Router address: 10.0.128.14\r\
+      \n     (Link Data) Router Interface address: 10.0.128.13\r\n      Number of\
+      \ MTID metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link connected to: a\
+      \ Transit Network\r\n     (Link ID) Designated Router address: 10.0.128.10\r\
+      \n     (Link Data) Router Interface address: 10.0.128.9\r\n      Number of MTID\
+      \ metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n\r\n  LS age: 662\r\n  Options:\
+      \ (No TOS-capability, DC)\r\n  LS Type: Router Links\r\n  Link State ID: 192.168.255.5\r\
+      \n  Advertising Router: 192.168.255.5\r\n  LS Seq Number: 80000016\r\n  Checksum:\
+      \ 0x3304\r\n  Length: 72\r\n  Number of Links: 4\r\n\r\n    Link connected to:\
+      \ a Stub Network\r\n     (Link ID) Network/subnet number: 192.168.255.5\r\n\
+      \     (Link Data) Network Mask: 255.255.255.255\r\n      Number of MTID metrics:\
+      \ 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link connected to: a Transit Network\r\
+      \n     (Link ID) Designated Router address: 10.0.0.4\r\n     (Link Data) Router\
+      \ Interface address: 10.0.0.2\r\n      Number of MTID metrics: 0\r\n       TOS\
+      \ 0 Metrics: 1\r\n\r\n    Link connected to: a Transit Network\r\n     (Link\
+      \ ID) Designated Router address: 10.0.0.10\r\n     (Link Data) Router Interface\
+      \ address: 10.0.0.9\r\n      Number of MTID metrics: 0\r\n       TOS 0 Metrics:\
+      \ 1\r\n\r\n    Link connected to: a Transit Network\r\n     (Link ID) Designated\
+      \ Router address: 10.0.128.10\r\n     (Link Data) Router Interface address:\
+      \ 10.0.128.10\r\n      Number of MTID metrics: 0\r\n       TOS 0 Metrics: 1\r\
+      \n\r\n\r\n  LS age: 667\r\n  Options: (No TOS-capability, DC)\r\n  LS Type:\
+      \ Router Links\r\n  Link State ID: 192.168.255.7\r\n  Advertising Router: 192.168.255.7\r\
+      \n  LS Seq Number: 80000010\r\n  Checksum: 0xF1D\r\n  Length: 72\r\n  Number\
+      \ of Links: 4\r\n\r\n    Link connected to: a Stub Network\r\n     (Link ID)\
+      \ Network/subnet number: 192.168.255.7\r\n     (Link Data) Network Mask: 255.255.255.255\r\
+      \n      Number of MTID metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link\
+      \ connected to: a Transit Network\r\n     (Link ID) Designated Router address:\
+      \ 10.0.0.4\r\n     (Link Data) Router Interface address: 10.0.0.4\r\n      Number\
+      \ of MTID metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link connected to:\
+      \ a Transit Network\r\n     (Link ID) Designated Router address: 10.0.0.10\r\
+      \n     (Link Data) Router Interface address: 10.0.0.10\r\n      Number of MTID\
+      \ metrics: 0\r\n       TOS 0 Metrics: 1\r\n\r\n    Link connected to: a Transit\
+      \ Network\r\n     (Link ID) Designated Router address: 10.0.128.14\r\n     (Link\
+      \ Data) Router Interface address: 10.0.128.14\r\n      Number of MTID metrics:\
+      \ 0\r\n       TOS 0 Metrics: 1"
+    show ip ospf database summary: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)"
+    show ip ospf interface: "Loopback0 is up, line protocol is up \r\n  Internet Address\
+      \ 192.168.255.1/32, Area 0, Attached via Network Statement\r\n  Process ID 1,\
+      \ Router ID 192.168.255.1, Network Type LOOPBACK, Cost: 1\r\n  Topology-MTID\
+      \    Cost    Disabled    Shutdown      Topology Name\r\n        0          \
+      \ 1         no          no            Base\r\n  Loopback interface is treated\
+      \ as a stub Host\r\nGigabitEthernet0/3 is up, line protocol is up \r\n  Internet\
+      \ Address 10.0.128.6/30, Area 0, Attached via Network Statement\r\n  Process\
+      \ ID 1, Router ID 192.168.255.1, Network Type BROADCAST, Cost: 1\r\n  Topology-MTID\
+      \    Cost    Disabled    Shutdown      Topology Name\r\n        0          \
+      \ 1         no          no            Base\r\n  Transmit Delay is 1 sec, State\
+      \ DR, Priority 1\r\n  Designated Router (ID) 192.168.255.1, Interface address\
+      \ 10.0.128.6\r\n  No backup designated router on this network\r\n  Timer intervals\
+      \ configured, Hello 10, Dead 40, Wait 40, Retransmit 5\r\n    oob-resync timeout\
+      \ 40\r\n    Hello due in 00:00:04\r\n  Supports Link-local Signaling (LLS)\r\
+      \n  Cisco NSF helper support enabled\r\n  IETF NSF helper support enabled\r\n\
+      \  Index 1/4/4, flood queue length 0\r\n  Next 0x0(0)/0x0(0)/0x0(0)\r\n  Last\
+      \ flood scan length is 0, maximum is 0\r\n  Last flood scan time is 0 msec,\
+      \ maximum is 0 msec\r\n  Neighbor Count is 0, Adjacent neighbor count is 0 \r\
+      \n  Suppress hello for 0 neighbor(s)\r\nGigabitEthernet0/2 is up, line protocol\
+      \ is up \r\n  Internet Address 10.0.128.13/30, Area 0, Attached via Network\
+      \ Statement\r\n  Process ID 1, Router ID 192.168.255.1, Network Type BROADCAST,\
+      \ Cost: 1\r\n  Topology-MTID    Cost    Disabled    Shutdown      Topology Name\r\
+      \n        0           1         no          no            Base\r\n  Transmit\
+      \ Delay is 1 sec, State BDR, Priority 1\r\n  Designated Router (ID) 192.168.255.7,\
+      \ Interface address 10.0.128.14\r\n  Backup Designated router (ID) 192.168.255.1,\
+      \ Interface address 10.0.128.13\r\n  Timer intervals configured, Hello 10, Dead\
+      \ 40, Wait 40, Retransmit 5\r\n    oob-resync timeout 40\r\n    Hello due in\
+      \ 00:00:00\r\n  Supports Link-local Signaling (LLS)\r\n  Cisco NSF helper support\
+      \ enabled\r\n  IETF NSF helper support enabled\r\n  Index 1/3/3, flood queue\
+      \ length 0\r\n  Next 0x0(0)/0x0(0)/0x0(0)\r\n  Last flood scan length is 1,\
+      \ maximum is 2\r\n  Last flood scan time is 0 msec, maximum is 2 msec\r\n  Neighbor\
+      \ Count is 1, Adjacent neighbor count is 1 \r\n    Adjacent with neighbor 192.168.255.7\
+      \  (Designated Router)\r\n  Suppress hello for 0 neighbor(s)\r\nGigabitEthernet0/1\
+      \ is up, line protocol is up \r\n  Internet Address 10.0.128.9/30, Area 0, Attached\
+      \ via Network Statement\r\n  Process ID 1, Router ID 192.168.255.1, Network\
+      \ Type BROADCAST, Cost: 1\r\n  Topology-MTID    Cost    Disabled    Shutdown\
+      \      Topology Name\r\n        0           1         no          no       \
+      \     Base\r\n  Transmit Delay is 1 sec, State BDR, Priority 1\r\n  Designated\
+      \ Router (ID) 192.168.255.5, Interface address 10.0.128.10\r\n  Backup Designated\
+      \ router (ID) 192.168.255.1, Interface address 10.0.128.9\r\n  Timer intervals\
+      \ configured, Hello 10, Dead 40, Wait 40, Retransmit 5\r\n    oob-resync timeout\
+      \ 40\r\n    Hello due in 00:00:00\r\n  Supports Link-local Signaling (LLS)\r\
+      \n  Cisco NSF helper support enabled\r\n  IETF NSF helper support enabled\r\n\
+      \  Index 1/2/2, flood queue length 0\r\n  Next 0x0(0)/0x0(0)/0x0(0)\r\n  Last\
+      \ flood scan length is 1, maximum is 4\r\n  Last flood scan time is 1 msec,\
+      \ maximum is 1 msec\r\n  Neighbor Count is 1, Adjacent neighbor count is 1 \r\
+      \n    Adjacent with neighbor 192.168.255.5  (Designated Router)\r\n  Suppress\
+      \ hello for 0 neighbor(s)"
+    show ip ospf interface | section GigabitEthernet0/1: "GigabitEthernet0/1 is up,\
+      \ line protocol is up \r\n  Internet Address 10.0.128.9/30, Area 0, Attached\
+      \ via Network Statement\r\n  Process ID 1, Router ID 192.168.255.1, Network\
+      \ Type BROADCAST, Cost: 1\r\n  Topology-MTID    Cost    Disabled    Shutdown\
+      \      Topology Name\r\n        0           1         no          no       \
+      \     Base\r\n  Transmit Delay is 1 sec, State BDR, Priority 1\r\n  Designated\
+      \ Router (ID) 192.168.255.5, Interface address 10.0.128.10\r\n  Backup Designated\
+      \ router (ID) 192.168.255.1, Interface address 10.0.128.9\r\n  Timer intervals\
+      \ configured, Hello 10, Dead 40, Wait 40, Retransmit 5\r\n    oob-resync timeout\
+      \ 40\r\n    Hello due in 00:00:06\r\n  Supports Link-local Signaling (LLS)\r\
+      \n  Cisco NSF helper support enabled\r\n  IETF NSF helper support enabled\r\n\
+      \  Index 1/2/2, flood queue length 0\r\n  Next 0x0(0)/0x0(0)/0x0(0)\r\n  Last\
+      \ flood scan length is 1, maximum is 4\r\n  Last flood scan time is 1 msec,\
+      \ maximum is 1 msec\r\n  Neighbor Count is 1, Adjacent neighbor count is 1 \r\
+      \n    Adjacent with neighbor 192.168.255.5  (Designated Router)\r\n  Suppress\
+      \ hello for 0 neighbor(s)"
+    show ip ospf interface | section GigabitEthernet0/2: "GigabitEthernet0/2 is up,\
+      \ line protocol is up \r\n  Internet Address 10.0.128.13/30, Area 0, Attached\
+      \ via Network Statement\r\n  Process ID 1, Router ID 192.168.255.1, Network\
+      \ Type BROADCAST, Cost: 1\r\n  Topology-MTID    Cost    Disabled    Shutdown\
+      \      Topology Name\r\n        0           1         no          no       \
+      \     Base\r\n  Transmit Delay is 1 sec, State BDR, Priority 1\r\n  Designated\
+      \ Router (ID) 192.168.255.7, Interface address 10.0.128.14\r\n  Backup Designated\
+      \ router (ID) 192.168.255.1, Interface address 10.0.128.13\r\n  Timer intervals\
+      \ configured, Hello 10, Dead 40, Wait 40, Retransmit 5\r\n    oob-resync timeout\
+      \ 40\r\n    Hello due in 00:00:00\r\n  Supports Link-local Signaling (LLS)\r\
+      \n  Cisco NSF helper support enabled\r\n  IETF NSF helper support enabled\r\n\
+      \  Index 1/3/3, flood queue length 0\r\n  Next 0x0(0)/0x0(0)/0x0(0)\r\n  Last\
+      \ flood scan length is 1, maximum is 2\r\n  Last flood scan time is 0 msec,\
+      \ maximum is 2 msec\r\n  Neighbor Count is 1, Adjacent neighbor count is 1 \r\
+      \n    Adjacent with neighbor 192.168.255.7  (Designated Router)\r\n  Suppress\
+      \ hello for 0 neighbor(s)"
+    show ip ospf mpls ldp interface: "Loopback0\r\n  Process ID 1, Area 0\r\n  LDP\
+      \ is not configured through LDP autoconfig\r\n  LDP-IGP Synchronization : Not\
+      \ required\r\n  Holddown timer is disabled\r\n  Interface is up \r\nGigabitEthernet0/3\r\
+      \n  Process ID 1, Area 0\r\n  LDP is not configured through LDP autoconfig\r\
+      \n  LDP-IGP Synchronization : Not required\r\n  Holddown timer is disabled\r\
+      \n  Interface is up \r\nGigabitEthernet0/2\r\n  Process ID 1, Area 0\r\n  LDP\
+      \ is not configured through LDP autoconfig\r\n  LDP-IGP Synchronization : Not\
+      \ required\r\n  Holddown timer is disabled\r\n  Interface is up \r\nGigabitEthernet0/1\r\
+      \n  Process ID 1, Area 0\r\n  LDP is not configured through LDP autoconfig\r\
+      \n  LDP-IGP Synchronization : Not required\r\n  Holddown timer is disabled\r\
+      \n  Interface is up"
+    show ip ospf mpls traffic-eng link: "\r\n            OSPF Router with ID (192.168.255.1)\
+      \ (Process ID 1)\r\n\r\n  Area 0 MPLS TE not initialized"
+    show ip ospf neighbor detail: " Neighbor 192.168.255.7, interface address 10.0.128.14\r\
+      \n    In the area 0 via interface GigabitEthernet0/2\r\n    Neighbor priority\
+      \ is 1, State is FULL, 6 state changes\r\n    DR is 10.0.128.14 BDR is 10.0.128.13\r\
+      \n    Options is 0x12 in Hello (E-bit, L-bit)\r\n    Options is 0x52 in DBD\
+      \ (E-bit, L-bit, O-bit)\r\n    LLS Options is 0x1 (LR)\r\n    Dead timer due\
+      \ in 00:00:37\r\n    Neighbor is up for 02:14:33\r\n    Index 1/2/2, retransmission\
+      \ queue length 0, number of retransmission 2\r\n    First 0x0(0)/0x0(0)/0x0(0)\
+      \ Next 0x0(0)/0x0(0)/0x0(0)\r\n    Last retransmission scan length is 1, maximum\
+      \ is 1\r\n    Last retransmission scan time is 1 msec, maximum is 1 msec\r\n\
+      \ Neighbor 192.168.255.5, interface address 10.0.128.10\r\n    In the area 0\
+      \ via interface GigabitEthernet0/1\r\n    Neighbor priority is 1, State is FULL,\
+      \ 6 state changes\r\n    DR is 10.0.128.10 BDR is 10.0.128.9\r\n    Options\
+      \ is 0x12 in Hello (E-bit, L-bit)\r\n    Options is 0x52 in DBD (E-bit, L-bit,\
+      \ O-bit)\r\n    LLS Options is 0x1 (LR)\r\n    Dead timer due in 00:00:32\r\n\
+      \    Neighbor is up for 00:28:10\r\n    Index 1/1/1, retransmission queue length\
+      \ 0, number of retransmission 0\r\n    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)\r\
+      \n    Last retransmission scan length is 0, maximum is 0\r\n    Last retransmission\
+      \ scan time is 0 msec, maximum is 0 msec"
+    show ip ospf sham-links: ''
+    show ip ospf virtual-links: ''
+    show ip pim bsr-router: PIMv2 Bootstrap information
+    show ip pim interface: "\r\nAddress          Interface                Ver/   Nbr\
+      \    Query  DR         DR\r\n                                          Mode\
+      \   Count  Intvl  Prior"
+    show ip pim interface detail: ''
+    show ip pim interface df: "* implies this system is the DF\r\nInterface      \
+      \          RP               DF Winner        Metric     Uptime"
+    show ip pim neighbor: "PIM Neighbor Table\r\nMode: B - Bidir Capable, DR - Designated\
+      \ Router, N - Default DR Priority,\r\n      P - Proxy Capable, S - State Refresh\
+      \ Capable, G - GenID Capable,\r\n      L - DR Load-balancing Capable\r\nNeighbor\
+      \          Interface                Uptime/Expires    Ver   DR\r\nAddress  \
+      \                                                          Prio/Mode"
+    show ip pim rp mapping: PIM Group-to-RP Mappings
+    show ip pim vrf Mgmt-intf bsr-router: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip pim vrf Mgmt-intf interface: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip pim vrf Mgmt-intf interface detail: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip pim vrf Mgmt-intf interface df: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip pim vrf Mgmt-intf neighbor: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip pim vrf Mgmt-intf rp mapping: '% Multicast not enabled for vrf Mgmt-intf'
+    show ip prefix-list detail: Prefix-list with the last deletion/insertion NOT present
+    show ip protocols: "*** IP Routing is NSF aware ***\r\n\r\nRouting Protocol is\
+      \ \"application\"\r\n  Sending updates every 0 seconds\r\n  Invalid after 0\
+      \ seconds, hold down 0, flushed after 0\r\n  Outgoing update filter list for\
+      \ all interfaces is not set\r\n  Incoming update filter list for all interfaces\
+      \ is not set\r\n  Maximum path: 32\r\n  Routing for Networks:\r\n  Routing Information\
+      \ Sources:\r\n    Gateway         Distance      Last Update\r\n  Distance: (default\
+      \ is 4)\r\n\r\nRouting Protocol is \"ospf 1\"\r\n  Outgoing update filter list\
+      \ for all interfaces is not set\r\n  Incoming update filter list for all interfaces\
+      \ is not set\r\n  Router ID 192.168.255.1\r\n  It is an autonomous system boundary\
+      \ router\r\n Redistributing External Routes from,\r\n    static, includes subnets\
+      \ in redistribution\r\n  Number of areas in this router is 1. 1 normal 0 stub\
+      \ 0 nssa\r\n  Maximum path: 4\r\n  Routing for Networks:\r\n    10.0.128.4 0.0.0.3\
+      \ area 0\r\n    10.0.128.8 0.0.0.3 area 0\r\n    10.0.128.12 0.0.0.3 area 0\r\
+      \n    192.168.255.1 0.0.0.0 area 0\r\n  Passive Interface(s):\r\n    Loopback0\r\
+      \n  Routing Information Sources:\r\n    Gateway         Distance      Last Update\r\
+      \n    192.168.255.7        110      00:11:00\r\n    192.168.255.5        110\
+      \      00:24:23\r\n  Distance: (default is 110)\r\n\r\nRouting Protocol is \"\
+      bgp 1\"\r\n  Outgoing update filter list for all interfaces is not set\r\n \
+      \ Incoming update filter list for all interfaces is not set\r\n  IGP synchronization\
+      \ is disabled\r\n  Automatic route summarization is disabled\r\n  Neighbor(s):\r\
+      \n    Address          FiltIn FiltOut DistIn DistOut Weight RouteMap\r\n   \
+      \ 192.168.255.5                                        \r\n    192.168.255.7\
+      \                                        \r\n  Maximum path: 1\r\n  Routing\
+      \ Information Sources:\r\n    Gateway         Distance      Last Update\r\n\
+      \    192.168.255.7        200      02:12:32\r\n    192.168.255.5        200\
+      \      00:32:11\r\n  Distance: external 20 internal 200 local 200"
+    show ip route: "Codes: L - local, C - connected, S - static, R - RIP, M - mobile,\
+      \ B - BGP\r\n       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter\
+      \ area \r\n       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type\
+      \ 2\r\n       E1 - OSPF external type 1, E2 - OSPF external type 2\r\n     \
+      \  i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2\r\n\
+      \       ia - IS-IS inter area, * - candidate default, U - per-user static route\r\
+      \n       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP\r\
+      \n       a - application route\r\n       + - replicated route, % - next hop\
+      \ override, p - overrides from PfR\r\n\r\nGateway of last resort is not set\r\
+      \n\r\n      10.0.0.0/8 is variably subnetted, 9 subnets, 3 masks\r\nO      \
+      \  10.0.0.0/29 [110/2] via 10.0.128.14, 02:14:33, GigabitEthernet0/2\r\n   \
+      \                  [110/2] via 10.0.128.10, 00:12:07, GigabitEthernet0/1\r\n\
+      O        10.0.0.8/30 [110/2] via 10.0.128.14, 02:14:33, GigabitEthernet0/2\r\
+      \n                     [110/2] via 10.0.128.10, 00:28:53, GigabitEthernet0/1\r\
+      \nS        10.0.128.0/29 [1/0] via 10.0.128.5\r\nC        10.0.128.4/30 is directly\
+      \ connected, GigabitEthernet0/3\r\nL        10.0.128.6/32 is directly connected,\
+      \ GigabitEthernet0/3\r\nC        10.0.128.8/30 is directly connected, GigabitEthernet0/1\r\
+      \nL        10.0.128.9/32 is directly connected, GigabitEthernet0/1\r\nC    \
+      \    10.0.128.12/30 is directly connected, GigabitEthernet0/2\r\nL        10.0.128.13/32\
+      \ is directly connected, GigabitEthernet0/2\r\n      192.168.255.0/32 is subnetted,\
+      \ 3 subnets\r\nC        192.168.255.1 is directly connected, Loopback0\r\nO\
+      \        192.168.255.5 [110/2] via 10.0.128.10, 00:28:53, GigabitEthernet0/1\r\
+      \nO        192.168.255.7 [110/2] via 10.0.128.14, 02:14:33, GigabitEthernet0/2"
+    show ip route vrf Mgmt-intf: "\r\nRouting Table: Mgmt-intf\r\nCodes: L - local,\
+      \ C - connected, S - static, R - RIP, M - mobile, B - BGP\r\n       D - EIGRP,\
+      \ EX - EIGRP external, O - OSPF, IA - OSPF inter area \r\n       N1 - OSPF NSSA\
+      \ external type 1, N2 - OSPF NSSA external type 2\r\n       E1 - OSPF external\
+      \ type 1, E2 - OSPF external type 2\r\n       i - IS-IS, su - IS-IS summary,\
+      \ L1 - IS-IS level-1, L2 - IS-IS level-2\r\n       ia - IS-IS inter area, *\
+      \ - candidate default, U - per-user static route\r\n       o - ODR, P - periodic\
+      \ downloaded static route, H - NHRP, l - LISP\r\n       a - application route\r\
+      \n       + - replicated route, % - next hop override, p - overrides from PfR\r\
+      \n\r\nGateway of last resort is 172.16.30.254 to network 0.0.0.0\r\n\r\nS* \
+      \   0.0.0.0/0 [1/0] via 172.16.30.254\r\n      172.16.0.0/16 is variably subnetted,\
+      \ 2 subnets, 2 masks\r\nC        172.16.30.0/24 is directly connected, GigabitEthernet0/0\r\
+      \nL        172.16.30.80/32 is directly connected, GigabitEthernet0/0"
+    show ip static route: "Codes: M - Manual static, A - AAA download, N - IP NAT,\
+      \ D - DHCP,\r\n       G - GPRS, V - Crypto VPN, C - CASA, P - Channel interface\
+      \ processor,\r\n       B - BootP, S - Service selection gateway\r\n       DN\
+      \ - Default Network, T - Tracking object\r\n       L - TL1, E - OER, I - iEdge\r\
+      \n       D1 - Dot1x Vlan Network, K - MWAM Route\r\n       PP - PPP default\
+      \ route, MR - MRIPv6, SS - SSLVPN\r\n       H - IPe Host, ID - IPe Domain Broadcast\r\
+      \n       U - User GPRS, TE - MPLS Traffic-eng, LI - LIIN\r\n       IR - ICMP\
+      \ Redirect\r\nCodes in []: A - active, N - non-active, B - BFD-tracked, D -\
+      \ Not Tracked, P - permanent\r\n\r\nStatic local RIB for default \r\n\r\nM \
+      \ 10.0.128.0/29 [1/0] via 10.0.128.5 [A]"
+    show ip static route vrf Mgmt-intf: "Codes: M - Manual static, A - AAA download,\
+      \ N - IP NAT, D - DHCP,\r\n       G - GPRS, V - Crypto VPN, C - CASA, P - Channel\
+      \ interface processor,\r\n       B - BootP, S - Service selection gateway\r\n\
+      \       DN - Default Network, T - Tracking object\r\n       L - TL1, E - OER,\
+      \ I - iEdge\r\n       D1 - Dot1x Vlan Network, K - MWAM Route\r\n       PP -\
+      \ PPP default route, MR - MRIPv6, SS - SSLVPN\r\n       H - IPe Host, ID - IPe\
+      \ Domain Broadcast\r\n       U - User GPRS, TE - MPLS Traffic-eng, LI - LIIN\r\
+      \n       IR - ICMP Redirect\r\nCodes in []: A - active, N - non-active, B -\
+      \ BFD-tracked, D - Not Tracked, P - permanent\r\n\r\nStatic local RIB for Mgmt-intf\
+      \ \r\n\r\nM  0.0.0.0/0 [1/0] via 172.16.30.254 [A]"
+    show ip traffic: "IP statistics:\r\n  Rcvd:  25345 total, 25335 local destination\r\
+      \n         0 format errors, 0 checksum errors, 0 bad hop count\r\n         0\
+      \ unknown protocol, 0 not a gateway\r\n         0 security failures, 0 bad options,\
+      \ 0 with options\r\n  Opts:  0 end, 0 nop, 0 basic security, 0 loose source\
+      \ route\r\n         0 timestamp, 0 extended security, 0 record route\r\n   \
+      \      0 stream ID, 0 strict source route, 0 alert, 0 cipso, 0 ump\r\n     \
+      \    0 other\r\n  Frags: 0 reassembled, 0 timeouts, 0 couldn't reassemble\r\n\
+      \         0 fragmented, 0 fragments, 0 couldn't fragment\r\n         0 invalid\
+      \ hole\r\n  Bcast: 48 received, 40 sent\r\n  Mcast: 1747 received, 2607 sent\r\
+      \n  Sent:  27727 generated, 25 forwarded\r\n  Drop:  5 encapsulation failed,\
+      \ 0 unresolved, 0 no adjacency\r\n         0 no route, 0 unicast RPF, 0 forced\
+      \ drop\r\n         0 options denied\r\n  Drop:  0 packets with source IP address\
+      \ zero\r\n  Drop:  0 packets with internal loop back IP address\r\n        \
+      \ 0 physical broadcast\r\n  Reinj: 0 in input feature path, 0 in output feature\
+      \ path\r\n\r\nICMP statistics:\r\n  Rcvd: 0 format errors, 0 checksum errors,\
+      \ 0 redirects, 0 unreachable\r\n        2918 echo, 0 echo reply, 0 mask requests,\
+      \ 0 mask replies, 0 quench\r\n        0 parameter, 0 timestamp, 0 timestamp\
+      \ replies, 0 info request, 0 other\r\n        0 irdp solicitations, 0 irdp advertisements\r\
+      \n        0 time exceeded, 0 info replies\r\n  Sent: 0 redirects, 0 unreachable,\
+      \ 0 echo, 2918 echo reply\r\n        0 mask requests, 0 mask replies, 0 quench,\
+      \ 0 timestamp, 0 timestamp replies\r\n        0 info reply, 0 time exceeded,\
+      \ 0 parameter problem\r\n        0 irdp solicitations, 0 irdp advertisements\r\
+      \n\r\nUDP statistics:\r\n  Rcvd: 38 total, 0 checksum errors, 38 no port 0 finput\r\
+      \n  Sent: 40 total, 0 forwarded broadcasts\r\n\r\nBGP statistics:\r\n  Rcvd:\
+      \ 297 total, 2 opens, 0 notifications, 4 updates\r\n        291 keepalives,\
+      \ 0 route-refresh, 0 unrecognized\r\n  Sent: 293 total, 2 opens, 0 notifications,\
+      \ 0 updates\r\n        291 keepalives, 0 route-refresh\r\n\r\nTCP statistics:\r\
+      \n  Rcvd: 20615 total, 0 checksum errors, 8 no port\r\n  Sent: 22140 total\r\
+      \n\r\nEIGRP-IPv4 statistics:\r\n  Rcvd: 0 total\r\n  Sent: 0 total\r\n\r\nPIMv2\
+      \ statistics: Sent/Received\r\n  Total: 0/0, 0 checksum errors, 0 format errors\r\
+      \n  Registers: 0/0 (0 non-rp, 0 non-sm-group), Register Stops: 0/0,  Hellos:\
+      \ 0/0\r\n  Join/Prunes: 0/0, Asserts: 0/0, grafts: 0/0\r\n  Bootstraps: 0/0,\
+      \ Candidate_RP_Advertisements: 0/0\r\n  Queue drops: 0\r\n  State-Refresh: 0/0\r\
+      \n\r\nIGMP statistics: Sent/Received\r\n  Total: 0/0, Format errors: 0/0, Checksum\
+      \ errors: 0/0\r\n  Host Queries: 0/0, Host Reports: 0/0, Host Leaves: 0/0 \r\
+      \n  DVMRP: 0/0, PIM: 0/0\r\n  Queue drops: 0\r\n\r\nOSPF statistics:\r\n  Last\
+      \ clearing of OSPF traffic counters never\r\n  Rcvd: 1739 total, 0 checksum\
+      \ errors\r\n  \t1624 hello, 8 database desc, 2 link state req\r\n  \t77 link\
+      \ state updates, 28 link state acks\r\n  Sent: 2645 total\r\n  \t2501 hello,\
+      \ 17 database desc, 2 link state req\r\n  \t82 link state updates, 49 link state\
+      \ acks\r\n\r\nARP statistics:\r\n  Rcvd: 335 requests, 42 replies, 0 reverse,\
+      \ 0 other\r\n  Sent: 5 requests, 103 replies (0 proxy), 0 reverse\r\n  Drop\
+      \ due to input queue full: 0"
+    show ipv6 interface: ''
+    show ipv6 mld groups detail: No groups found.
+    show ipv6 mld interface: No interfaces found.
+    show ipv6 mld vrf Mgmt-intf groups detail: No groups found.
+    show ipv6 mld vrf Mgmt-intf interface: No interfaces found.
+    show ipv6 mroute: No mroute entries found.
+    show ipv6 mroute vrf Mgmt-intf: No mroute entries found.
+    show ipv6 pim bsr candidate-rp: No C-RP information found
+    show ipv6 pim bsr election: No BSR information found
+    show ipv6 pim interface: No interfaces found.
+    show ipv6 pim neighbor: No neighbors found.
+    show ipv6 pim vrf Mgmt-intf bsr candidate-rp: No C-RP information found
+    show ipv6 pim vrf Mgmt-intf bsr election: No BSR information found
+    show ipv6 pim vrf Mgmt-intf interface: No interfaces found.
+    show ipv6 pim vrf Mgmt-intf neighbor: No neighbors found.
+    show ipv6 prefix-list detail: Prefix-list with the last deletion/insertion NOT
+      present
+    show ipv6 route updated: "IPv6 Routing Table - default - 1 entries\r\nCodes: C\
+      \ - Connected, L - Local, S - Static, U - Per-user Static route\r\n       B\
+      \ - BGP, HA - Home Agent, MR - Mobile Router, R - RIP\r\n       H - NHRP, I1\
+      \ - ISIS L1, I2 - ISIS L2, IA - ISIS interarea\r\n       IS - ISIS summary,\
+      \ D - EIGRP, EX - EIGRP external, NM - NEMO\r\n       RL - RPL, O - OSPF Intra,\
+      \ OI - OSPF Inter, OE1 - OSPF ext 1\r\n       OE2 - OSPF ext 2, ON1 - OSPF NSSA\
+      \ ext 1, ON2 - OSPF NSSA ext 2\r\n       la - LISP alt, lr - LISP site-registrations,\
+      \ ld - LISP dyn-eid\r\n       lA - LISP away, a - Application\r\nL   FF00::/8\
+      \ [0/0]\r\n     via Null0, receive\r\n      Last updated 18:26:40 23 March 2019"
+    show ipv6 route vrf Mgmt-intf updated: "IPv6 Routing Table - Mgmt-intf - 1 entries\r\
+      \nCodes: C - Connected, L - Local, S - Static, U - Per-user Static route\r\n\
+      \       B - BGP, HA - Home Agent, MR - Mobile Router, R - RIP\r\n       H -\
+      \ NHRP, I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea\r\n       IS - ISIS\
+      \ summary, D - EIGRP, EX - EIGRP external, NM - NEMO\r\n       RL - RPL, O -\
+      \ OSPF Intra, OI - OSPF Inter, OE1 - OSPF ext 1\r\n       OE2 - OSPF ext 2,\
+      \ ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2\r\n       la - LISP alt, lr -\
+      \ LISP site-registrations, ld - LISP dyn-eid\r\n       lA - LISP away, a - Application\r\
+      \nL   FF00::/8 [0/0]\r\n     via Null0, receive\r\n      Last updated 18:26:40\
+      \ 23 March 2019"
+    show ipv6 static detail: "IPv6 Static routes Table - default\r\nCodes: * - installed\
+      \ in RIB, u/m - Unicast/Multicast only\r\n       U - Per-user Static route\r\
+      \n       N - ND Static route\r\n       M - MIP Static route\r\n       P - DHCP-PD\
+      \ Static route\r\n       R - RHI Static route"
+    show ipv6 static vrf Mgmt-intf detail: "IPv6 Static routes Table - Mgmt-intf\r\
+      \nCodes: * - installed in RIB, u/m - Unicast/Multicast only\r\n       U - Per-user\
+      \ Static route\r\n       N - ND Static route\r\n       M - MIP Static route\r\
+      \n       P - DHCP-PD Static route\r\n       R - RHI Static route"
+    show lacp counters: "show lacp counters\r\n       ^\r\n% Invalid input detected\
+      \ at '^' marker."
+    show lacp neighbor: "show lacp neighbor\r\n       ^\r\n% Invalid input detected\
+      \ at '^' marker."
+    show lacp sys-id: "show lacp sys-id\r\n       ^\r\n% Invalid input detected at\
+      \ '^' marker."
+    show lisp all service ethernet: "show lisp all service ethernet\r\n          \
+      \     ^\r\n% Invalid input detected at '^' marker."
+    show lisp all service ethernet summary: "show lisp all service ethernet summary\r\
+      \n               ^\r\n% Invalid input detected at '^' marker."
+    show lisp all service ipv4: "show lisp all service ipv4\r\n               ^\r\n\
+      % Invalid input detected at '^' marker."
+    show lisp all service ipv4 summary: "show lisp all service ipv4 summary\r\n  \
+      \             ^\r\n% Invalid input detected at '^' marker."
+    show lisp all service ipv6: "show lisp all service ipv6\r\n               ^\r\n\
+      % Invalid input detected at '^' marker."
+    show lisp all service ipv6 summary: "show lisp all service ipv6 summary\r\n  \
+      \             ^\r\n% Invalid input detected at '^' marker."
+    show lldp: '% LLDP is not enabled'
+    show lldp interface: '% LLDP is not enabled'
+    show lldp neighbors detail: '% LLDP is not enabled'
+    show lldp traffic: '% LLDP is not enabled'
+    show mac address-table: "show mac address-table\r\n        ^\r\n% Invalid input\
+      \ detected at '^' marker."
+    show mac address-table aging-time: "show mac address-table aging-time\r\n    \
+      \    ^\r\n% Invalid input detected at '^' marker."
+    show mac address-table learning: "show mac address-table learning\r\n        ^\r\
+      \n% Invalid input detected at '^' marker."
+    show ntp associations: ''
+    show ntp config: ' Ntp process is not runing'
+    show ntp status: '%NTP is not enabled.'
+    show pagp  counters: "show pagp  counters\r\n       ^\r\n% Invalid input detected\
+      \ at '^' marker."
+    show pagp internal: "show pagp internal\r\n       ^\r\n% Invalid input detected\
+      \ at '^' marker."
+    show pagp neighbor: "show pagp neighbor\r\n       ^\r\n% Invalid input detected\
+      \ at '^' marker."
+    show redundancy: "Redundant System Information :\r\n------------------------------\r\
+      \n       Available system uptime = 0 minutes\r\nSwitchovers system experienced\
+      \ = 0\r\n              Standby failures = 0\r\n        Last switchover reason\
+      \ = unsupported\r\n\r\n                 Hardware Mode = Simplex\r\n        \
+      \      Maintenance Mode = Disabled\r\n                Communications = Down\
+      \      Reason: Failure\r\n\r\nCurrent Processor Information :\r\n-------------------------------\r\
+      \n               Active Location = slot 0\r\n        Current Software state\
+      \ = ACTIVE\r\n       Uptime in current state = 2 hours, 15 minutes\r\n     \
+      \            Image Version = Cisco IOS Software, IOSv Software (VIOS-ADVENTERPRISEK9-M),\
+      \ Version 15.7(3)M3, RELEASE SOFTWARE (fc2)\r\nTechnical Support: http://www.cisco.com/techsupport\r\
+      \nCopyright (c) 1986-2018 by Cisco Systems, Inc.\r\nCompiled Wed 01-Aug-18 16:45\
+      \ by prod_rel_team\r\n        Configuration register = 0x0\r\n\r\nPeer (slot:\
+      \ 0) information is not available because it is in 'DISABLED' state"
+    show route-map all: "STATIC routemaps\r\nDYNAMIC routemaps\r\nCurrent active dynamic\
+      \ routemaps = 0"
+    show running-config: "Building configuration...\r\n\r\n  \r\nCurrent configuration\
+      \ : 4476 bytes\r\n!\r\n! Last configuration change at 20:39:33 UTC Sat Mar 23\
+      \ 2019 by cisco\r\n!\r\nversion 15.7\r\nservice timestamps debug datetime msec\r\
+      \nservice timestamps log datetime msec\r\nno service password-encryption\r\n\
+      !\r\nhostname rtr1\r\n!\r\nboot-start-marker\r\nboot-end-marker\r\n!\r\n!\r\n\
+      vrf definition Mgmt-intf\r\n !\r\n address-family ipv4\r\n exit-address-family\r\
+      \n !\r\n address-family ipv6\r\n exit-address-family\r\n!\r\nno logging console\r\
+      \nenable password cisco\r\n!\r\nno aaa new-model\r\n!\r\n!\r\n!\r\nmmi polling-interval\
+      \ 60\r\nno mmi auto-configure\r\nno mmi pvc\r\nmmi snmp-timeout 180\r\n!\r\n\
+      !\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\nno ip domain lookup\r\nip\
+      \ domain name virl.info\r\nip cef\r\nipv6 unicast-routing\r\nipv6 cef\r\n!\r\
+      \nmultilink bundle-name authenticated\r\n!\r\n!\r\n!\r\n!\r\nusername cisco\
+      \ privilege 15 secret 5 $1$KCUf$Fy2pLu.NyOs8YwY5WulgY0\r\n!\r\nredundancy\r\n\
+      !\r\n!\r\n! \r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n!\r\n\
+      interface Loopback0\r\n description Loopback\r\n ip address 192.168.255.1 255.255.255.255\r\
+      \n!\r\ninterface GigabitEthernet0/0\r\n description OOB Management\r\n vrf forwarding\
+      \ Mgmt-intf\r\n ip address 172.16.30.80 255.255.255.0\r\n duplex full\r\n speed\
+      \ auto\r\n media-type rj45\r\n!\r\ninterface GigabitEthernet0/1\r\n description\
+      \ to rtr2\r\n ip address 10.0.128.9 255.255.255.252\r\n ip ospf cost 1\r\n duplex\
+      \ full\r\n speed auto\r\n media-type rj45\r\n!\r\ninterface GigabitEthernet0/2\r\
+      \n description to rtr3\r\n ip address 10.0.128.13 255.255.255.252\r\n ip ospf\
+      \ cost 1\r\n duplex auto\r\n speed 10\r\n media-type rj45\r\n!\r\ninterface\
+      \ GigabitEthernet0/3\r\n description to fw1\r\n ip address 10.0.128.6 255.255.255.252\r\
+      \n ip ospf cost 1\r\n duplex full\r\n speed auto\r\n media-type rj45\r\n!\r\n\
+      router ospf 1\r\n redistribute static subnets\r\n passive-interface Loopback0\r\
+      \n network 10.0.128.4 0.0.0.3 area 0\r\n network 10.0.128.8 0.0.0.3 area 0\r\
+      \n network 10.0.128.12 0.0.0.3 area 0\r\n network 192.168.255.1 0.0.0.0 area\
+      \ 0\r\n!\r\nrouter bgp 1\r\n bgp router-id 192.168.255.1\r\n bgp log-neighbor-changes\r\
+      \n neighbor 192.168.255.5 remote-as 1\r\n neighbor 192.168.255.5 description\
+      \ iBGP peer rtr2\r\n neighbor 192.168.255.5 update-source Loopback0\r\n neighbor\
+      \ 192.168.255.7 remote-as 1\r\n neighbor 192.168.255.7 description iBGP peer\
+      \ rtr3\r\n neighbor 192.168.255.7 update-source Loopback0\r\n !\r\n address-family\
+      \ ipv4\r\n  network 192.168.255.1 mask 255.255.255.255\r\n  neighbor 192.168.255.5\
+      \ activate\r\n  neighbor 192.168.255.7 activate\r\n exit-address-family\r\n\
+      !\r\nip forward-protocol nd\r\n!\r\n!\r\nno ip http server\r\nno ip http secure-server\r\
+      \nip route 10.0.128.0 255.255.255.248 10.0.128.5\r\nip route vrf Mgmt-intf 0.0.0.0\
+      \ 0.0.0.0 172.16.30.254\r\nip ssh server algorithm authentication password\r\
+      \n!\r\nipv6 ioam timestamp\r\n!\r\n!\r\n!\r\ncontrol-plane\r\n!\r\nbanner exec\
+      \ ^C\r\n**************************************************************************\r\
+      \n* IOSv is strictly limited to use for evaluation, demonstration and IOS  *\r\
+      \n* education. IOSv is provided as-is and is not supported by Cisco's      *\r\
+      \n* Technical Advisory Center. Any use or disclosure, in whole or in part, *\r\
+      \n* of the IOSv Software or Documentation to any third party for any       *\r\
+      \n* purposes is expressly prohibited except as otherwise authorized by     *\r\
+      \n* Cisco in writing.                                                      *\r\
+      \n**************************************************************************^C\r\
+      \nbanner incoming ^C\r\n**************************************************************************\r\
+      \n* IOSv is strictly limited to use for evaluation, demonstration and IOS  *\r\
+      \n* education. IOSv is provided as-is and is not supported by Cisco's      *\r\
+      \n* Technical Advisory Center. Any use or disclosure, in whole or in part, *\r\
+      \n* of the IOSv Software or Documentation to any third party for any       *\r\
+      \n* purposes is expressly prohibited except as otherwise authorized by     *\r\
+      \n* Cisco in writing.                                                      *\r\
+      \n**************************************************************************^C\r\
+      \nbanner login ^C\r\n**************************************************************************\r\
+      \n* IOSv is strictly limited to use for evaluation, demonstration and IOS  *\r\
+      \n* education. IOSv is provided as-is and is not supported by Cisco's      *\r\
+      \n* Technical Advisory Center. Any use or disclosure, in whole or in part, *\r\
+      \n* of the IOSv Software or Documentation to any third party for any       *\r\
+      \n* purposes is expressly prohibited except as otherwise authorized by     *\r\
+      \n* Cisco in writing.                                                      *\r\
+      \n**************************************************************************^C\r\
+      \n!\r\nline con 0\r\n exec-timeout 0 0\r\n password cisco\r\nline aux 0\r\n\
+      line vty 0 4\r\n exec-timeout 720 0\r\n password cisco\r\n login local\r\n transport\
+      \ input telnet ssh\r\n!\r\nno scheduler allocate\r\n!\r\nend"
+    show running-config | section router ospf 1: "router ospf 1\r\n redistribute static\
+      \ subnets\r\n passive-interface Loopback0\r\n network 10.0.128.4 0.0.0.3 area\
+      \ 0\r\n network 10.0.128.8 0.0.0.3 area 0\r\n network 10.0.128.12 0.0.0.3 area\
+      \ 0\r\n network 192.168.255.1 0.0.0.0 area 0"
+    show spanning-tree: "\r\nNo spanning tree instances exist."
+    show spanning-tree detail: "show spanning-tree detail\r\n                   ^\r\
+      \n% Invalid input detected at '^' marker."
+    show spanning-tree mst configuration: "show spanning-tree mst configuration\r\n\
+      \                   ^\r\n% Invalid input detected at '^' marker."
+    show spanning-tree mst detail: "show spanning-tree mst detail\r\n            \
+      \       ^\r\n% Invalid input detected at '^' marker."
+    show spanning-tree summary: "Root bridge for: none.\r\nPortFast BPDU Guard is\
+      \ disabled\r\nUplinkFast is disabled\r\nBackboneFast is disabled\r\n\r\nName\
+      \                 Blocking Listening Learning Forwarding STP Active\r\n--------------------\
+      \ -------- --------- -------- ---------- ----------\r\n               Total\
+      \ 0        0         0        0          0"
+    show standby all: ''
+    show standby delay: Interface          Minimum Reload
+    show version: "Cisco IOS Software, IOSv Software (VIOS-ADVENTERPRISEK9-M), Version\
+      \ 15.7(3)M3, RELEASE SOFTWARE (fc2)\r\nTechnical Support: http://www.cisco.com/techsupport\r\
+      \nCopyright (c) 1986-2018 by Cisco Systems, Inc.\r\nCompiled Wed 01-Aug-18 16:45\
+      \ by prod_rel_team\r\n\r\n\r\nROM: Bootstrap program is IOSv\r\n\r\nrtr1 uptime\
+      \ is 2 hours, 16 minutes\r\nSystem returned to ROM by reload\r\nSystem image\
+      \ file is \"flash0:/vios-adventerprisek9-m\"\r\nLast reload reason: Unknown\
+      \ reason\r\n\r\n\r\n\r\nThis product contains cryptographic features and is\
+      \ subject to United\r\nStates and local country laws governing import, export,\
+      \ transfer and\r\nuse. Delivery of Cisco cryptographic products does not imply\r\
+      \nthird-party authority to import, export, distribute or use encryption.\r\n\
+      Importers, exporters, distributors and users are responsible for\r\ncompliance\
+      \ with U.S. and local country laws. By using this product you\r\nagree to comply\
+      \ with applicable laws and regulations. If you are unable\r\nto comply with\
+      \ U.S. and local laws, return this product immediately.\r\n\r\nA summary of\
+      \ U.S. laws governing Cisco cryptographic products may be found at:\r\nhttp://www.cisco.com/wwl/export/crypto/tool/stqrg.html\r\
+      \n\r\nIf you require further assistance please contact us by sending email to\r\
+      \nexport@cisco.com.\r\n\r\nCisco IOSv (revision 1.0) with  with 460033K/62464K\
+      \ bytes of memory.\r\nProcessor board ID 9K6BQYH359BAIOM54J136\r\n4 Gigabit\
+      \ Ethernet interfaces\r\nDRAM configuration is 72 bits wide with parity disabled.\r\
+      \n256K bytes of non-volatile configuration memory.\r\n2097152K bytes of ATA\
+      \ System CompactFlash 0 (Read/Write)\r\n0K bytes of ATA CompactFlash 1 (Read/Write)\r\
+      \n0K bytes of ATA CompactFlash 2 (Read/Write)\r\n10080K bytes of ATA CompactFlash\
+      \ 3 (Read/Write)\r\n\r\n\r\n\r\nConfiguration register is 0x0"
+    show vlan: '% Ambiguous command:  "show vlan"'
+    show vrf detail: "VRF Mgmt-intf (VRF Id = 1); default RD <not set>; default VPNID\
+      \ <not set>\r\n  New CLI format, supports multiple address-families\r\n  Flags:\
+      \ 0x1808\r\n  Interfaces:\r\n    Gi0/0                   \r\nAddress family\
+      \ ipv4 unicast (Table ID = 0x1):\r\n  Flags: 0x0\r\n  No Export VPN route-target\
+      \ communities\r\n  No Import VPN route-target communities\r\n  No import route-map\r\
+      \n  No global export route-map\r\n  No export route-map\r\n  VRF label distribution\
+      \ protocol: not configured\r\n  VRF label allocation mode: per-prefix\r\nAddress\
+      \ family ipv6 unicast (Table ID = 0x1E000001):\r\n  Flags: 0x0\r\n  No Export\
+      \ VPN route-target communities\r\n  No Import VPN route-target communities\r\
+      \n  No import route-map\r\n  No global export route-map\r\n  No export route-map\r\
+      \n  VRF label distribution protocol: not configured\r\n  VRF label allocation\
+      \ mode: per-prefix\r\nAddress family ipv4 multicast not active"
+    show vrf detail | inc \(VRF: VRF Mgmt-intf (VRF Id = 1); default RD <not set>;
+      default VPNID <not set>
+    term length 0: ''
+    term width 0: ''
+  prompt: switch#

@@ -1,0 +1,125 @@
+testbed:
+  name: mock-break3
+
+devices:
+  
+  sw2:
+    alias: sw2
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/sw2 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  sw5:
+    alias: sw5
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/sw5 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  rtr1:
+    alias: rtr1
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/rtr1 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  sw4:
+    alias: sw4
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/sw4 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  sw3:
+    alias: sw3
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/sw3 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  rtr2:
+    alias: rtr2
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/rtr2 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  sw1:
+    alias: sw1
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/sw1 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
+  rtr3:
+    alias: rtr3
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/break3/rtr3 --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    
