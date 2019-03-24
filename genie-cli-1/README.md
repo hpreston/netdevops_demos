@@ -12,6 +12,17 @@ Well, with the release of Genie CLI we now have an amazingly powerful **and** ea
 
 Let's dive right in! 
 
+## Table of Contents
+* [Preperation](#preperation)
+* [Network Topology](#network-topology)
+* [Demo 1: Users report Problem Communicating from Server-1 to Server-3](#demo-1-users-report-problem-communicating-from-server-1-to-server-3)
+* [Key Info 1: Testbed Files and Network Devices](https://github.com/hpreston/netdevops_demos/tree/master/genie-cli-1#key-info-1-testbed-files-and-network-devices)
+* [Demo 2: Occasional Network Communication Issues on Server-1 and Server-2](#demo-2-occasional-network-communication-issues-on-server-1-and-server-2)
+* [Demo 3: What exactly is happening under the hood?](#demo-3-what-exactly-is-happening-under-the-hood)
+* [Demo 4: Server 2 can't communicate with anything...](#demo-4-server-2-cant-communicate-with-anything)
+* [Demo 5: Non-Optimal Traffic Patterns](#demo-5-non-optimal-traffic-patterns)
+* [Demo 6: Performance Problem... Somewhere](#demo-6-performance-problem-somewhere)
+
 ## Preperation
 We'll explain all the details as the demo goes on, but let's get setup to run these demos.  
 
@@ -128,7 +139,7 @@ All the demos will leverage this network topology.
 	* Nothing will likely jump out from it... 
 1. Well, looking at the files in the `diffs` directory (or the output from the `genie diff` command), you should also see there are differences in the OSPF state too. Let's checkout one of them (doesn't matter which).  Output below... 
 
-	```bash
+	```diff
 	--- tests/normal/ospf_iosxe_rtr3_ops.txt
 	+++ tests/demo1.1/ospf_iosxe_rtr3_ops.txt
 	info:
