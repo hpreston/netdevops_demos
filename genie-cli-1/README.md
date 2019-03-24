@@ -2,11 +2,11 @@
 # Genie CLI Demonstartion 
 I'm always on the lookout for new ways to help network engineers get into automation in a very easy, low code, low pre-req way.  In this search I don't think I've ever been as excited or impressed with anything I've seen as much as the new Genie CLI that was added to the pyATS/Genie package with Version 19. 
 
-If you haven't run across pyATS/Genie yet, the quick description is that they are the network verification tooling developed inside Cisco for internal engineering to test releases of IOS XE, NX-OS and, IOS XR that has been released for **anyone to use completely free**.  
+If you haven't run across [pyATS/Genie](https://developer.cisco.com/pyats) yet, the quick description is that they are the network verification tooling developed inside Cisco for internal engineering to test releases of IOS XE, NX-OS and, IOS XR that has been released for **[anyone to use completely free](https://developer.cisco.com/docs/pyats/#!requirements)**.  
 
-I've talked, blogged, and used them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of konwledge required in these languages, and computer developement that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
+I've [talked, blogged, and used](https://developer.cisco.com/netdevops/live/#s01) them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of konwledge required in these languages, and computer developement that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
 
-Well, with the release of Genie CLI we now have an amazingly powerful **and** easy to use tool for any network engineer that can solve real problems immediately.  What problems you ask?  Well, there are many potential use cases, but the one that I think shows the power the best is this one. 
+Well, with the release of [Genie CLI](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/cli/index.html) we now have an amazingly powerful **and** easy to use tool for any network engineer that can solve real problems immediately.  What problems you ask?  Well, there are many potential use cases, but the one that I think shows the power the best is this one. 
 
 > Users, or management systems, report a problem in the network. How can we find out what changed and where the problem might be? 
 
