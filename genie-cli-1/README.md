@@ -19,7 +19,7 @@ Let's dive right in!
 * [Key Info 1: Testbed Files and Network Devices](https://github.com/hpreston/netdevops_demos/tree/master/genie-cli-1#key-info-1-testbed-files-and-network-devices)
 * [Demo 2: Occasional Network Communication Issues on Server-1 and Server-2](#demo-2-occasional-network-communication-issues-on-server-1-and-server-2)
 * [Demo 3: What exactly is happening under the hood?](#demo-3-what-exactly-is-happening-under-the-hood)
-* []()
+* [Demo 4: CLI Commands made better with Genie Parse](#demo-4-cli-commands-made-better-with-genie-parse)
 * [Demo 5: Server 2 can't communicate with anything...](#demo-5-server-2-cant-communicate-with-anything)
 * [Demo 6: Non-Optimal Traffic Patterns](#demo-6-non-optimal-traffic-patterns)
 * [Demo 7: Performance Problem... Somewhere](#demo-7-performance-problem-somewhere)
