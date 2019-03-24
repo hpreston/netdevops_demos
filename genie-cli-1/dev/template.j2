@@ -1,0 +1,20 @@
+testbed:
+  name: mock-{{ name }}
+
+devices:
+  {% for device in devices %}
+  {{ device }}:
+    alias: {{ device }}
+    os: iosxe
+    type: IOSv
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir mocks/{{ name }}/{{ device }} --state connect
+        protocol: unknown
+
+    custom:
+      abstraction:
+        order: [os, type]
+    {% endfor %}
