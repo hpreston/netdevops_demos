@@ -1,3 +1,13 @@
+"""Set of helper functions for pyATS and Genie.
+
+Used in other scripts to easily retrieve Genie Ops objects and devices.
+
+ToDo:
+- Update and simplify with new .learn() syntax
+
+"""
+
+
 # from ats.topology import loader
 # from genie.conf import Genie
 from genie.abstract import Lookup
@@ -46,7 +56,7 @@ def get_platform_info(dev):
         sh_ver = dev.parse("show version")
         if parse.os == "NX-OS":
             parse.version = sh_ver["platform"]["software"]["system_version"]
-    
+
     return parse
 
 
