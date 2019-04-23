@@ -38,6 +38,15 @@ def get_platform_info(dev):
 
     # Parse required commands, and return structured data
     parse.learn()
+
+    # See if the software version is in the model, if not fix
+    try:
+        parse.version
+    except AttributeError:
+        sh_ver = dev.parse("show version")
+        if parse.os == "NX-OS":
+            parse.version = sh_ver["platform"]["software"]["system_version"]
+    
     return parse
 
 
