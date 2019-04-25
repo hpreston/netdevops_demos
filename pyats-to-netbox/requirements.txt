@@ -1,0 +1,4 @@
+genie>=19.0.1
+pynetbox>=4.0.6
+virlutils>=0.8.7
+
