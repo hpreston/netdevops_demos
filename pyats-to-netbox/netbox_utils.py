@@ -21,10 +21,27 @@ FF_OTHER = 32767
 # Pull in details about the netbox environment to use
 netbox_token = os.getenv("NETBOX_TOKEN")
 netbox_url = os.getenv("NETBOX_URL")
-netbox_site = os.getenv("NETBOX_SITE")
+netbox_site_name = os.getenv("NETBOX_SITE")
 
 # Create netbox API object
 netbox = pynetbox.api(netbox_url, token=netbox_token)
+
+def netbox_manufacturer(name):
+    nb_manufacturer = netbox.dcim.manufacturers.get(name=name)
+    if nb_manufacturer is None:
+        # Create a slug from the name
+        slug = (
+            name.lower()
+            .replace(" ", "-")
+            .replace(",", "-")
+            .replace(".", "_")
+            .replace("(", "_")
+            .replace(")", "_")
+        )
+        nb_manufacturer = netbox.dcim.manufacturers.create(
+            name=name, slug=slug
+        )
+    return nb_manufacturer
 
 
 def netbox_device(genie_device):
@@ -33,14 +50,25 @@ def netbox_device(genie_device):
     # See if device exists, if not create one.
     nb_device = netbox.dcim.devices.get(name=genie_device.name)
     if nb_device is None:
+        nb_manufacturer = netbox_manufacturer("Cisco")
+
         # Verify Device Type Exists, if not create one.
         # ToDo: refactor to function
         nb_device_type = netbox.dcim.device_types.get(model=genie_device.type)
         if nb_device_type is None:
+            device_slug=(
+                str(genie_device.type).lower()
+                .replace(" ", "-")
+                .replace(",", "-")
+                .replace(".", "_")
+                .replace("(", "_")
+                .replace(")", "_")
+            )
+
             nb_device_type = netbox.dcim.device_types.create(
-                manufacturer=netbox.dcim.manufacturers.get(name="Cisco").id,
+                manufacturer=nb_manufacturer.id,
                 model=genie_device.type,
-                slug=str(genie_device.type).lower(),
+                slug=device_slug,
                 u_height=1,
             )
 
@@ -52,6 +80,8 @@ def netbox_device(genie_device):
         else:
             nb_device_role = netbox_device_role(device_roles["OTHER"])
 
+        nb_site = netbox_site(netbox_site_name)
+
         # Create the device in netbox
         nb_device = netbox.dcim.devices.create(
             name=genie_device.name,
@@ -59,11 +89,29 @@ def netbox_device(genie_device):
                 model=genie_device.type
             ).id,
             device_role=nb_device_role.id,
-            site=netbox.dcim.sites.get(name=netbox_site).id,
+            site=nb_site.id,
             status=1,
             tags=[],
         )
     return nb_device
+
+def netbox_site(name):
+    """Get or Create a netbox site object."""
+    nb_site = netbox.dcim.sites.get(name=name)
+    if nb_site is None:
+        # Create a slug from the name
+        slug = (
+            name.lower()
+            .replace(" ", "-")
+            .replace(",", "-")
+            .replace(".", "_")
+            .replace("(", "_")
+            .replace(")", "_")
+        )
+        nb_site = netbox.dcim.sites.create(
+            name=name, slug=slug, status=1
+        )
+    return nb_site
 
 
 def netbox_device_role(name):
