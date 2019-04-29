@@ -6,3 +6,5 @@ alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
 
 alias flushDNS='dscacheutil -flushcache'
 alias openPorts='sudo lsof -i | grep LISTEN'
+
+alias docker_rm='docker rm -v $(docker ps -aq -f status=exited)'
