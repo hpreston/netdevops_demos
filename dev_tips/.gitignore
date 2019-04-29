@@ -1,0 +1,18 @@
+logs/
+ncs-cdb/
+packages/
+scripts/
+state/
+test/
+ncs.conf
+README.ncs
+
+secret_vars.tfvars
+
+# ignore inventory files (store inventory.template)
+inventory.yml
+inventory
+*.retry
+
+learned/
+topology.virl

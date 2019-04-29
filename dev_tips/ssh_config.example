@@ -1,0 +1,16 @@
+Host sbx-iosxe
+  HostName ios-xe-mgmt.cisco.com
+  User root
+  Port 8181
+  IdentityFile ~/.ssh/id_rsa
+Host sbx-nxos
+  HostName sbx-nxos-mgmt.cisco.com
+  User admin
+  Port 8181
+Host OldSwitch
+  HostName 10.10.2.1
+  Ciphers aes128-cbc
+  KexAlgorithms +diffie-hellman-group1-sha1
+Host 172.20.*.*
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
