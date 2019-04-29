@@ -1,6 +1,6 @@
 #! /bin/bash
 
-echo "This is a simple bash script to highlight some examples"
+echo "This is a simple bash script to highlight some example commands and structure."
 echo ""
 
 echo "Let's wait until an API returns a 200 OK"
