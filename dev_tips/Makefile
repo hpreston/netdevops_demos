@@ -9,8 +9,9 @@ dev: virl nso virl-generate nso-sync-from genie-learn
 clean: nso-clean virl-clean genie-clean
 
 virl:
-	@echo "Starting the VIRL topology."
-	-@virl up --provision virlfiles/2-ios-router
+	@echo "Starting the VIRL topology, and waiting for it to be ready"
+	-@virl up --provision --wait-time 10 virlfiles/2-ios-router
+	@sleep 90
 
 virl-generate:
 	@echo "Adding network devices to nso and creating pyATS testbed"
@@ -37,8 +38,8 @@ nso-sync-from:
 	-@curl -X POST -u admin:admin http://localhost:8080/api/running/devices/_operations/sync-from
 
 genie-learn:
-	@echo "Learning all from network with genie."
-	@genie learn all --testbed default_testbed.yaml --output learned/
+	@echo "Learning interface from network with genie."
+	@genie learn interface --testbed default_testbed.yaml --output learned/
 
 genie-clean:
 	@echo "Deleting genie files"
