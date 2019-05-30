@@ -1,0 +1,16 @@
+# Simple sample playbook to connect to IOS device and gather Facts
+# then print out the interface list
+---
+- name: Using Ansible Vault encrypted values Demo
+  hosts: device
+  gather_facts: False
+
+  tasks:
+    - name: Gather Network Facts
+      ios_facts:
+        gather_subset: all
+
+    - name: "Here are the interfaces from device {{ ansible_host }}"
+      with_items: "{{ ansible_net_interfaces }}"
+      debug:
+        msg: "{{ item }}"

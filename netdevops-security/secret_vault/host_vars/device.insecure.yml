@@ -1,0 +1,16 @@
+# Network Device Connection Details
+# This file is in clear text and is intended to be encrypted with
+# ansible-vault
+# 
+# Normally this file would NOT be added to source control, but is
+# here simply as part of the ansible-vault demonstration
+---
+ansible_connection: network_cli
+ansible_network_os: ios
+ansible_host: ios-xe-mgmt-latest.cisco.com
+ansible_port: 8181
+ansible_user: developer
+ansible_password: C1sco12345
+ansible_become: yes
+ansible_become_method: enable
+ansible_become_password: C1sco12345

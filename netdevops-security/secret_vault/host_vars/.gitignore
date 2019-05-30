@@ -1,0 +1,5 @@
+# This is a demonstraton about ansible-vault so ignoring the created
+# encrypted version of the variables for the example and demo.
+# In normal usage, you would ignore the "insecure" version, and include the
+# encrypted version... so this is odd, I know it... 🤪
+device.yml
