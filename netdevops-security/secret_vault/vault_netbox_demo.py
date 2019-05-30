@@ -84,9 +84,7 @@ with manager.connect(
     r = m.get_config("running", filter)
 
 # Process XML and retrieve interface list
-interfaces = xmltodict.parse(r.xml)["rpc-reply"]["data"]["interfaces"][
-    "interface"
-]
+interfaces = xmltodict.parse(r.xml)["rpc-reply"]["data"]["interfaces"]["interface"]
 
 # Print out list of interface names
 print("Here are the interfaces from device {}".format(device["address"]))

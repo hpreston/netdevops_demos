@@ -93,11 +93,13 @@ from ncclient import manager
 import xmltodict
 
 # Use NETCONF to connect to device and retrieve interface list
-with manager.connect(host = device["address"],
-                     port = device["netconf_port"],
-                     username = device["username"],
-                     password = device["password"],
-                     hostkey_verify = False) as m:
+with manager.connect(
+    host=device["address"],
+    port=device["netconf_port"],
+    username=device["username"],
+    password=device["password"],
+    hostkey_verify=False,
+) as m:
 
     filter = """
     <filter>
@@ -113,6 +115,6 @@ interfaces = xmltodict.parse(r.xml)["rpc-reply"]["data"]["interfaces"]["interfac
 # How many we get?
 len(interfaces)
 
-# Print out and process 
+# Print out and process
 for interface in interfaces:
     print(interface["name"])

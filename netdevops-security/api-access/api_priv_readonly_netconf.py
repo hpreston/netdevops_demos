@@ -94,10 +94,10 @@ with manager.connect(
     r = m.get(filter)
     print("Current NACM Configuration.")
     xml_doc = minidom.parseString(r.xml)
-    print(xml_doc.toprettyxml(indent = "  "))
+    print(xml_doc.toprettyxml(indent="  "))
     print("")
 
-    # Add new rules 
+    # Add new rules
     print("Configuring NACM Rule to allow PRIV01 to GET")
-    r = m.edit_config(target = "running", config = data)
+    r = m.edit_config(target="running", config=data)
     print("NETCONF RPC OK: {}".format(r.ok))

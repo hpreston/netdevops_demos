@@ -29,7 +29,7 @@ SOFTWARE.
 from genie.conf import Genie
 
 # Initialize a Testbed File
-testbed = Genie.init('genie-testbed.yaml')
+testbed = Genie.init("genie-testbed.yaml")
 
 # Create variable for specific testbed device
 device = testbed.devices["csr1000v-1"]

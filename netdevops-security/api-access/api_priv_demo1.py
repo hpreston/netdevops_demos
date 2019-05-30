@@ -63,7 +63,7 @@ with manager.connect(
 # Get interface list from XML body
 interfaces = xmltodict.parse(r.xml)["rpc-reply"]["data"]["interfaces"]["interface"]
 
-# Print out interface list 
+# Print out interface list
 print("Here are the interfaces from device {}".format(device["address"]))
 for interface in interfaces:
     print(interface["name"])
