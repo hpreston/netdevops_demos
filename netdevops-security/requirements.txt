@@ -1,0 +1,6 @@
+ansible
+genie
+ipython
+ncclient
+pynetbox
+xmltodict
