@@ -47,7 +47,7 @@ config_data = """
 <config>
   <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
       <interface>
-        <name>Loopback{int_name}</name>
+        <name>{int_name}</name>
         <description>{description}</description>
         <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
           ianaift:softwareLoopback
@@ -88,6 +88,7 @@ with manager.connect(
     except RPCError as e:
         # Look for RPC error indicating access denied (or something else)
         print("There was an error ({}) with your transaction.".format(e.tag))
+        exit(1)
 
 
     # Print OK status
