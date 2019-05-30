@@ -1,0 +1,9 @@
+# Copy file to src_env
+# Complete with "secrets"
+# 'source src_env' before running code
+export SBX_ADDRESS=
+export SBX_NETCONF_PORT=
+export SBX_SSH_PORT=
+export SBX_RESTCONF_PORT=
+export SBX_USER=
+export SBX_PASS=
