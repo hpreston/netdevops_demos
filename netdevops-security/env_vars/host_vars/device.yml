@@ -1,0 +1,17 @@
+# Network Device Connection Details
+# Locate all relevant details from env_vars 
+---
+ansible_connection: network_cli
+ansible_network_os: ios
+ansible_host: "{{ lookup('env', 'SBX_ADDRESS') }}"
+
+# Statically setting port due to Jinja only returning strings
+# See issue: https://github.com/ansible/ansible/issues/30366
+# Prefer to use: "{{ lookup('env', 'SBX_SSH_PORT') | int }}"
+ansible_port: 8181
+
+ansible_user: "{{ lookup('env', 'SBX_USER') }}"
+ansible_password: "{{ lookup('env', 'SBX_PASS') }}"
+ansible_become: yes
+ansible_become_method: enable
+ansible_become_password: "{{ lookup('env', 'SBX_PASS') }}"

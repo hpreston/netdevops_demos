@@ -1,0 +1,21 @@
+# Genie Testbed File leveraging ENV_VAR lookups for device details 
+---
+testbed:
+  name: netdevops-security
+  tacacs:
+      username: "%ENV{SBX_USER}"
+  passwords:
+      tacacs: "%ENV{SBX_PASS}"
+      enable: "%ENV{SBX_PASS}"
+
+devices:
+  csr1000v-1:
+    os: iosxe
+    type: iosxe
+    connections:
+      defaults:
+        class: unicon.Unicon
+      ssh:
+        protocol: ssh
+        ip: "%ENV{SBX_ADDRESS}"
+        port: "%ENV{SBX_SSH_PORT}"

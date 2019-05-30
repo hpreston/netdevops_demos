@@ -1,0 +1,3 @@
+# Simple Ansible Hosts File for a "device"
+# Device details pulled from env_vars - see host_vars/device.yml
+device
