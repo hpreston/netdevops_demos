@@ -1,0 +1,37 @@
+---
+testbed:
+  name: alwaysonsbxs
+  tacacs:
+      username: "developer"
+  passwords:
+      tacacs: "C1sco12345"
+      enable: "C1sco12345"
+
+devices:
+  csr1000v-1:
+    os: iosxe
+    type: iosxe
+    connections:
+      defaults:
+        class: unicon.Unicon
+      ssh:
+        protocol: ssh
+        ip: "ios-xe-mgmt-latest.cisco.com"
+        port: "8181"
+
+  sbx-n9kv-ao:
+    os: nxos
+    type: nxos
+    tacacs:
+        username: "admin"
+    passwords:
+        tacacs: "Admin_1234!"
+        enable: "Admin_1234!"
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      ssh:
+        protocol: ssh
+        ip: "sbx-nxos-mgmt.cisco.com"
+        port: "8181"
