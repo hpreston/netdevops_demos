@@ -1,6 +1,21 @@
 # NetDevOps Automating Safely Demos 
 This repo contains a series of demos related to security best practices and suggestions.  These demos are intended to accompany the content in the NetDevOps Live! Episode [Automate Safely, NetDevOps Security Strategies](https://developer.cisco.com/netdevops/live/#s02t10).  Checkout the episode for a video delivery of the demos and background content.  
 
+### Table of Contents 
+
+* [Sandbox Used](#sandbox-used)
+* [Preparing to Run the Demos](#preparing-to-run-the-demos)
+	* [NetBox Setup: Starting a Development Instance on your Laptop with Docker](#netbox-setup-start-a-development-instance-on-your-laptop-with-docker)
+* [API Access Control Demos](#api-access-control-demos)
+	* [NETCONF Access Control Model (NACM)](#netconf-access-control-model-nacm)
+* [Secret Management Demos](#secret-management-demos)
+	* [Exploring Environment Variables and Python](#exploring-environment-variables-and-python)
+	* ["Sourcing" Environment Variable Files](#sourcing-environment-variable-files)
+	* [Environment Variables and Ansible](#environment-variables-and-ansible)
+	* [Environment Variables and Genie Testbeds](#environment-variables-and-genie-testbeds)
+	* [Encrypting Secrets with Ansible Vault](#encrypting-secrets-with-ansible-vault)
+	* [Storing Secrets in a "Source of Truth" such as NetBox](#storing-secrets-in-a-source-of-truth-such-as-netbox)
+
 ## Sandbox Used 
 These demo's leverage the [IOS XE on CSR Latest Code Always On Sandbox](https://devnetsandbox.cisco.com/RM/Diagram/Index/38ded1f0-16ce-43f2-8df5-43a40ebf752e?diagramType=Topology) from DevNet.  This sandbox offers direct access to SSH, NETCONF, & RESTCONF interfaces on a sample IOS XE device right on the internet.  
 
