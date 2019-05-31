@@ -55,3 +55,5 @@ for key, details in vlans.info["vlans"].items():
 
     # Print details on vlans
     print("VLAN ID {} with name {}".format(details["vlan_id"], details["name"]))
+
+device.disconnect()
