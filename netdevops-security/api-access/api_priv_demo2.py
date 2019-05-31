@@ -32,10 +32,10 @@ from getpass import getpass
 
 # Get interface details from env_vars and user prompt
 device = {
-    "address": os.getenv("SBX_ADDRESS"),
+    "address": "ios-xe-mgmt-latest.cisco.com",
     "username": input("Network Username?\n"),
     "password": getpass("Network Password?\n"),
-    "netconf_port": os.getenv("SBX_NETCONF_PORT"),
+    "netconf_port": 10000,
 }
 
 # Make sure all details available

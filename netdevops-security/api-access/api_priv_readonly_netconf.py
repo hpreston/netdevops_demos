@@ -29,12 +29,11 @@ from ncclient import manager
 import xmltodict
 from xml.dom import minidom
 
-# Retrieve device details from environment variables
 device = {
-    "address": os.getenv("SBX_ADDRESS"),
-    "username": os.getenv("SBX_USER"),
-    "password": os.getenv("SBX_PASS"),
-    "netconf_port": os.getenv("SBX_NETCONF_PORT"),
+    "address": "ios-xe-mgmt-latest.cisco.com",
+    "username": "developer",
+    "password": "C1sco12345",
+    "netconf_port": 10000,
 }
 
 # Make sure needed device connection info was found.

@@ -31,10 +31,10 @@ from getpass import getpass
 
 # Retrieve device details from environment variables
 device = {
-    "address": os.getenv("SBX_ADDRESS"),
+    "address": "ios-xe-mgmt-latest.cisco.com",
     "username": input("Network Username?\n"),
     "password": getpass("Network Password?\n"),
-    "netconf_port": os.getenv("SBX_NETCONF_PORT"),
+    "netconf_port": 10000,
 }
 
 # Make sure needed device connection info was found.
