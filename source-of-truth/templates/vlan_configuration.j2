@@ -1,0 +1,7 @@
+! VLAN Configurations 
+{% for vlan in vlans -%}
+vlan {{ vlan.vid }}
+  name {{ vlan.name }}
+{% endfor -%}
+!
+!

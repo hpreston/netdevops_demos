@@ -1,0 +1,28 @@
+! Interface Configurations
+{% for interface in interfaces -%}
+interface {{ interface.name }}
+  description {{ interface.description }} 
+  no shutdown
+{% if interface.ip_addresses -%}  
+  no switchport 
+{% for address in interface.ip_addresses -%}
+{% if not address.role -%}  
+  ip address {{ address.ip }} {{ address.network.netmask }}
+{% endif -%}
+{% endfor -%}
+{% endif -%}
+{% if interface.mode.label == "Tagged All" -%} 
+  switchport mode trunk
+{% elif interface.mode.label == "Tagged" -%} 
+  switchport mode trunk
+{% for allowed_vlan in interface.tagged_vlans -%}
+  switchport trunk allowed vlan add {{ allowed_vlan.vid }} 
+{% endfor -%}
+{% elif interface.mode.label == "Access" -%} 
+    switchport mode access
+  switchport access vlan {{ interface.untagged_vlan.vid }}
+{% endif -%}
+!
+{% endfor -%}
+!
+!
