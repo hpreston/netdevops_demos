@@ -1,0 +1,117 @@
+
+testbed:
+  name: source-of-truth_demo
+
+devices:
+
+  sw1:
+    alias: sw1
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/sw1 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw2:
+    alias: sw2
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/sw2 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw3:
+    alias: sw3
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/sw3 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw4:
+    alias: sw4
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/sw4 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  rtr1:
+    alias: rtr1
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/rtr1 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  rtr2:
+    alias: rtr2
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/rtr2 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
+
+  rtr3:
+    alias: rtr3
+    os: iosxe
+    type: IOSv
+    platform: IOSv
+
+    connections:
+      defaults:
+        class: unicon.Unicon
+      mock:
+        command: mock_device_cli --os iosxe --mock_data_dir genie/mocks/demo/rtr3 --state connect
+        protocol: unknown
+    custom:
+      abstraction:
+        order: [os, type]
