@@ -139,9 +139,13 @@ class InterfaceTestCase(aetest.Testcase):
         with steps.start("Learning operational state.") as step:
             device.learned_interfaces = device.learn("interface")
             # device.learned_trunks = device.parse("show interfaces trunk")
-            device.learned_switchport = device.parse(
-                "show interfaces switchport"
-            )
+            if device.netbox.device.device_role.name in [
+                "Distribution Switch",
+                "Access Switch",
+            ]:
+                device.learned_switchport = device.parse(
+                    "show interfaces switchport"
+                )
 
         # TEST Verify Defined Interfaces Exist
         test_name = "Interface Exists Test"
@@ -183,45 +187,53 @@ class InterfaceTestCase(aetest.Testcase):
                     step.skipped("Interface doesn't exist")
 
         # TEST Trunk Interfaces are Trunks (plus VLAN checks)
-        test_name = "VLAN Trunks Test"
-        for interface in trunk_interfaces:
-            with steps.start(
-                "{}: {}".format(test_name, interface.name), continue_=True
-            ) as step:
-                if interface.name in device.learned_switchport:
-                    if (
-                        not device.learned_switchport[interface.name][
-                            "operational_mode"
-                        ]
-                        == "trunk"
-                    ):
-                        step.failed("Interface not currently trunking.")
-                    # TODO - TEST TRUNKED VLAN
-                    # elif :
+        if device.netbox.device.device_role.name in [
+                "Distribution Switch",
+                "Access Switch",
+            ]:        
+            test_name = "VLAN Trunks Test"
+            for interface in trunk_interfaces:
+                with steps.start(
+                    "{}: {}".format(test_name, interface.name), continue_=True
+                ) as step:
+                    if interface.name in device.learned_switchport:
+                        if (
+                            not device.learned_switchport[interface.name][
+                                "operational_mode"
+                            ]
+                            == "trunk"
+                        ):
+                            step.failed("Interface not currently trunking.")
+                        # TODO - TEST TRUNKED VLAN
+                        # elif :
 
-                else:
-                    step.failed("Interface not configured as a switchport.")
+                    else:
+                        step.failed("Interface not configured as a switchport.")
 
         # TEST Access Interfaces are Access (plus Native VLAN)
-        test_name = "Access Ports Test"
-        for interface in access_interfaces:
-            with steps.start(
-                "{}: {}".format(test_name, interface.name), continue_=True
-            ) as step:
-                # print("Testing Interface {}".format(interface.name))
-                if interface.name in device.learned_switchport:
-                    if (
-                        not device.learned_switchport[interface.name][
-                            "operational_mode"
-                        ]
-                        == "static access"
-                    ):
-                        step.failed("Interface not operating as access port.")
-                    # TODO - TEST ACCESS VLAN
-                    # elif :
+        if device.netbox.device.device_role.name in [
+                "Distribution Switch",
+                "Access Switch",
+            ]:        
+            test_name = "Access Ports Test"
+            for interface in access_interfaces:
+                with steps.start(
+                    "{}: {}".format(test_name, interface.name), continue_=True
+                ) as step:
+                    # print("Testing Interface {}".format(interface.name))
+                    if interface.name in device.learned_switchport:
+                        if (
+                            not device.learned_switchport[interface.name][
+                                "operational_mode"
+                            ]
+                            == "static access"
+                        ):
+                            step.failed("Interface not operating as access port.")
+                        # TODO - TEST ACCESS VLAN
+                        # elif :
 
-                else:
-                    step.failed("Interface not configured as a switchport.")
+                    else:
+                        step.failed("Interface not configured as a switchport.")
 
         # TEST Routed Interfaces are Routed (plus IP Address)
         test_name = "Routed Interface Test"
