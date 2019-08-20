@@ -55,7 +55,7 @@ It is pretty easy to start an instance of netbox right on your laptop as long as
 1. Open up a web browser and navigate to `http://0.0.0.0:8081` (or the port you are using).  
 1. You can login with `admin / admin` and look around.  You shouldn't see any data just yet.  
 
-	![](netbox_device_empty.jpg)
+	![](resources/netbox_device_empty.jpg)
 
 ### Loading the Sample Source of Truth Data
 Netbox starts out empty of any information.  For this demo a database backup has been provided at [resources/nb_backup.sql.gz](resources/nb_backup.sql.gz).  Now we will load up your instance of Netbox with this data. 
