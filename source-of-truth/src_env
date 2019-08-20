@@ -1,0 +1,8 @@
+export PYATS_USERNAME=cisco
+export PYATS_PASSWORD=cisco
+export PYATS_AUTH_PASS=cisco
+
+export NETBOX_TOKEN=0123456789abcdef0123456789abcdef01234567
+export NETBOX_URL=http://0.0.0.0:8081
+export NETBOX_SITE=Test
+export NETBOX_TENANT="Demo 1"
