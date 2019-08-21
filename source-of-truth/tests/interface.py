@@ -1,5 +1,6 @@
 from pyats import aetest
 from genie.conf import Genie
+from genie.testbed import load
 import logging
 import os
 import sys
@@ -19,6 +20,7 @@ class CommonSetup(aetest.CommonSetup):
     @aetest.subsection
     def load_testbed(self, testbed):
         # add them to testscript parameters
+        testbed = load(testbed)
         self.parent.parameters.update(testbed=testbed)
 
     @aetest.subsection
@@ -188,9 +190,9 @@ class InterfaceTestCase(aetest.Testcase):
 
         # TEST Trunk Interfaces are Trunks (plus VLAN checks)
         if device.netbox.device.device_role.name in [
-                "Distribution Switch",
-                "Access Switch",
-            ]:        
+            "Distribution Switch",
+            "Access Switch",
+        ]:
             test_name = "VLAN Trunks Test"
             for interface in trunk_interfaces:
                 with steps.start(
@@ -208,13 +210,15 @@ class InterfaceTestCase(aetest.Testcase):
                         # elif :
 
                     else:
-                        step.failed("Interface not configured as a switchport.")
+                        step.failed(
+                            "Interface not configured as a switchport."
+                        )
 
         # TEST Access Interfaces are Access (plus Native VLAN)
         if device.netbox.device.device_role.name in [
-                "Distribution Switch",
-                "Access Switch",
-            ]:        
+            "Distribution Switch",
+            "Access Switch",
+        ]:
             test_name = "Access Ports Test"
             for interface in access_interfaces:
                 with steps.start(
@@ -228,12 +232,16 @@ class InterfaceTestCase(aetest.Testcase):
                             ]
                             == "static access"
                         ):
-                            step.failed("Interface not operating as access port.")
+                            step.failed(
+                                "Interface not operating as access port."
+                            )
                         # TODO - TEST ACCESS VLAN
                         # elif :
 
                     else:
-                        step.failed("Interface not configured as a switchport.")
+                        step.failed(
+                            "Interface not configured as a switchport."
+                        )
 
         # TEST Routed Interfaces are Routed (plus IP Address)
         test_name = "Routed Interface Test"

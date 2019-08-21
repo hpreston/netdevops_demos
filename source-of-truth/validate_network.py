@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--testbed", dest="testbed")
 args, unknown = parser.parse_known_args()
 
+
 def disconnect():
     for device in testbed.devices:
         testbed.devices[device].disconnect_all()
@@ -65,5 +66,3 @@ for device in devices:
             print(" - Extra VLANS: ", extra_vlans)
 
 print("   \n")
-
-

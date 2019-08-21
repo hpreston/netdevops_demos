@@ -1,5 +1,6 @@
 from pyats import aetest
 from genie.conf import Genie
+from genie.testbed import load
 import logging
 import os
 import sys
@@ -17,6 +18,7 @@ class CommonSetup(aetest.CommonSetup):
     @aetest.subsection
     def load_testbed(self, testbed):
         # add them to testscript parameters
+        testbed = load(testbed)
         self.parent.parameters.update(testbed=testbed)
 
     @aetest.subsection
