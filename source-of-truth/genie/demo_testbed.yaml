@@ -1,7 +1,12 @@
 
 testbed:
   name: source-of-truth_demo
-
+  credentials:
+        default:
+           username: None
+           password: None
+        enable: 
+           password: None
 devices:
 
   sw1:
