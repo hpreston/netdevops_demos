@@ -1,5 +1,9 @@
 testbed:
   name: mock-normal
+  credentials: 
+    default: 
+      username: blank
+      password: blank
 
 devices:
   
