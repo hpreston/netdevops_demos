@@ -36,7 +36,7 @@ MarkupSafe==1.1.1
 netaddr==0.7.19
 pathspec==0.5.9
 prettytable==0.7.2
-psutil==5.6.1
+psutil==5.6.6
 pyats==19.0
 pyats.aereport==19.0
 pyats.aetest==19.0.1
