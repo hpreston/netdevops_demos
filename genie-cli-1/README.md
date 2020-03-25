@@ -1,10 +1,10 @@
 
-# Genie CLI Demonstartion 
+# Genie CLI Demonstration 
 I'm always on the lookout for new ways to help network engineers get into automation in a very easy, low code, low pre-req way.  In this search I don't think I've ever been as excited or impressed with anything I've seen as much as the new Genie CLI that was added to the pyATS/Genie package with Version 19. 
 
 If you haven't run across [pyATS/Genie](https://developer.cisco.com/pyats) yet, the quick description is that they are the network verification tooling developed inside Cisco for internal engineering to test releases of IOS XE, NX-OS and, IOS XR that has been released for **[anyone to use completely free](https://developer.cisco.com/docs/pyats/#!requirements)**.  
 
-I've [talked, blogged, and used](https://developer.cisco.com/netdevops/live/#s01) them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of konwledge required in these languages, and computer developement that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
+I've [talked, blogged, and used](https://developer.cisco.com/netdevops/live/#s01) them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of knowledge required in these languages, and computer development that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
 
 Well, with the release of [Genie CLI](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/cli/index.html) we now have an amazingly powerful **and** easy to use tool for any network engineer that can solve real problems immediately.  What problems you ask?  Well, there are many potential use cases, but the one that I think shows the power the best is this one. 
 
@@ -13,7 +13,7 @@ Well, with the release of [Genie CLI](https://pubhub.devnetcloud.com/media/pyats
 Let's dive right in! 
 
 ## Table of Contents
-* [Preperation](#preperation)
+* [Preparation](#preparation)
 * [Network Topology](#network-topology)
 * [Demo 1: Users report Problem Communicating from Server-1 to Server-3](#demo-1-users-report-problem-communicating-from-server-1-to-server-3)
 * [Key Info 1: Testbed Files and Network Devices](https://github.com/hpreston/netdevops_demos/tree/master/genie-cli-1#key-info-1-testbed-files-and-network-devices)
@@ -24,7 +24,7 @@ Let's dive right in!
 * [Demo 6: Non-Optimal Traffic Patterns](#demo-6-non-optimal-traffic-patterns)
 * [Demo 7: Performance Problem... Somewhere](#demo-7-performance-problem-somewhere)
 
-## Preperation
+## Preparation
 We'll explain all the details as the demo goes on, but let's get setup to run these demos.  
 
 1. You'll need a workstation with Python 3.6 or 3.7 installed and functional along with Git.
@@ -35,10 +35,11 @@ We'll explain all the details as the demo goes on, but let's get setup to run th
 	cd netdevops_demos/genie-cli-1
 	```
 
-1. Create a Python 3 virtual environment, and install the requirements (pyATS and Genie) 
+1. Create a Python 3 virtual environment, activate it and install the requirements (pyATS and Genie) 
 
 	```
-	python3 -m venv venv 
+	python3 -m venv venv
+	source venv/bin/activate
 	pip install -r requirements.txt 
 	``` 
 
@@ -61,7 +62,7 @@ All the demos will leverage this network topology.
 
 **Troubleshooting with Genie CLI:** This type of problem happens all the time.  And there could be hundreds of possible reasons for why this might have occurred.  You probably already have some ideas of what might be the problem, but let's see what Genie can do for us.  
 
-1. Lucky for you, you have a known good baseline of what the network looks like when things are "normal".  If you don't, make sure to go back and run the Preperation steps above. 
+1. Lucky for you, you have a known good baseline of what the network looks like when things are "normal".  If you don't, make sure to go back and run the Preparation steps above. 
 1. Using Genie, let's checkout the current state of a few high potential services on the network by "learning" all about their status. 
 
 	```bash
@@ -105,7 +106,7 @@ All the demos will leverage this network topology.
 		|------------------------------------------------------------------------------|
 		```
 	
-1. Open up the file `routing_iosxe_rtr1_ops.txt` using a command line tool (if you are hardcore), or in a text editor like Atom, VS Code, Notepad++, etc. Part of the file is shown below. 
+1. Open up the file `diff_routing_iosxe_rtr2_ops.txt` using a command line tool (if you are hardcore), or in a text editor like Atom, VS Code, Notepad++, etc. Part of the file is shown below. 
 
 	```diff
 	--- tests/normal/routing_iosxe_rtr2_ops.txt
@@ -132,11 +133,11 @@ All the demos will leverage this network topology.
 	-       source_protocol_codes: O E2
 	```
 	
-	* See all those lines with `-` in front of them?  They indicate things that were in the network baseline, but are **NOT** present in the current status.  (Lines with `+` indicate things that are in the current baseline that were not in the baseline) 
+	* See all those lines with `-` in front of them?  They indicate things that were in the network baseline, but are **NOT** present in the current status.  (Lines with `+` indicate things that are in the current baseline that were not in the original network baseline) 
 
 1. Well look at that, there is a route missing on `rtr2` for the network that `Server-3` sits on (it's IP is 10.0.128.2).  That certainly seems promising.  
 1. If you check the `diff_routing_iosxe_rtr3_ops.txt` you'll see it is also missing the route. 
-1. Conferring with the network topology (or just looking at the next-hop details in the diff), you see that the route should be coming from `rtr1`.  Let's check the routing diff for it (`diff_routing_iosxe_rtr2_ops.txt`).  
+1. Conferring with the network topology (or just looking at the next-hop details in the diff), you see that the route should be coming from `rtr1`.  Let's check the routing diff for it (`diff_routing_iosxe_rtr1_ops.txt`).  
 	* Nothing will likely jump out from it... 
 1. Well, looking at the files in the `diffs` directory (or the output from the `genie diff` command), you should also see there are differences in the OSPF state too. Let's checkout one of them (doesn't matter which).  Output below... 
 
@@ -306,7 +307,7 @@ You can even interact with the mock devices yourself.  Run this command to conne
 mock_device_cli --mock_data_dir mocks/normal/rtr1 --os iosxe --state connect
 ```
 
-You'll be connected to the device as if you consoled into it.  Give it a `?` to see the list of commands that are supported.  **Note, tab completion will not work on a mock device.** Go ahead and run a few commands to see that it actually works.  When you are done, press `Cntrl-C` to quit the mock. 
+You'll be connected to the device as if you consoled into it.  Give it a `?` to see the list of commands that are supported.  **Note, tab completion will not work on a mock device.** Go ahead and run a few commands to see that it actually works.  When you are done, press `Ctrl+C` to quit the mock. 
 
 The mock device is simply a Python program included with pyATS/Genie that reads in a YAML file that contains all the commands and responses that were recorded by Genie.  You can checkout the file for the normal `rtr1` at [mocks/normal/rtr1/rtr1.yaml](mocks/normal/rtr1/rtr1.yaml).
 
@@ -320,12 +321,12 @@ We only touched on the basics of mock devices and playback.  For more details, c
 
 **Situation:** You have noticed some occasional problems with some of the servers in the data center.  
 
-**Troubleshooting with Genie CLI:** Let's walk through how we can troubleshoot this with the Genie CLI  
+**Troubleshooting with Genie CLI:** Let's walk through how we can troubleshoot this with the Genie CLI.
 
 * For this demo we'll be using the testbed file [testbeds/mock_break4_tb.yaml](testbeds/mock_break4_tb.yaml)
 * The "mocks" for this testbed are at [mocks/break4/](mocks/break4/)
 
-1. We'll start our troubleshooting by focusing in on the devices within the data center.  So `rtr2`, `rtr3`, `sw1`, `sw2`, `sw3`, & `sw4`. While it is always possible soemthing from the WAN or Branch could be causing a problem, odds are it's closer to the symptom. 
+1. We'll start our troubleshooting by focusing in on the devices within the data center.  So `rtr2`, `rtr3`, `sw1`, `sw2`, `sw3`, & `sw4`. While it is always possible something from the WAN or Branch could be causing a problem, odds are it's closer to the symptom. 
 1. Let's start by learning the `routing` and `vlan` details and seeing if there's anything different.  
 	
 	```bash
@@ -342,7 +343,7 @@ We only touched on the basics of mock devices and playback.  For more details, c
 1. Take a look at the reported diffs on routing state from the routers.  
 	* `rtr2` has some interesting changes in some missing next hops for a couple networks. 
 	* `rtr3` has some big changes.  Looks like a couple routes have been added, and others removed.  
-1. Defintely something a bit bizzare there.  Let's take a look at the interfaces to see if anything changed.  We'll focus in on the two routers.  
+1. Definitely something a bit bizzare there.  Let's take a look at the interfaces to see if anything changed.  We'll focus in on the two routers.  
 
 	```bash
 	genie learn interface --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.2 --devices rtr2 rtr3 
@@ -448,7 +449,7 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 * We'll use the normal testbed for this one: [testbeds/mock_normal_tb.yaml](testbeds/mock_normal_tb.yaml)
 
-1. Let's start with something simple, interfaces.  What's a network device without interfaces after all.  And our most common interface checking CLI command?  Well `show ip interface` of course.  Let's have Genie run and parse it.  
+1. Let's start with something simple, interfaces.  What's a network device without interfaces after all.  And our most common interface checking CLI command?  Well, `show ip interface` of course.  Let's have Genie run and parse it.  
 
 	```bash
 	genie parse "show ip interface" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
@@ -481,7 +482,7 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** The systems team reports problems with Server 2's network connection. 
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuration change... 
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
@@ -489,7 +490,7 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** The Network Ops team has noticed some odd traffic patterns across the network
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuration change... 
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
@@ -497,4 +498,4 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** Time for a bit of a hunt... there's some misconfiguration in the network... can you find it. 
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuration change... 
