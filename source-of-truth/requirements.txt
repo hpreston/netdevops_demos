@@ -9,7 +9,7 @@ cffi==1.12.3
 chardet==3.0.4
 Click==7.0
 cookiecutter==1.6.0
-cryptography==2.7
+cryptography==3.2
 decorator==4.4.0
 dill==0.3.0
 distro==1.4.0
