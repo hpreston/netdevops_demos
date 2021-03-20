@@ -28,7 +28,7 @@ genie.utils==19.0.1
 gunicorn==19.9.0
 idna==2.8
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 jsonpickle==1.1
 junit-xml==1.8
 lxml==4.3.2
