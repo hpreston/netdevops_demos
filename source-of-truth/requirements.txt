@@ -71,7 +71,7 @@ Pygments==2.4.2
 pynetbox==4.0.6
 pyOpenSSL==19.0.0
 python-dateutil==2.8.0
-PyYAML==5.1.2
+PyYAML==5.4
 requests==2.22.0
 robotframework==3.1.2
 setproctitle==1.1.10
