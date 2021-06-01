@@ -61,7 +61,7 @@ six==1.12.0
 tabulate==0.8.3
 tqdm==4.31.1
 unicon==19.0.1
-urllib3==1.24.1
+urllib3==1.26.5
 virlutils==0.8.4
 Werkzeug==0.15.1
 xmltodict==0.12.0
