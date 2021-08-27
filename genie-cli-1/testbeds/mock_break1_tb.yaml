@@ -1,5 +1,8 @@
 testbed:
   name: mock-break1
+  credentials: 
+    default: 
+      username: mock 
 
 devices:
   
