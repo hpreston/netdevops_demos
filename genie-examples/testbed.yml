@@ -33,5 +33,5 @@ devices:
         class: unicon.Unicon
       ssh:
         protocol: ssh
-        ip: "sbx-nxos-mgmt.cisco.com"
-        port: "8181"
+        ip: "sandbox-nxos-1.cisco.com"
+        port: "22"
