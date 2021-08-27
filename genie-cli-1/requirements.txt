@@ -1,2 +1,3 @@
 pyats>=19.0
 genie>=19.0
+markupsafe~=1.1.1

@@ -9,7 +9,7 @@ cffi==1.12.3
 chardet==3.0.4
 Click==7.0
 cookiecutter==1.6.0
-cryptography==2.7
+cryptography>=3.2
 decorator==4.4.0
 dill==0.3.0
 distro==1.4.0
@@ -37,7 +37,7 @@ ipython==7.7.0
 ipython-genutils==0.2.0
 IxNetwork==9.0.1915.16
 jedi==0.15.1
-Jinja2==2.10.1
+Jinja2==2.11.3
 jinja2-time==0.2.0
 jsonpickle==1.2
 junit-xml==1.8
@@ -50,7 +50,7 @@ pickleshare==0.7.5
 poyo==0.5.0
 prettytable==0.7.2
 prompt-toolkit==2.0.9
-psutil==5.6.3
+psutil>=5.6.6
 ptyprocess==0.6.0
 pyats==19.7
 pyats.aereport==19.7
@@ -67,11 +67,11 @@ pyats.tcl==19.7
 pyats.topology==19.7
 pyats.utils==19.7
 pycparser==2.19
-Pygments==2.4.2
+Pygments>=2.4.4
 pynetbox==4.0.6
 pyOpenSSL==19.0.0
 python-dateutil==2.8.0
-PyYAML==5.1.2
+PyYAML>=5.4
 requests==2.22.0
 robotframework==3.1.2
 setproctitle==1.1.10
@@ -80,7 +80,7 @@ tabulate==0.8.3
 tqdm==4.34.0
 traitlets==4.3.2
 unicon==19.7.5
-urllib3==1.25.3
+urllib3>=1.25.5
 wcwidth==0.1.7
 websocket-client==0.56.0
 whichcraft==0.6.0
