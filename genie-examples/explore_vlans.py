@@ -35,7 +35,7 @@ testbed = Genie.init("testbed.yml")
 device = testbed.devices["sbx-n9kv-ao"]
 
 # Conenct to the device
-device.connect()
+device.connect(learn_hostname=True)
 
 # Learn the vlans using Genie model
 vlans = device.learn("vlan")
