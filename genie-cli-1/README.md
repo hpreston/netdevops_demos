@@ -1,12 +1,14 @@
 
-# Genie CLI Demonstartion 
-I'm always on the lookout for new ways to help network engineers get into automation in a very easy, low code, low pre-req way.  In this search I don't think I've ever been as excited or impressed with anything I've seen as much as the new Genie CLI that was added to the pyATS/Genie package with Version 19. 
+# pyATS CLI Demonstration 
+I'm always on the lookout for new ways to help network engineers get into automation in a very easy, low code, low pre-req way.  In this search I don't think I've ever been as excited or impressed with anything I've seen as much as the new pyATS CLI that was added to the pyATS/Genie package with Version 19. 
 
-If you haven't run across [pyATS/Genie](https://developer.cisco.com/pyats) yet, the quick description is that they are the network verification tooling developed inside Cisco for internal engineering to test releases of IOS XE, NX-OS and, IOS XR that has been released for **[anyone to use completely free](https://developer.cisco.com/docs/pyats/#!requirements)**.  
+> Note: Originally called "Genie CLI", the feature was renamed to "pyATS CLI".
 
-I've [talked, blogged, and used](https://developer.cisco.com/netdevops/live/#s01) them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of konwledge required in these languages, and computer developement that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
+If you haven't run across [pyATS/Genie](https://developer.cisco.com/pyats) yet, the quick description is that they are the network verification tooling developed inside Cisco for internal engineering to test releases of IOS XE, NX-OS and, IOS XR that has been released for **[anyone to use completely free](https://developer.cisco.com/docs/pyats/#!introduction)**.  
 
-Well, with the release of [Genie CLI](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/cli/index.html) we now have an amazingly powerful **and** easy to use tool for any network engineer that can solve real problems immediately.  What problems you ask?  Well, there are many potential use cases, but the one that I think shows the power the best is this one. 
+I've [talked, blogged, and used](https://developer.cisco.com/netdevops/live/#s01) them for awhile now through native Python, Robot, and other interfaces.  And while I've always been impressed by the tooling, there was always a bit of a bar of konwledge required in these languages, and computer development that made them difficult for brand new network automation engineers to feel comfortable jumping into. 
+
+Well, with the release of [pyATS CLI](https://pubhub.devnetcloud.com/media/pyats/docs/cli/index.html) we now have an amazingly powerful **and** easy to use tool for any network engineer that can solve real problems immediately.  What problems you ask?  Well, there are many potential use cases, but the one that I think shows the power the best is this one. 
 
 > Users, or management systems, report a problem in the network. How can we find out what changed and where the problem might be? 
 
@@ -19,7 +21,7 @@ Let's dive right in!
 * [Key Info 1: Testbed Files and Network Devices](https://github.com/hpreston/netdevops_demos/tree/master/genie-cli-1#key-info-1-testbed-files-and-network-devices)
 * [Demo 2: Occasional Network Communication Issues on Server-1 and Server-2](#demo-2-occasional-network-communication-issues-on-server-1-and-server-2)
 * [Demo 3: What exactly is happening under the hood?](#demo-3-what-exactly-is-happening-under-the-hood)
-* [Demo 4: CLI Commands made better with Genie Parse](#demo-4-cli-commands-made-better-with-genie-parse)
+* [Demo 4: CLI Commands made better with pyATS Parse](#demo-4-cli-commands-made-better-with-pyats-parse)
 * [Demo 5: Server 2 can't communicate with anything...](#demo-5-server-2-cant-communicate-with-anything)
 * [Demo 6: Non-Optimal Traffic Patterns](#demo-6-non-optimal-traffic-patterns)
 * [Demo 7: Performance Problem... Somewhere](#demo-7-performance-problem-somewhere)
@@ -45,7 +47,7 @@ We'll explain all the details as the demo goes on, but let's get setup to run th
 1. Create the "normal" profile for the network.  This command can take up to 4 minutes to complete. You'll get a progress bar showing status as it runs. 
 
 	```bash
-	genie learn all --testbed-file testbeds/mock_normal_tb.yaml --output tests/normal 
+	pyats learn all --testbed-file testbeds/mock_normal_tb.yaml --output tests/normal 
 	```
 	
 	* What this command is doing is giving Genie a baseline from which you can look for differences when something goes wrong. 
@@ -65,13 +67,13 @@ All the demos will leverage this network topology.
 1. Using Genie, let's checkout the current state of a few high potential services on the network by "learning" all about their status. 
 
 	```bash
-	genie learn interface ospf routing vlan --testbed-file testbeds/mock_break5_tb.yaml --output tests/demo1.1
+	pyats learn interface ospf routing vlan --testbed-file testbeds/mock_break5_tb.yaml --output tests/demo1.1
 	```
 	
 1. Once that finishes, let's compare the current state to that handy baseline of "normal". We're going to ask Genie to give us any *diff*-erences. 
 
 	```bash 
-	genie diff tests/normal tests/demo1.1 --output diffs/demo1.1
+	pyats diff tests/normal tests/demo1.1 --output diffs/demo1.1
 	```
 
 1. Take a look at the output.  
@@ -138,7 +140,7 @@ All the demos will leverage this network topology.
 1. If you check the `diff_routing_iosxe_rtr3_ops.txt` you'll see it is also missing the route. 
 1. Conferring with the network topology (or just looking at the next-hop details in the diff), you see that the route should be coming from `rtr1`.  Let's check the routing diff for it (`diff_routing_iosxe_rtr2_ops.txt`).  
 	* Nothing will likely jump out from it... 
-1. Well, looking at the files in the `diffs` directory (or the output from the `genie diff` command), you should also see there are differences in the OSPF state too. Let's checkout one of them (doesn't matter which).  Output below... 
+1. Well, looking at the files in the `diffs` directory (or the output from the `pyats diff` command), you should also see there are differences in the OSPF state too. Let's checkout one of them (doesn't matter which).  Output below... 
 
 	```diff
 	--- tests/normal/ospf_iosxe_rtr3_ops.txt
@@ -186,7 +188,7 @@ All the demos will leverage this network topology.
 1. External routes dropping from the table could have lots of different potential causes.  But let's rule out a configuration change first.  Genie can help us here too.  Let's ask it to "learn" the current config from `rtr1`
 
 	```bash
-	genie learn config --testbed-file testbeds/mock_break5_tb.yaml --output tests/demo1.2 --devices rtr1
+	pyats learn config --testbed-file testbeds/mock_break5_tb.yaml --output tests/demo1.2 --devices rtr1
 	```
 	
 	* We could have it learn the configs from all devices, but showing how Genie allows you to focus your search. 
@@ -194,7 +196,7 @@ All the demos will leverage this network topology.
 1. Let's run a diff against baseline.  
 
 	```bash 
-	genie diff tests/normal tests/demo1.2 --output diffs/demo1.2
+	pyats diff tests/normal tests/demo1.2 --output diffs/demo1.2
 	```
 
 1. The vast majority of the files will be `Only in tests/normal` because of our focused query, but sure enough there is a difference on `rtr`. 
@@ -227,12 +229,13 @@ For Genie and pyATS to do anything, they need to have a network testbed file tha
 ```yaml
 testbed:
   name: genie-cli-1_default_zIaLdG
-  tacacs:
+  credentials: 
+	default: 
       username: "%ENV{PYATS_USERNAME}"
-  passwords:
-      tacacs: "%ENV{PYATS_PASSWORD}"
-      enable: "%ENV{PYATS_AUTH_PASS}"
+      password: "%ENV{PYATS_PASSWORD}"
       line: "%ENV{PYATS_PASSWORD}"
+  enable:
+      password: "%ENV{PYATS_AUTH_PASS}"
 devices:
   rtr1:
     alias: rtr1
@@ -329,13 +332,13 @@ We only touched on the basics of mock devices and playback.  For more details, c
 1. Let's start by learning the `routing` and `vlan` details and seeing if there's anything different.  
 	
 	```bash
-	genie learn routing vlan --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.1 --devices rtr2 rtr3 sw1 sw2 sw3 sw4
+	pyats learn routing vlan --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.1 --devices rtr2 rtr3 sw1 sw2 sw3 sw4
 	```
 
 1. And now we'll compare to normal and look for diffs. 
 	
 	```bash
-	genie diff tests/normal tests/demo2.1 --output diffs/demo2.1
+	pyats diff tests/normal tests/demo2.1 --output diffs/demo2.1
 	```
 
 1. Check the `diffs/demo2.1` folder to see what diffs came up.  
@@ -345,13 +348,13 @@ We only touched on the basics of mock devices and playback.  For more details, c
 1. Defintely something a bit bizzare there.  Let's take a look at the interfaces to see if anything changed.  We'll focus in on the two routers.  
 
 	```bash
-	genie learn interface --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.2 --devices rtr2 rtr3 
+	pyats learn interface --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.2 --devices rtr2 rtr3 
 	```
 
 1. And now calculate the diffs.  
 
 	```bash
-	genie diff tests/normal tests/demo2.2 --output diffs/demo2.2
+	pyats diff tests/normal tests/demo2.2 --output diffs/demo2.2
 	```
 
 1. And check the `diffs/demo2.2` folder to see if anything came up.  
@@ -376,8 +379,8 @@ We only touched on the basics of mock devices and playback.  For more details, c
 1. You probably know what's coming... let's check the config on `rtr3` and then compare it with normal. 
 
 	```bash
-	genie learn config --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.3 --devices rtr3
-	genie diff tests/normal tests/demo2.3 --output diffs/demo2.3
+	pyats learn config --testbed-file testbeds/mock_break4_tb.yaml --output tests/demo2.3 --devices rtr3
+	pyats diff tests/normal tests/demo2.3 --output diffs/demo2.3
 	```
 
 1. Probably came as no surprise that there was a configuration change to the IP address on GigabitEthernet0/3.
@@ -390,7 +393,7 @@ In this demo we're going to look a bit closer at what is going on when we run th
 1. Run a simple learn for `interface` details on `rtr1`. 
 
 ```bash
-genie learn interface --testbed-file testbeds/mock_normal_tb.yaml --output tests/demo3.1 --devices rtr1
+pyats learn interface --testbed-file testbeds/mock_normal_tb.yaml --output tests/demo3.1 --devices rtr1
 ```
 
 1. The output of this command should look like this.  
@@ -417,11 +420,11 @@ genie learn interface --testbed-file testbeds/mock_normal_tb.yaml --output tests
 	* Open up the `tests/demo3.1/interface_iosxe_rtr1_console.txt` file and take a look at the commands that were ran and the output.  If you are like me, you'll see Genie ran the same commands you would have, but also a whole lot of commands you **never would have thought to run**. That's the power of all the network experts behind Genie.
 1. The `_ops.txt` file is a parsed and processed version of all the gathered data about the feature.  This is where Genie's "magic" comes in.  All that console output is processed by Genie and turned into a Python object (dictionaries and lists).  Then the Genie CLI "dumps" all that data out to JSON text file. 
 	* Open up the `tests/demo3.1/interface_iosxe_rtr1_ops.txt` file and take a look. 
-	* It might take a second for it to sink in, but consider the fact that with a simple `genie learn interface` command you get all that data scrubbed and made available in a data format that is easy to use. 
+	* It might take a second for it to sink in, but consider the fact that with a simple `pyats learn interface` command you get all that data scrubbed and made available in a data format that is easy to use. 
 	* In fact, you could read this file into your own program and immediately process and use the data however you wanted.  
 	* And even better, if you `learn interface` from an IOS XE, NX-OS, and IOS XR device, the data format in the created `ops.txt` file would be **exactly the same**.  Making comparing operational state between platforms very very very very easy. 
 
-### What about `genie diff`?  
+### What about `pyats diff`?  
 Comparing two text files and reporting the differences is something very straightforward and used all over the place in IT. 
 
 You may have used `diff` features in Notepad++ or another text editor before to look for changes in network templates. 
@@ -441,8 +444,8 @@ Each of the models represents a network feature that Genie can learn.  Not every
 
 And the team behind Genie is constantly creating new models, so check back often! 
 
-## Demo 4: CLI Commands made better with Genie Parse
-In this demo we're going to step back from the overwhelming power of `genie learn` and dig in a bit to how Genie does all that learning.  
+## Demo 4: CLI Commands made better with pyATS Parse
+In this demo we're going to step back from the overwhelming power of `pyats learn` and dig in a bit to how Genie does all that learning.  
 
 We've already explored how Genie runs CLI commands and magically turns the text output into wonderful Python and JSON data structures.  This is called "parsing" and Genie comes with a [HUGE library of parsers](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/genie_libs/#/parsers).  Let's check them out a bit.  
 
@@ -451,28 +454,28 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 1. Let's start with something simple, interfaces.  What's a network device without interfaces after all.  And our most common interface checking CLI command?  Well `show ip interface` of course.  Let's have Genie run and parse it.  
 
 	```bash
-	genie parse "show ip interface" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
+	pyats parse "show ip interface" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
 	```
 
 1. Take a look at the output.  You'll see all the details from the command you're used to, but they have been made into a JSON object automatically.  Pretty sweet right?  If you've messed around with automating with CLI through other Python libraries, you've likely struggled with finding the important bits of data buried in the string output.  Regular Expressions, string "finds", Text FSM, etc... all tools in Python that you can use, but the best option is not needing to do it. 
 
-1. Navigate to the [Genie Parser Documentation](https://pubhub.devnetcloud.com/media/pyats-packages/docs/genie/genie_libs/#/parsers) and scroll through the different parsers available for the operating systems.  
+1. Navigate to the [Genie Parser Documentation](https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/parsers) and scroll through the different parsers available for the operating systems.  
 1. Our devices in this lab are IOS XE devices, so pick a parser command and try it out! 
 	* Note, some of the available parsers may NOT have been run and captured to the mock devices we are using.  If you get no data, just try a different one, **most** were captured.  
 
 	```bash 
 	# Example
-	genie parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
+	pyats parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1
 	```
 
 1. Now let's suppose you wanted to save this output to a file, rather than just display to the screen.  Simply add `--output <directory>` to the end of the command.  Let's save the output of the routing table for later use.  
 
 	```bash 
-	genie parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1 --output rtr1-routes
+	pyats parse "show ip route" --testbed-file testbeds/mock_normal_tb.yaml --devices rtr1 --output rtr1-routes
 	```
 	
 	* In the folder will be the connection log, raw console output, and the parsed data. 
-	* This is basically what `genie learn` is doing, but for lots and lots and lots of commands related to the feature being learned.  
+	* This is basically what `pyats learn` is doing, but for lots and lots and lots of commands related to the feature being learned.  
 
 1. Take some time and run a few more parse examples.  Be wowed and amazed, it's okay.  
 
@@ -481,7 +484,7 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** The systems team reports problems with Server 2's network connection. 
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with pyATS CLI:** Use `pyats learn` and `pyats diff` to track down the problem.  Try to avoid the temptation to just jump right to `pyats learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
@@ -489,7 +492,7 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** The Network Ops team has noticed some odd traffic patterns across the network
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with pyATS CLI:** Use `pyats learn` and `pyats diff` to track down the problem.  Try to avoid the temptation to just jump right to `pyats learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
 
 **Hints:** Some handy models to check include `routing`, `static_routing`, `acl`, `vlan`, `interface`, `arp` 
 
@@ -497,4 +500,4 @@ We've already explored how Genie runs CLI commands and magically turns the text 
 
 **Situation:** Time for a bit of a hunt... there's some misconfiguration in the network... can you find it. 
 
-**Troubleshooting with Genie CLI:** Use `genie learn` and `genie diff` to track down the problem.  Try to avoid the temptation to just jump right to `genie learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 
+**Troubleshooting with pyATS CLI:** Use `pyats learn` and `pyats diff` to track down the problem.  Try to avoid the temptation to just jump right to `pyats learn config` and see if you can find it through the operational state.  Afterall, not every network problem will be because of a configuraiton change... 

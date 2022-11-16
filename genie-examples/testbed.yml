@@ -8,16 +8,16 @@ testbed:
       enable: "C1sco12345"
 
 devices:
-  csr1000v-1:
-    os: iosxe
-    type: iosxe
-    connections:
-      defaults:
-        class: unicon.Unicon
-      ssh:
-        protocol: ssh
-        ip: "ios-xe-mgmt-latest.cisco.com"
-        port: "8181"
+  # csr1000v-1:
+  #   os: iosxe
+  #   type: iosxe
+  #   connections:
+  #     defaults:
+  #       class: unicon.Unicon
+  #     ssh:
+  #       protocol: ssh
+  #       ip: "ios-xe-mgmt-latest.cisco.com"
+  #       port: "8181"
 
   sbx-n9kv-ao:
     os: nxos
@@ -33,5 +33,5 @@ devices:
         class: unicon.Unicon
       ssh:
         protocol: ssh
-        ip: "sbx-nxos-mgmt.cisco.com"
-        port: "8181"
+        ip: "sandbox-nxos-1.cisco.com"
+        port: "22"
