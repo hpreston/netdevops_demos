@@ -1,0 +1,19 @@
+crypto isakmp policy 10
+ encryption aes
+ hash sha256
+ authentication pre-share
+ group 14 
+
+crypto ipsec transform-set vpn_transform esp-aes esp-sha256-hmac
+
+access-list 100 permit ip {{ source_network }} {{ source_mask }} {{ destination_network }} {{ destination_mask }}
+
+crypto isakmp key {{ preshared_key }} address {{ tunnel_destination }}
+
+crypto map {{ vpn_name }} 10 ipsec-isakmp
+ set peer {{ tunnel_destination }} 
+ set transform-setvpn_transform 
+ match address 100
+
+interface {{ tunnel_interface }} 
+ crypto map {{ vpn_name }}

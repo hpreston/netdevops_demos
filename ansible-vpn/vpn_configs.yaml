@@ -1,0 +1,44 @@
+---
+- name: Create VPN Configurations From CSV File
+  hosts: localhost
+  gather_facts: false 
+
+  tasks: 
+  - name: Read VPN List from CSV file
+    community.general.read_csv:
+      path: vpn_list.csv
+    register: vpns
+
+  - name: Side 1 Config
+    loop: "{{ vpns.list }}"
+    loop_control: 
+      label: "{{ item.vpn_name }} Side 1"
+    vars: 
+      vpn_name: "{{ item.vpn_name }}"
+      preshared_key: "{{ item.preshared_key }} "
+      source_network: "{{ item.side_1_inside }}"
+      source_mask: "{{ item.side_1_mask }} "
+      destination_network: "{{ item.side_2_inside }}"
+      destination_mask: "{{ item.side_2_mask }}"
+      tunnel_destination: "{{ item.side_2_public_ip }}"
+      tunnel_interface: "{{ item.side_1_outside }} "
+    ansible.builtin.template:
+      src: ios-vpn.j2
+      dest: configs/{{ item.vpn_name }}-side1-config.txt
+
+  - name: Side 2 Config
+    loop: "{{ vpns.list }}"
+    loop_control: 
+      label: "{{ item.vpn_name }} Side 2"
+    vars: 
+      vpn_name: "{{ item.vpn_name }}"
+      preshared_key: "{{ item.preshared_key }} "
+      source_network: "{{ item.side_2_inside }}"
+      source_mask: "{{ item.side_2_mask }} "
+      destination_network: "{{ item.side_1_inside }}"
+      destination_mask: "{{ item.side_1_mask }}"
+      tunnel_destination: "{{ item.side_1_public_ip }}"
+      tunnel_interface: "{{ item.side_2_outside }} "
+    ansible.builtin.template:
+      src: ios-vpn.j2
+      dest: configs/{{ item.vpn_name }}-side2-config.txt
