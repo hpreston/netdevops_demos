@@ -1,0 +1,19 @@
+crypto isakmp policy 10
+ encryption aes
+ hash sha256
+ authentication pre-share
+ group 14 
+
+crypto ipsec transform-set vpn_transform esp-aes esp-sha256-hmac
+
+access-list 100 permit ip 192.168.0.0 0.0.0.255 172.16.0.0 0.0.0.255
+
+crypto isakmp key Key123Key123 address 1.1.1.1
+
+crypto map MYVPN 10 ipsec-isakmp
+ set peer 1.1.1.1 
+ set transform-setvpn_transform 
+ match address 100
+
+interface GigabitEthernet1/2 
+ crypto map MYVPN
