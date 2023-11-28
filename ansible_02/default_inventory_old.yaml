@@ -1,0 +1,109 @@
+# virlutils generated ansible file for sim id
+#
+# the overall structure of the inventory follows best practices
+# at http://docs.ansible.com/ansible/latest/intro_inventory.html
+
+# we've rendered what we think is best if you disagree, override
+# virl.generators.ansible_inventory_generator
+
+# you can modify grouping behavior by adding extension entries
+# to your .virl file as such
+
+# <node name="router1" type="SIMPLE" subtype="CSR1000v" location="361,129" ipv4="172.16.252.6" ipv6="2001:db8:b:0:1::2">
+#    <extensions>
+#        <entry key="ansible_group" type="String">mygroup</entry>
+#    </extensions>
+# </node>
+
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/env python
+  children:
+    core:
+      hosts:
+
+        ios-xev-1:
+          ansible_host: 172.16.30.111
+          console_server: 10.10.20.160
+          console_port: 17000
+          ansible_network_os: ios
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
+          ansible_become: yes
+          ansible_become_method: enable
+          ansible_become_pass: cisco
+          provider:
+            host: 172.16.30.111
+            username: cisco
+            password: cisco
+            auth_pass: cisco
+            authorize: yes
+            port: 22
+            timeout: 20
+
+
+        ios-xev-2:
+          ansible_host: 172.16.30.112
+          console_server: 10.10.20.160
+          console_port: 17002
+          ansible_network_os: ios
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
+          ansible_become: yes
+          ansible_become_method: enable
+          ansible_become_pass: cisco
+          provider:
+            host: 172.16.30.112
+            username: cisco
+            password: cisco
+            auth_pass: cisco
+            authorize: yes
+            port: 22
+
+    distribution:
+      hosts:
+
+        nx-osv9000-1:
+          ansible_host: 172.16.30.101
+          console_server: 10.10.20.160
+          console_port: 17004
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
+          provider:
+            host: 172.16.30.101
+            username: cisco
+            password: cisco
+            port: 22
+            timeout: 15
+
+        nx-osv9000-2:
+          ansible_host: 172.16.30.102
+          console_server: 10.10.20.160
+          console_port: 17006
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
+          provider:
+            host: 172.16.30.102
+            username: cisco
+            password: cisco
+            port: 22
+            timeout: 15
+
+    access:
+      hosts:
+
+        nx-osv9000-3:
+          ansible_host: 172.16.30.103
+          console_server: 10.10.20.160
+          console_port: 17010
+          ansible_network_os: nxos
+          ansible_user: cisco
+          ansible_ssh_pass: cisco
+          provider:
+            host: 172.16.30.103
+            username: cisco
+            password: cisco
+            port: 22
+            timeout: 15

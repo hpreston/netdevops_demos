@@ -23,7 +23,7 @@ all:
         access1:
           ansible_host: 172.16.30.52
           console_server: 10.10.20.160
-          console_port: 17001
+          console_port: 17005
     
     core:
       hosts:
@@ -31,7 +31,7 @@ all:
         core1:
           ansible_host: 172.16.30.53
           console_server: 10.10.20.160
-          console_port: 17005
+          console_port: 17001
 
         core2:
           ansible_host: 172.16.30.54
