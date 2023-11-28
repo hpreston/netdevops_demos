@@ -13,6 +13,18 @@ nso*.zip
 nso-4*/
 TaskLog.html
 default_testbed.yaml
+*.code-workspace
+*/output/
+.vscode/
+.DS_Store
+
+# Folders for demos not published yet
+practical-netdevops/
+ansible_xe_demo/
+ansible_00/
+iperf/
+shh_demo/ 
+virl/
 
 logs/
 ncs-cdb/
