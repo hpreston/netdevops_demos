@@ -1,0 +1,79 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+
+
+    # Deploy Multiple Nodes in a single Vagrantfile
+
+    # Node 1: IOS XE Device
+    config.vm.define "iosxe1" do |node|
+        node.vm.box =  "iosxe/16.06.02"
+
+        # Gig2 connected to link1
+        # Gig3 connected to hosts1
+        # auto-config not supported.
+        node.vm.network :private_network, virtualbox__intnet: "link2", auto_config: false
+        node.vm.network :private_network, virtualbox__intnet: "hosts1", auto_config: false
+
+        # Statically Setting ports to avoid conflicts
+        config.vm.network :forwarded_port, guest: 22, host: 3122, id: 'restconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 80, host: 3124, id: 'restconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 443, host: 3125, id: 'restconf-ssl', auto_correct: true
+        config.vm.network :forwarded_port, guest: 830, host: 3123, id: 'netconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 8443, host: 3126, id: 'iox', auto_correct: true
+    end
+
+    # Node 2: IOS XE Device
+    # config.vm.define "iosxe2" do |node|
+    #     node.vm.box =  "iosxe/16.06.02"
+    #
+    #     # Gig2 connected to link1
+    #     # Gig3 connected to hosts2
+    #     # auto-config not supported.
+    #     node.vm.network :private_network, virtualbox__intnet: "link1", auto_config: false
+    #     node.vm.network :private_network, virtualbox__intnet: "hosts2", auto_config: false
+    #
+    #     # Statically Setting ports to avoid conflicts
+    #     config.vm.network :forwarded_port, guest: 22, host: 4122, id: 'restconf', auto_correct: true
+    #     config.vm.network :forwarded_port, guest: 80, host: 4124, id: 'restconf', auto_correct: true
+    #     config.vm.network :forwarded_port, guest: 443, host: 4125, id: 'restconf-ssl', auto_correct: true
+    #     config.vm.network :forwarded_port, guest: 830, host: 4123, id: 'netconf', auto_correct: true
+    #     config.vm.network :forwarded_port, guest: 8443, host: 4126, id: 'iox', auto_correct: true
+    # end
+
+#     # Node 3: IOS XR Device
+#     config.vm.define "iosxr" do |node|
+#         node.vm.box =  "iosxr/6.1.2"
+#
+#         # Interface 1 connected to link1,
+#         # auto-config not supported.
+#         node.vm.network :private_network, virtualbox__intnet: "link1", auto_config: false
+#     end
+
+#     # Node 4: NX-OS Device
+    config.vm.define "nxos1" do |node|
+        node.vm.box =  "nxos/7.0.3.I7.2"
+
+        # n9000v defaults to 8G RAM, but only needs 4G
+        config.vm.provider "virtualbox" do |vb|
+          # Customize the amount of memory on the VM:
+          vb.memory = "4096"
+        end
+
+        # eth1/0/1 connected to link2,
+        # auto-config not supported.
+        node.vm.network :private_network, virtualbox__intnet: "link2", auto_config: false
+
+        # Statically Setting ports to avoid conflicts
+        config.vm.network :forwarded_port, guest: 22, host: 3322, id: 'restconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 80, host: 3324, id: 'restconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 443, host: 3325, id: 'restconf-ssl', auto_correct: true
+        config.vm.network :forwarded_port, guest: 830, host: 3323, id: 'netconf', auto_correct: true
+        config.vm.network :forwarded_port, guest: 8443, host: 3326, id: 'iox', auto_correct: true
+    end
+end
