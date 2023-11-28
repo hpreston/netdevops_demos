@@ -51,7 +51,7 @@ fi
 echo "Now that we know it's up, let's get an IP address from an interface."
 echo ""
 
-# Ask user to provide an interface to check 
+# Ask user to provide an interface to check
 read -p "What interface would you like to check? For example 'GigabitEthernet1': " interface_name
 echo " "
 

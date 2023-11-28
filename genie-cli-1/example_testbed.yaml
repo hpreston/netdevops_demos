@@ -1,0 +1,263 @@
+testbed:
+
+  name: genie-cli-1_default_zIaLdG
+
+  tacacs:
+      username: "cisco"
+  passwords:
+      tacacs: "cisco"
+      enable: "cisco"
+      line: "cisco"
+devices:
+  rtr1:
+    alias: rtr1
+    os: iosxe
+    type: IOSv
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.80
+    custom:
+      abstraction:
+        order: [os, type]
+
+  rtr2:
+    alias: rtr2
+    os: iosxe
+    type: IOSv
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.81
+    custom:
+      abstraction:
+        order: [os, type]
+
+  rtr3:
+    alias: rtr3
+    os: iosxe
+    type: IOSv
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.82
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw1:
+    alias: sw1
+    os: iosxe
+    type: IOSvL2
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.86
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw2:
+    alias: sw2
+    os: iosxe
+    type: IOSvL2
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.87
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw3:
+    alias: sw3
+    os: iosxe
+    type: IOSvL2
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.88
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw4:
+    alias: sw4
+    os: iosxe
+    type: IOSvL2
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.89
+    custom:
+      abstraction:
+        order: [os, type]
+
+  sw5:
+    alias: sw5
+    os: iosxe
+    type: IOSvL2
+    connections:
+
+      defaults:
+        class: unicon.Unicon
+      console:
+        protocol: telnet
+        ip: 172.16.30.90
+    custom:
+      abstraction:
+        order: [os, type]
+
+topology:
+  rtr1:
+    interfaces:
+      GigabitEthernet0/1:
+        ipv4: 10.0.128.9/30
+        link: rtr1-to-rtr2
+        type: ethernet
+      GigabitEthernet0/2:
+        ipv4: 10.0.128.13/30
+        link: rtr1-to-rtr3
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.80/24
+        link: flat
+        type: ethernet
+  rtr2:
+    interfaces:
+      GigabitEthernet0/1:
+        ipv4: 10.0.128.10/30
+        link: rtr1-to-rtr2
+        type: ethernet
+      GigabitEthernet0/2:
+        ipv4: 10.0.0.9/30
+        link: rtr2-to-rtr3
+        type: ethernet
+      GigabitEthernet0/3:
+        ipv4: 10.0.0.2/29
+        link: rtr2-to-sw1
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.81/24
+        link: flat
+        type: ethernet
+  rtr3:
+    interfaces:
+      GigabitEthernet0/1:
+        ipv4: 10.0.128.14/30
+        link: rtr1-to-rtr3
+        type: ethernet
+      GigabitEthernet0/2:
+        ipv4: 10.0.0.10/30
+        link: rtr2-to-rtr3
+        type: ethernet
+      GigabitEthernet0/3:
+        ipv4: 10.0.0.4/29
+        link: rtr3-to-sw2
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.82/24
+        link: flat
+        type: ethernet
+  sw1:
+    interfaces:
+      GigabitEthernet0/1:
+        link: rtr2-to-sw1
+        type: ethernet
+      GigabitEthernet0/2:
+        link: sw1-to-sw2
+        type: ethernet
+      GigabitEthernet0/3:
+        link: sw1-to-sw2#1
+        type: ethernet
+      GigabitEthernet1/0:
+        link: sw1-to-sw3
+        type: ethernet
+      GigabitEthernet1/1:
+        link: sw1-to-sw4
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.86/24
+        link: flat
+        type: ethernet
+  sw2:
+    interfaces:
+      GigabitEthernet0/1:
+        link: rtr3-to-sw2
+        type: ethernet
+      GigabitEthernet0/2:
+        link: sw1-to-sw2
+        type: ethernet
+      GigabitEthernet0/3:
+        link: sw1-to-sw2#1
+        type: ethernet
+      GigabitEthernet1/0:
+        link: sw2-to-sw3
+        type: ethernet
+      GigabitEthernet1/1:
+        link: sw2-to-sw4
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.87/24
+        link: flat
+        type: ethernet
+  sw3:
+    interfaces:
+      GigabitEthernet0/1:
+        link: sw1-to-sw3
+        type: ethernet
+      GigabitEthernet0/2:
+        link: sw2-to-sw3
+        type: ethernet
+      GigabitEthernet0/3:
+        link: server-1-to-sw3
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.88/24
+        link: flat
+        type: ethernet
+  sw4:
+    interfaces:
+      GigabitEthernet0/1:
+        link: sw1-to-sw4
+        type: ethernet
+      GigabitEthernet0/2:
+        link: sw2-to-sw4
+        type: ethernet
+      GigabitEthernet0/3:
+        link: server-2-to-sw4
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.89/24
+        link: flat
+        type: ethernet
+  sw5:
+    interfaces:
+      GigabitEthernet0/2:
+        link: server-3-to-sw5
+        type: ethernet
+      GigabitEthernet0/0:
+        ipv4: 172.16.30.90/24
+        link: flat
+        type: ethernet
