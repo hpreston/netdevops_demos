@@ -2,12 +2,8 @@ testbed:
   name: mock-break1
   credentials: 
     default: 
-<<<<<<< HEAD
       username: blank
       password: blank
-=======
-      username: mock 
->>>>>>> bd847e00b580b477f20973114138837b3372547c
 
 devices:
   
