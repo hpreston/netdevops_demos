@@ -10,9 +10,12 @@
     register: vpns
 
   - name: Side 1 Config
+    # Create the Side 1 Config for each from CSV
     loop: "{{ vpns.list }}"
+    # Provide a label for each item in loop 
     loop_control: 
       label: "{{ item.vpn_name }} Side 1"
+    # Map variables from the CSV to the config template
     vars: 
       vpn_name: "{{ item.vpn_name }}"
       preshared_key: "{{ item.preshared_key }} "
@@ -22,8 +25,10 @@
       destination_mask: "{{ item.side_2_mask }}"
       tunnel_destination: "{{ item.side_2_public_ip }}"
       tunnel_interface: "{{ item.side_1_outside }} "
+    # Create a specific config using the template 
     ansible.builtin.template:
       src: ios-vpn.j2
+      # Save the rendered configuration
       dest: configs/{{ item.vpn_name }}-side1-config.txt
 
   - name: Side 2 Config
@@ -42,3 +47,5 @@
     ansible.builtin.template:
       src: ios-vpn.j2
       dest: configs/{{ item.vpn_name }}-side2-config.txt
+
+      
