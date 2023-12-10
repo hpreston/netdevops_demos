@@ -1,5 +1,5 @@
 appnope==0.1.0
-arrow==0.14.5
+arrow==0.15.1
 asn1crypto==0.24.0
 backcall==0.1.0
 backports.ssl==0.0.9
